@@ -81,4 +81,12 @@ public class Room
         return exitString;
     }
     
+    /**Retourner une description plus detaillee de la salle
+     * @return Description detaillee de la salle
+     */
+    public String getLongDescription()
+    {
+    	return "Tu es " + description + ".\n" + getExitString();
+    }
+    
 }
