@@ -99,6 +99,11 @@ public class Game
     	System.out.println(currentRoom.getLongDescription());
     }
     
+    private void eat()
+    {
+    	System.out.println("Tu as déjà mangé, tu n'as plus faim");
+    }
+    
     /**
      * Print out the opening message for the player.
      */
@@ -136,6 +141,8 @@ public class Game
             wantToQuit = quit(command);
         else if (commandWord.equals("look"))
         	look();
+        else if (commandWord.equals("eat"))
+        	eat();
 
         return wantToQuit;
     }
