@@ -67,7 +67,7 @@ public class Room
     
     /*Exo 7.9 : keySet() : returns a Set view of all the keys contained in this map (a reecire en francais dans le rapport)
      *
-     * Methode getExitString() : dafuq I don't know what I'm coding.... A l'aide Thibault! 
+     * Methode getExitString() : dafuq I don't know what I'm coding.... A l'aide Thibault! Je te laisse cette explication
      *
      */
     /**@return Les sorties disponibles**/
