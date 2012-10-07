@@ -82,7 +82,7 @@ public class Game
     /**Retourne les informations des sorties possibles
      * @return Les sorties possibles
      */
-    public void printLocationInfo()
+    private void printLocationInfo()
     {
 //        System.out.println("Tu es " + currentRoom.getDescription());
 //        
@@ -91,6 +91,13 @@ public class Game
     	System.out.println(currentRoom.getLongDescription());
     }
     
+    
+    /**Redonner les informations de la salle et les sorties disponibles
+     */
+    private void look()
+    {
+    	System.out.println(currentRoom.getLongDescription());
+    }
     
     /**
      * Print out the opening message for the player.
@@ -127,6 +134,8 @@ public class Game
             goRoom(command);
         else if (commandWord.equals("quit"))
             wantToQuit = quit(command);
+        else if (commandWord.equals("look"))
+        	look();
 
         return wantToQuit;
     }
