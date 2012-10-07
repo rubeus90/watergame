@@ -79,7 +79,9 @@ public class Game
         System.out.println("Rooooh tu veux plus jouer déjà? Bon ben bye bye alors");
     }
 
-    
+    /**Retourne les informations des sorties possibles
+     * @return Les sorties possibles
+     */
     public void printLocationInfo()
     {
         System.out.println("Tu es " + currentRoom.getDescription());

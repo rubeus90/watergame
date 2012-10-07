@@ -57,7 +57,7 @@ public class Room
     }
     
     /**
-     * @return The description of the room.
+     * @return la description de la salle
      */
     public String getDescription()
     {
@@ -65,9 +65,10 @@ public class Room
     }
 
     
-    /*keySet : returns a Set view of all the keys contained in this map
-     * 
-     * 
+    /*Exo 7.9 : keySet() : returns a Set view of all the keys contained in this map (a reecire en francais dans le rapport)
+     *
+     * Methode getExitString() : dafuq I don't know what I'm coding.... A l'aide Thibault! 
+     *
      */
     /**@return Les sorties disponibles**/
     public String getExitString()
