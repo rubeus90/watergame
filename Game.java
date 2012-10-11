@@ -1,18 +1,14 @@
+
 /**
- *  This class is the main class of the "World of Zuul" application. 
- *  "World of Zuul" is a very simple, text based adventure game.  Users 
- *  can walk around some scenery. That's all. It should really be extended 
- *  to make it more interesting!
+ * Cette class est la Class principale du jeux "Water Games".
+ * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.   
  * 
- *  To play this game, create an instance of this class and call the "play"
- *  method.
+ *  Pour joueur à ce superbe jeux, créé un instance de cette classé et appelé la méthode "play"
  * 
- *  This main class creates and initialises all the others: it creates all
- *  rooms, creates the parser and starts the game.  It also evaluates and
- *  executes the commands that the parser returns.
+ *  Cette class créé et initialise toutes les autres classes. 
+ *  Elle créé les Salles, le Parser et démarre le jeux.
+ *  Elles évalue aussi et exécute les commandes que la class Parser renvoi.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
  */
 
 public class Game 
@@ -21,7 +17,7 @@ public class Game
     private Room currentRoom;
         
     /**
-     * Create the game and initialise its internal map.
+     * Créé le jeux et initialiser la carte.
      */
     public Game() 
     {
@@ -30,7 +26,7 @@ public class Game
     }
 
     /**
-     * Create all the rooms and link their exits together.
+     * Créé toutes les pièces et les liens entre chacunes.
      */
     private void createRooms()
     {
@@ -48,7 +44,7 @@ public class Game
         foret.setExit("est", grotte);
         foret.setExit("sud", plaine);
         grotte.setExit("ouest", foret);
-        grotte.setExit("est", montagne);
+        grotte.setExit("monter", montagne);
         grotte.setExit("sud", temple);
         montagne.setExit("ouest", grotte);
         plaine.setExit("nord", foret);
@@ -62,7 +58,7 @@ public class Game
     }
 
     /**
-     *  Main play routine.  Loops until end of play.
+     *  Déroulement du jeux. Boucle infinie, jusqu'à ce que la command quit soit ecrite.
      */
     public void play() 
     {            
@@ -99,13 +95,16 @@ public class Game
     	System.out.println(currentRoom.getLongDescription());
     }
     
+    /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
+     * 
+     */
     private void eat()
     {
     	System.out.println("Tu as déjà mangé, tu n'as plus faim");
     }
     
     /**
-     * Print out the opening message for the player.
+     * Message d'acccueil à l'ouverture du jeux !
      */
     private void printWelcome()
     {
@@ -120,8 +119,8 @@ public class Game
 
     /**
      * Given a command, process (that is: execute) the command.
-     * @param command The command to be processed.
-     * @return true If the command ends the game, false otherwise.
+     * @param command La commande à analyser.
+     * @return Vrai si la commande ferme le jeux, faux autrement.
      */
     private boolean processCommand(Command command) 
     {
@@ -150,22 +149,20 @@ public class Game
     // implementations of user commands:
 
     /**
-     * Print out some help information.
-     * Here we print some stupid, cryptic message and a list of the 
-     * command words.
+     * Affiche l'aide ainsi que les commandes possibles du jeux.
      */
     private void printHelp() 
     {
         System.out.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
         System.out.println("Cherche vite un abris ou de la nourriture");
         System.out.println();
-        System.out.println("Les commandes sont:");
-        System.out.println("   go, quit, help");
+        System.out.println (parser.showCommands() );
+        System.out.println();
     }
 
     /** 
-     * Try to go to one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
+     * Procédure pour passer d'une salle à une autre. Si il n'y a pas de sortie, entré un nouvelle direction. 
+     * Sinon affiché un message d'erreur.
      */
     private void goRoom(Command command) 
     {
@@ -190,9 +187,8 @@ public class Game
     }
 
     /** 
-     * "Quit" was entered. Check the rest of the command to see
-     * whether we really quit the game.
-     * @return true, if this command quits the game, false otherwise.
+     * Si "Quit" a été tapé par l'utilisateur, vérifié le reste de la commande pour voir si il veux vraiment quitter le jeux.
+     * @return Vrai, si la commande quit a été correctement tapé, sinon retourne Faux.
      */
     private boolean quit(Command command) 
     {

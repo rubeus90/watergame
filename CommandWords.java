@@ -1,23 +1,37 @@
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * Cette classe fait parti du jeux " Water Games" 
+ * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.  
  * 
- * This class holds an enumeration of all command words known to the game.
- * It is used to recognise commands as they are typed in.
+ * Cette class énumé toutes les commandes que le jeux connait.
+ * Elle permet de reconnaître les commandes quand elles sont saisies.
  *
- * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
  */
 
 public class CommandWords
 {
     // a constant array that holds all valid command words
-    private static final String[] validCommands = {
+    private static final String[] validCommands = 
+    {
         "go", "quit", "help", "look", "eat"
     };
+    
+    
+    /**Afficher tous les commandes
+     * @return Tous les commandes valables
+     */
+    public String getCommandlist()
+    {
+       String Commandlist = "Les commandes sont:";
+        for(String commands : validCommands) 
+        {
+            Commandlist += " " + commands;
+        }
+        return Commandlist;
+    }
+   
 
     /**
-     * Constructor - initialise the command words.
+     * Constructeur - initialise les commandes du jeux.
      */
     public CommandWords()
     {
@@ -25,9 +39,9 @@ public class CommandWords
     }
 
     /**
-     * Check whether a given String is a valid command word. 
-     * @return true if a given string is a valid command,
-     * false if it isn't.
+     * Vérifie si la commande rentré par l'utilisateur est une commande valide. 
+     * @return vraie si la commande saisie est une commande valide,
+     * faux si ce n'est pas le cas.
      */
     public boolean isCommand(String aString)
     {

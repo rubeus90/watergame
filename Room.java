@@ -4,18 +4,15 @@ import java.util.Iterator;
 
 
 /**
- * Class Room - a room in an adventure game.
+ * Class Room - une salle ou un terrain dans le jeux d'aventure.
  *
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * Cette classe fait parti du jeux " Water Games" 
+ * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.  
  *
- * A "Room" represents one location in the scenery of the game.  It is 
- * connected to other rooms via exits.  The exits are labelled north, 
- * east, south, west.  For each direction, the room stores a reference
- * to the neighboring room, or null if there is no exit in that direction.
+ * Une salle représente un endroit dans le jeux.
+ * Chaque salle est connecté à une autre grâce à des sorties.  Les sorties sont libellé par les directions suivantes north north, east, south, west. 
+ * Pour chaque direction saisie, le jeux vous envoi vers la salle voisine ou vous renvoi null si aucune salle voisine existe dans la direction voulu.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
  */
 public class Room 
 {
@@ -27,10 +24,10 @@ public class Room
     private HashMap<String, Room> exits;
 
     /**
-     * Create a room described "description". Initially, it has
-     * no exits. "description" is something like "a kitchen" or
-     * "an open court yard".
-     * @param description The room's description.
+     * Constructeur qui permet d'initialiser la description d'une salle. "
+     * Exemple d'utilisation : 
+     * "Une forêt" , "une belle cuisine"
+     * @param  description La description de la salle.
      */
     public Room(String description) 
     {
@@ -39,24 +36,29 @@ public class Room
     }
 
     /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
+     * Défini les sorties possibles de la salle courante. 
+     * Soit la direction mène à une salle, soit mène nulle part ( = NULL ).
+     * @param direction Une direction, par exemple north,east ...
+     * @param voisin Salle voisine ??
      */
     public void setExit(String direction, Room voisin) 
     {
         exits.put(direction, voisin);
     }
 
+    
+    /**
+     * Défini les sorties possibles de la salle courante. 
+     * Soit la direction mène à une salle, soit mène nulle part ( = NULL ).
+     * @param direction Une direction, par exemple north,east ...
+     */
     public Room getExit(String direction)
     {
         return exits.get(direction);
     }
     
     /**
+     * Fonction qui permet de retourné la description de la salle
      * @return la description de la salle
      */
     public String getDescription()
@@ -70,7 +72,10 @@ public class Room
      * Methode getExitString() : dafuq I don't know what I'm coding.... A l'aide Thibault! Je te laisse cette explication
      *
      */
-    /**@return Les sorties disponibles**/
+    /**
+    * Fonction qui permet d'énumerer les sorties possibles. 
+    * @return Les sorties disponibles
+    */
     public String getExitString()
     {
         String exitString = "Les autres endroits : ";

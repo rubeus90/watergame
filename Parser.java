@@ -2,20 +2,17 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
- * This class is part of the "World of Zuul" application. 
- * "World of Zuul" is a very simple, text based adventure game.  
+ * Cette classe fait parti du jeux " Water Games" 
+ * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.
  * 
- * This parser reads user input and tries to interpret it as an "Adventure"
- * command. Every time it is called it reads a line from the terminal and
- * tries to interpret the line as a two word command. It returns the command
- * as an object of class Command.
+ * La class Parser ligne les entrées utilisateurs et essaye de les convertir en commandes pour le jeux.
+ * A Chaque fois qu'elle est appelée, la class Parser lit les lignes du terminal et les découpes en deux mots qui sont deux commandes.
+ * Cette class permet ensuite de convertir les commandes en un objet de la class Command.
  *
- * The parser has a set of known command words. It checks user input against
- * the known commands, and if the input is not one of the known commands, it
- * returns a command object that is marked as an unknown command.
+ * La class Parser a un nombre déterminé de commande.
+ * La class Parser permet de comparer les entrés du joueur avec les commandes connues et 
+ * si la commande est inconnu, elle revoie un objet signé comme une command invalide.
  * 
- * @author  Michael Kolling and David J. Barnes
- * @version 2006.03.30
  */
 public class Parser 
 {
@@ -23,13 +20,14 @@ public class Parser
     private Scanner reader;         // source of command input
 
     /**
-     * Create a parser to read from the terminal window.
+     * Constructeur qui permet de créé un parser qui va lire les entrées.
      */
     public Parser() 
     {
         commands = new CommandWords();
         reader = new Scanner(System.in);
     }
+    
 
     /**
      * @return The next command from the user.
@@ -62,5 +60,10 @@ public class Parser
         else {
             return new Command(null, word2); 
         }
+    }
+    
+    public String showCommands()
+    {
+        return commands.getCommandlist();
     }
 }
