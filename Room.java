@@ -22,6 +22,7 @@ public class Room
 //     public Room eastExit;
 //     public Room westExit;
     private HashMap<String, Room> exits;
+    private String imageName;
 
     /**
      * Constructeur qui permet d'initialiser la description d'une salle. "
@@ -29,10 +30,11 @@ public class Room
      * "Une forêt" , "une belle cuisine"
      * @param  description La description de la salle.
      */
-    public Room(String description) 
+    public Room(String description, String image) 
     {
         this.description = description;
         exits = new HashMap<String, Room>();
+        imageName = image;
     }
 
     /**
@@ -93,5 +95,10 @@ public class Room
     {
     	return "Tu es " + description + ".\n" + getExitString();
     }
+    
+    public String getImageName()
+	{
+		return imageName;
+	}
     
 }

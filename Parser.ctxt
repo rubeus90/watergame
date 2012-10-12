@@ -1,8 +1,10 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Parser()
-comment0.text=\n\ Create\ a\ parser\ to\ read\ from\ the\ terminal\ window.\n
-comment1.params=
-comment1.target=Command\ getCommand()
-comment1.text=\n\ @return\ The\ next\ command\ from\ the\ user.\n
-numComments=2
+comment0.text=\r\n\ Constructeur\ qui\ permet\ de\ cr\u00E9\u00E9\ un\ parser\ qui\ va\ lire\ les\ entr\u00E9es.\r\n
+comment1.params=inputLine
+comment1.target=Command\ getCommand(java.lang.String)
+comment1.text=\r\n\ @return\ The\ next\ command\ from\ the\ user.\r\n
+comment2.params=
+comment2.target=java.lang.String\ showCommands()
+numComments=3

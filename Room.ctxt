@@ -1,19 +1,22 @@
 #BlueJ class context
-comment0.params=description
-comment0.target=Room(java.lang.String)
-comment0.text=\n\ Create\ a\ room\ described\ "description".\ Initially,\ it\ has\n\ no\ exits.\ "description"\ is\ something\ like\ "a\ kitchen"\ or\n\ "an\ open\ court\ yard".\n\ @param\ description\ The\ room's\ description.\n
+comment0.params=description\ image
+comment0.target=Room(java.lang.String,\ java.lang.String)
+comment0.text=\r\n\ Constructeur\ qui\ permet\ d'initialiser\ la\ description\ d'une\ salle.\ "\r\n\ Exemple\ d'utilisation\ \:\ \r\n\ "Une\ for\u00EAt"\ ,\ "une\ belle\ cuisine"\r\n\ @param\ \ description\ La\ description\ de\ la\ salle.\r\n
 comment1.params=direction\ voisin
 comment1.target=void\ setExit(java.lang.String,\ Room)
-comment1.text=\n\ Define\ the\ exits\ of\ this\ room.\ \ Every\ direction\ either\ leads\n\ to\ another\ room\ or\ is\ null\ (no\ exit\ there).\n\ @param\ north\ The\ north\ exit.\n\ @param\ east\ The\ east\ east.\n\ @param\ south\ The\ south\ exit.\n\ @param\ west\ The\ west\ exit.\n
+comment1.text=\r\n\ D\u00E9fini\ les\ sorties\ possibles\ de\ la\ salle\ courante.\ \r\n\ Soit\ la\ direction\ m\u00E8ne\ \u00E0\ une\ salle,\ soit\ m\u00E8ne\ nulle\ part\ (\ \=\ NULL\ ).\r\n\ @param\ direction\ Une\ direction,\ par\ exemple\ north,east\ ...\r\n\ @param\ voisin\ Salle\ voisine\ ??\r\n
 comment2.params=direction
 comment2.target=Room\ getExit(java.lang.String)
+comment2.text=\r\n\ D\u00E9fini\ les\ sorties\ possibles\ de\ la\ salle\ courante.\ \r\n\ Soit\ la\ direction\ m\u00E8ne\ \u00E0\ une\ salle,\ soit\ m\u00E8ne\ nulle\ part\ (\ \=\ NULL\ ).\r\n\ @param\ direction\ Une\ direction,\ par\ exemple\ north,east\ ...\r\n
 comment3.params=
 comment3.target=java.lang.String\ getDescription()
-comment3.text=\n\ @return\ la\ description\ de\ la\ salle\n
+comment3.text=\r\n\ Fonction\ qui\ permet\ de\ retourn\u00E9\ la\ description\ de\ la\ salle\r\n\ @return\ la\ description\ de\ la\ salle\r\n
 comment4.params=
 comment4.target=java.lang.String\ getExitString()
-comment4.text=@return\ Les\ sorties\ disponibles*
+comment4.text=\r\n\ Fonction\ qui\ permet\ d'\u00E9numerer\ les\ sorties\ possibles.\ \r\n\ @return\ Les\ sorties\ disponibles\r\n
 comment5.params=
 comment5.target=java.lang.String\ getLongDescription()
-comment5.text=Retourner\ une\ description\ plus\ detaillee\ de\ la\ salle\n\ @return\ Description\ detaillee\ de\ la\ salle\n
-numComments=6
+comment5.text=Retourner\ une\ description\ plus\ detaillee\ de\ la\ salle\r\n\ @return\ Description\ detaillee\ de\ la\ salle\r\n
+comment6.params=
+comment6.target=java.lang.String\ getImageName()
+numComments=7
