@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=pDescription\ pPoids
+comment0.target=Item(java.lang.String,\ int)
+comment1.params=
+comment1.target=java.lang.String\ getDescriptionItem()
+comment1.text=Retourner\ la\ description\ de\ l'objet\n\ @return\ Description\ de\ l'objet\n
+comment2.params=
+comment2.target=int\ getWeightItem()
+comment2.text=Retorner\ le\ poids\ de\ l'objet\n\ @return\ Poids\ de\ l'objet\n
+comment3.params=
+comment3.target=java.lang.String\ toString()
+comment3.text=Red\u00E9finir\ la\ m\u00E9thode\ toString()\n
+comment4.params=
+comment4.target=java.lang.String\ getWeightString()
+comment4.text=Retourner\ le\ poids\ de\ l'objet\ sous\ forme\ de\ String\n\ @return\ Poids\ de\ l'objet\ sous\ forme\ String\n
+numComments=5

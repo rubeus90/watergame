@@ -1,22 +1,28 @@
 #BlueJ class context
 comment0.params=description\ image
 comment0.target=Room(java.lang.String,\ java.lang.String)
-comment0.text=\r\n\ Constructeur\ qui\ permet\ d'initialiser\ la\ description\ d'une\ salle.\ "\r\n\ Exemple\ d'utilisation\ \:\ \r\n\ "Une\ for\u00EAt"\ ,\ "une\ belle\ cuisine"\r\n\ @param\ \ description\ La\ description\ de\ la\ salle.\r\n
+comment0.text=\n\ Constructeur\ qui\ permet\ d'initialiser\ la\ description\ d'une\ salle.\ "\n\ Exemple\ d'utilisation\ \:\ \n\ "Une\ for\u00EAt"\ ,\ "une\ belle\ cuisine"\n\ @param\ \ description\ La\ description\ de\ la\ salle.\n
 comment1.params=direction\ voisin
 comment1.target=void\ setExit(java.lang.String,\ Room)
-comment1.text=\r\n\ D\u00E9fini\ les\ sorties\ possibles\ de\ la\ salle\ courante.\ \r\n\ Soit\ la\ direction\ m\u00E8ne\ \u00E0\ une\ salle,\ soit\ m\u00E8ne\ nulle\ part\ (\ \=\ NULL\ ).\r\n\ @param\ direction\ Une\ direction,\ par\ exemple\ north,east\ ...\r\n\ @param\ voisin\ Salle\ voisine\ ??\r\n
+comment1.text=\n\ D\u00E9fini\ les\ sorties\ possibles\ de\ la\ salle\ courante.\ \n\ Soit\ la\ direction\ m\u00E8ne\ \u00E0\ une\ salle,\ soit\ m\u00E8ne\ nulle\ part\ (\ \=\ NULL\ ).\n\ @param\ direction\ Une\ direction,\ par\ exemple\ north,east\ ...\n\ @param\ voisin\ Salle\ voisine\ ??\n
 comment2.params=direction
 comment2.target=Room\ getExit(java.lang.String)
-comment2.text=\r\n\ D\u00E9fini\ les\ sorties\ possibles\ de\ la\ salle\ courante.\ \r\n\ Soit\ la\ direction\ m\u00E8ne\ \u00E0\ une\ salle,\ soit\ m\u00E8ne\ nulle\ part\ (\ \=\ NULL\ ).\r\n\ @param\ direction\ Une\ direction,\ par\ exemple\ north,east\ ...\r\n
+comment2.text=\n\ D\u00E9fini\ les\ sorties\ possibles\ de\ la\ salle\ courante.\ \n\ Soit\ la\ direction\ m\u00E8ne\ \u00E0\ une\ salle,\ soit\ m\u00E8ne\ nulle\ part\ (\ \=\ NULL\ ).\n\ @param\ direction\ Une\ direction,\ par\ exemple\ north,east\ ...\n
 comment3.params=
 comment3.target=java.lang.String\ getDescription()
-comment3.text=\r\n\ Fonction\ qui\ permet\ de\ retourn\u00E9\ la\ description\ de\ la\ salle\r\n\ @return\ la\ description\ de\ la\ salle\r\n
+comment3.text=\n\ Fonction\ qui\ permet\ de\ retourn\u00E9\ la\ description\ de\ la\ salle\n\ @return\ la\ description\ de\ la\ salle\n
 comment4.params=
 comment4.target=java.lang.String\ getExitString()
-comment4.text=\r\n\ Fonction\ qui\ permet\ d'\u00E9numerer\ les\ sorties\ possibles.\ \r\n\ @return\ Les\ sorties\ disponibles\r\n
+comment4.text=\n\ Fonction\ qui\ permet\ d'\u00E9numerer\ les\ sorties\ possibles.\ \n\ @return\ Les\ sorties\ disponibles\n
 comment5.params=
 comment5.target=java.lang.String\ getLongDescription()
-comment5.text=Retourner\ une\ description\ plus\ detaillee\ de\ la\ salle\r\n\ @return\ Description\ detaillee\ de\ la\ salle\r\n
+comment5.text=Retourner\ une\ description\ plus\ detaillee\ de\ la\ salle\n\ @return\ Description\ detaillee\ de\ la\ salle\n
 comment6.params=
 comment6.target=java.lang.String\ getImageName()
-numComments=7
+comment7.params=nomItem\ item
+comment7.target=void\ addItem(java.lang.String,\ Item)
+comment7.text=Ajouter\ un\ objet\ dans\ HashMap\n
+comment8.params=
+comment8.target=java.lang.String\ getItemString()
+comment8.text=Retourner\ le\ nom,\ la\ description\ et\ le\ poids\ de\ tous\ les\ objets\ dans\ la\ salle\n\ \n\ @return\ Nom,\ description\ et\ poids\ des\ objets\n
+numComments=9

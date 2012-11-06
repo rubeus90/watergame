@@ -1,3 +1,14 @@
+import java.util.Stack;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Cette class est la Class principale du jeux "Water Games".
@@ -16,6 +27,9 @@ public class GameEngine
     private Parser parser;
     private Room currentRoom;
     private UserInterface gui;
+    private Stack<Room> salles;
+    
+    
         
     /**
      * Créé le jeux et initialiser la carte.
@@ -32,6 +46,7 @@ public class GameEngine
         printWelcome();
     }
 
+       
     /**
      * Créé toutes les pièces et les liens entre chacunes.
      */
@@ -40,12 +55,12 @@ public class GameEngine
         Room foret, grotte, montagne, plaine, temple, plage;
       
         // create the rooms
-        foret = new Room(" dans la forêt au nord-ouest de l'île", "foret.png");
-        grotte = new Room("dans la grotte au nord de l'île", "grotte.jpg" );
-        montagne = new Room("dans les montagnesau nord-est de l'île", "montagne.png" );
-        plaine = new Room("à la plaine à l'ouest de l'île", "plaine.jpg");
-        temple = new Room("dans le temple au centre de l'île", "plaine.jpg");
-        plage = new Room("à la plage au sud de l'île", "plage.jpeg");
+        foret = new Room(" dans la forêt au nord-ouest de l'île", "images/foret.png");
+        grotte = new Room("dans la grotte au nord de l'île", "images/grotte.jpg" );
+        montagne = new Room("dans les montagnesau nord-est de l'île", "images/montagne.png" );
+        plaine = new Room("à la plaine à l'ouest de l'île", "images/plaine.jpg");
+        temple = new Room("dans le temple au centre de l'île", "images/temple.png");
+        plage = new Room("à la plage au sud de l'île", "images/plage.jpeg");
         
         // initialise room exits
         foret.setExit("est", grotte);
@@ -60,27 +75,38 @@ public class GameEngine
         temple.setExit("sud", plage);
         temple.setExit("ouest", plaine);
         plage.setExit("nord", temple);
+        
+        
+        foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
+        plaine.addItem("sabre", new Item("un sabre lumineux", 30));
+        grotte.addItem("massu", new Item("une grande massue", 45));
+        plage.addItem("filet", new Item("un grand filet", 5));
+        temple.addItem("arc", new Item("un arc en bois", 10));
+        temple.addItem("torche", new Item("une petite torche", 1));
+               
 
         currentRoom = temple;  // start game outside
+        
+        salles = new Stack<Room>();
     }
 
-    /**
-     *  Déroulement du jeux. Boucle infinie, jusqu'à ce que la command quit soit ecrite.
     
-    public void play() 
-    {            
-        printWelcome();
-
-        // Enter the main command loop.  Here we repeatedly read commands and
-        // execute them until the game is over.
-                
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Rooooh tu veux plus jouer déjà? Bon ben bye bye alors");
-    }
+//     /**Déroulement du jeux. Boucle infinie, jusqu'à ce que la command quit soit ecrite.*/
+//     
+//     public void play() 
+//     {            
+//         printWelcome();
+// 
+//         // Enter the main command loop.  Here we repeatedly read commands and
+//         // execute them until the game is over.
+//                 
+//         boolean finished = false;
+//         while (! finished) {
+//             Command command = parser.getCommand();
+//             finished = processCommand(command);
+//         }
+//         System.out.println("Rooooh tu veux plus jouer déjà? Bon ben bye bye alors");
+//     }
 
     /**Retourne les informations des sorties possibles
      * @return Les sorties possibles
@@ -91,8 +117,8 @@ public class GameEngine
 //        System.out.println("Tu es " + currentRoom.getDescription());
 //        
 //        System.out.println(currentRoom.getExitString());
-    	
-    	gui.println(currentRoom.getLongDescription());
+        
+        gui.println(currentRoom.getLongDescription());
     }
     
     
@@ -100,7 +126,7 @@ public class GameEngine
      */
     private void look()
     {
-    	gui.println(currentRoom.getLongDescription());
+        gui.println(currentRoom.getLongDescription());
     }
     
     /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
@@ -108,7 +134,7 @@ public class GameEngine
      */
     public void eat()
     {
-    	gui.println("Tu as déjà mangé, tu n'as plus faim");
+        gui.println("Tu as déjà mangé, tu n'as plus faim");
     }
     
     /**
@@ -150,12 +176,17 @@ public class GameEngine
             eat();
         else if (commandWord.equals("look"))
             look();   
-        else if (commandWord.equals("quit")) {
+        else if(commandWord.equals("back"))
+            back(command);
+        else if (commandWord.equals("quit")) 
+        {
             if(command.hasSecondWord())
                 gui.println("Quit quoi? Si tu veux quitter le jeux, écris juste quit");
             else
                 endGame();
         }
+//         else if(commandWord.equals("test"))
+//             test();
     }
 
     // implementations of user commands:
@@ -184,29 +215,96 @@ public class GameEngine
             return;
         }
 
+          
+        salles.push(currentRoom);
+        
         String direction = command.getSecondWord();
 
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
 
-        if (nextRoom == null) {
+        if (nextRoom == null) 
+        {
             gui.println("Il n'y a rien ici, tu vas tomber dans l'eau si tu continues!");
         }
-        else {
+        else 
+        {         
             currentRoom = nextRoom;
             printLocationInfo();
-                if(currentRoom.getImageName() != null)
+            
+            if(currentRoom.getImageName() != null)
                 gui.showImage(currentRoom.getImageName());
         }
+    }
+    
+    
+    /**Implémenter la commande Back pour retourner dans la salle précédente
+     * 
+     */
+    public void back(Command command)
+    {
+        if(command.hasSecondWord())
+        {
+            gui.println("Tu ne peux pas revenir ou tu veux, c'est pas la fête ici!");
+        }
+        else
+        {
+            if(salles.empty() == true)
+                gui.println("Tu es revenu au début du jeu!");
+            else
+            {
+            currentRoom = salles.pop();
+            printLocationInfo();
+            
+            if(currentRoom.getImageName() != null)
+                gui.showImage(currentRoom.getImageName());
+                
+            }
+        }
+            
+            
     }
 
     /** 
      * Si "Quit" a été tapé par l'utilisateur, vérifié le reste de la commande pour voir si il veux vraiment quitter le jeux.
      * @return Vrai, si la commande quit a été correctement tapé, sinon retourne Faux.
      */
-private void endGame()
+    private void endGame()
     {
-        gui.println("Merci d'avoir jouer, à Bientôt");
+        gui.println("Merci d'avoir jouer, à bientôt!");
         gui.enable(false);
     }
+    
+    /**
+     * Une méthode test qui permet de tester tous les commandes du jeu en exécutant toutes les lignes d'un fichier de texte 
+     * qui contient tous ces commandes
+     */
+    public void test(Command command)
+    {
+        Scanner sr;
+//         PrintWriter pw;
+        
+//         URL monURL = this.getClass().getClassLoader().getResource( "tests.txt" );  
+        
+        try
+        {
+            sr = new Scanner( new BufferedReader( new FileReader("tests.txt") ) );
+//         String mot = sr.next();
+            String ligne = sr.nextLine();
+             gui.print(ligne);
+    }
+        catch(FileNotFoundException ex) {
+            gui.println("Putain de merde");}
+//         try{
+//         pw = new PrintWriter( new BufferedWriter( new FileWriter(monURL) ) );}
+//         catch(IOException ex2) {
+//             gui.println("Fait chier");}
+        
+        
+            
+   }
+
+
+
+
 }
