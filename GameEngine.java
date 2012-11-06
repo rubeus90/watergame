@@ -279,26 +279,22 @@ public class GameEngine
      * Une méthode test qui permet de tester tous les commandes du jeu en exécutant toutes les lignes d'un fichier de texte 
      * qui contient tous ces commandes
      */
-    public void test(Command command)
+    public void test(final String pFichier)
     {
-        Scanner sr;
-//         PrintWriter pw;
-        
-//         URL monURL = this.getClass().getClassLoader().getResource( "tests.txt" );  
-        
         try
         {
-            sr = new Scanner( new BufferedReader( new FileReader("tests.txt") ) );
-//         String mot = sr.next();
-            String ligne = sr.nextLine();
-             gui.print(ligne);
+            Scanner sr = new Scanner(new File("tests.txt") );
+			
+			while( sr.hasNextLine() )
+			{
+				interpretCommand( sr.nextLine() );
+			}
+            
     }
-        catch(FileNotFoundException ex) {
-            gui.println("Putain de merde");}
-//         try{
-//         pw = new PrintWriter( new BufferedWriter( new FileWriter(monURL) ) );}
-//         catch(IOException ex2) {
-//             gui.println("Fait chier");}
+        catch(FileNotFoundException ex) 
+		{
+            gui.println("Fichier non trouvé");
+		}
         
         
             
