@@ -128,7 +128,7 @@ public class UserInterface implements ActionListener
         bouton10 = new JButton("Manger");
         bouton11 = new JButton("Regarder");
         bouton12 = new JButton("Aide");
-        bouton13 = new JButton("TEEHEE");
+        bouton13 = new JButton("Test");
         
         
         
@@ -216,7 +216,7 @@ public class UserInterface implements ActionListener
         bouton10.addActionListener(this);
         bouton11.addActionListener(this);
         bouton12.addActionListener(this);
-//         bouton13.addActionListener(this);
+        bouton13.addActionListener(this);
         
         
         
@@ -285,10 +285,10 @@ public class UserInterface implements ActionListener
         {
          engine.interpretCommand("help");
         }
-//         else if(e.getSource() == bouton13) 
-//         {
-//          engine.test();
-//         }
+        else if(e.getSource() == bouton13) 
+        {
+         engine.test();
+        }
         
         else
          processCommand();

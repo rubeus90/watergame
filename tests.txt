@@ -1,0 +1,10 @@
+go
+go nord
+go sud
+go ouest
+go est
+eat
+look
+help
+back
+

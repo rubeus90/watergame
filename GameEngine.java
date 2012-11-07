@@ -185,8 +185,8 @@ public class GameEngine
             else
                 endGame();
         }
-//         else if(commandWord.equals("test"))
-//             test();
+        else if(commandWord.equals("test"))
+            test();
     }
 
     // implementations of user commands:
@@ -279,7 +279,7 @@ public class GameEngine
      * Une méthode test qui permet de tester tous les commandes du jeu en exécutant toutes les lignes d'un fichier de texte 
      * qui contient tous ces commandes
      */
-    public void test(final String pFichier)
+    public void test()
     {
         try
         {
