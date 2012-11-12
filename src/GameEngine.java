@@ -187,10 +187,10 @@ public class GameEngine
             test();
         else if(commandWord.equals("credits"))
             credits();
-        else if(commandWord.equals("take"))
-            take(currentRoom.get("arc"));
-        else if(commandWord.equals("drop"))
-            drop(currentRoom.get("arc"));
+//        else if(commandWord.equals("take"))
+//            take(currentRoom.get("arc"));
+//        else if(commandWord.equals("drop"))
+//            drop(currentRoom.get("arc"));
     }
 
     // implementations of user commands:
@@ -239,7 +239,6 @@ public class GameEngine
             {
                 gui.showImage(currentRoom.getImageName());
             }
-            couleurBouton = true;
         }
     }
     
@@ -325,18 +324,6 @@ public class GameEngine
        gui.println("Nous sommes NGUYEN Hong Ngoc aka Ngocky et PATOIS Thibault, deux étudiants très brillants en 3ème de l'ESIEE (LES E3S EN FORCE!!!!). Nous avons crée ce jeu dans le cadre de l'apprentissage de Java, mais nous avons mis là dedans tout notre amour (un peu moins pour Thibault qui a mis tout son coeur dans les nombreuses versions de notre p   age web), donc j'espère que tu vas aimer notre jeu");
    }
 
-   public String getCouleurBouton()
-   {
-       String couleur;
-       if(couleurBouton == true)
-       {
-           couleur = "blue";
-       }
-       else
-       {
-           couleur = "green";
-       }
-       return couleur;
-   }
+   
 
 }

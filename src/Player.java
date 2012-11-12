@@ -60,15 +60,15 @@ public class Player
        return description;
    }
    
-   public void take(String nomItem)
-   {
-       HashMap<String, Item> HashMapItem = getHashMap();
-       listeItem.add(HashMapItem.get(nomItem));
-   }
-   
-   public void drop(Item item)
-   {
-       HashMap HashMapItem = getHashMap();
-       listeItem.remove(HashMapItem.get(nomItem));
-   }
+//   public void take(String nomItem)
+//   {
+//       HashMap<String, Item> HashMapItem = getHashMap();
+//       listeItem.add(HashMapItem.get(nomItem));
+//   }
+//   
+//   public void drop(Item item)
+//   {
+//       HashMap HashMapItem = getHashMap();
+//       listeItem.remove(HashMapItem.get(nomItem));
+//   }
 }
