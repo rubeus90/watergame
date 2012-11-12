@@ -2,13 +2,13 @@ import java.util.Stack;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.Scanner;
-import java.io.FileWriter;
-import java.io.BufferedWriter;
-import java.io.PrintWriter;
-import java.net.URL;
+// import java.io.FileWriter;
+// import java.io.BufferedWriter;
+// import java.io.PrintWriter;
+// import java.net.URL;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+// import java.io.IOException;
 
 /**
  * Cette class est la Class principale du jeux "Water Games".
@@ -28,6 +28,8 @@ public class GameEngine
     private Room currentRoom;
     private UserInterface gui;
     private Stack<Room> salles;
+    private Player player;
+    private boolean couleurBouton;
     
     
         
@@ -37,6 +39,7 @@ public class GameEngine
     public GameEngine() 
     {
         createRooms();
+        createPlayer();
         parser = new Parser();
     }
     
@@ -85,9 +88,15 @@ public class GameEngine
         temple.addItem("torche", new Item("une petite torche", 1));
                
 
-        currentRoom = temple;  // start game outside
+        currentRoom = temple;  // le jeu commence au temple       
         
-        salles = new Stack<Room>();
+        salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
+        l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
+    }
+    
+    public void createPlayer()
+    {
+        player = new Player("Julie", currentRoom, "f");        
     }
 
     
@@ -122,21 +131,6 @@ public class GameEngine
     }
     
     
-    /**Redonner les informations de la salle et les sorties disponibles
-     */
-    private void look()
-    {
-        gui.println(currentRoom.getLongDescription());
-    }
-    
-    /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
-     * 
-     */
-    public void eat()
-    {
-        gui.println("Tu as déjà mangé, tu n'as plus faim");
-    }
-    
     /**
      * Message d'acccueil à l'ouverture du jeux !
      */
@@ -147,22 +141,26 @@ public class GameEngine
         gui.println("Prépare toi à jouer à THE jeu le plus merveilleux de l'univers");
         gui.println("Tape help si tu as besoin d'aide");
         gui.print("\n");
+        gui.println(player.getLongDescriptionPlayer() + "\n");
                 
         printLocationInfo();
         gui.showImage(currentRoom.getImageName());
     }
 
     /**
-     * Given a command, process (that is: execute) the command.
+     * Quand une commande est enregistrée, excécuter l'action associée à cette commande.
+     * Si la commande n'est pas dans la liste des commandes disponibles, afficher une message d'erreur.
+     * 
      * @param command La commande à analyser.
-     * @return Vrai si la commande ferme le jeux, faux autrement.
+     * 
      */
   public void interpretCommand(String commandLine) 
     {
         gui.println(commandLine);
         Command command = parser.getCommand(commandLine);
 
-        if(command.isUnknown()) {
+        if(command.isUnknown()) 
+        {
             gui.println("Je ne comprend pas ce que tu veux faire...");
             return;
         }
@@ -192,12 +190,12 @@ public class GameEngine
     // implementations of user commands:
 
     /**
-     * Affiche l'aide ainsi que les commandes possibles du jeux.
+     * Affiche l'aide ainsi que les commandes possibles du jeu.
      */
     private void printHelp() 
     {
         gui.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
-        gui.println("Cherche vite un abris ou de la nourriture");
+        gui.println("Cherche vite un abris ou de la nourriture.");
         gui.print("\n");
         gui.println (parser.showCommands() );
         gui.print("\n");
@@ -214,8 +212,7 @@ public class GameEngine
             gui.println("Aller ou exactement, soit un peu plus précis!");
             return;
         }
-
-          
+ 
         salles.push(currentRoom);
         
         String direction = command.getSecondWord();
@@ -233,13 +230,18 @@ public class GameEngine
             printLocationInfo();
             
             if(currentRoom.getImageName() != null)
+            {
                 gui.showImage(currentRoom.getImageName());
+            }
+            couleurBouton = true;
         }
     }
     
     
-    /**Implémenter la commande Back pour retourner dans la salle précédente
-     * 
+    /**Implémenter la commande Back pour retourner dans la salle précédente.
+     * On stocke les salles visitée précédemment dans une Stack, à chaque fois on veut revenir sur notre pas, on utilise la commande "pop" qui prendre
+     * la denière valeur de la Stack (donc la dernière salle visitée) et qui retire cette salle de la Stack.
+     * Quand la Stack est vide, on est revenu au début du jeu.
      */
     public void back(Command command)
     {
@@ -264,6 +266,21 @@ public class GameEngine
             
             
     }
+    
+    /**Redonner les informations de la salle et les sorties disponibles
+     */
+    private void look()
+    {
+        gui.println(currentRoom.getLongDescription());
+    }
+    
+    /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
+     * 
+     */
+    public void eat()
+    {
+        gui.println("Tu as déjà mangé, tu n'as plus faim");
+    }
 
     /** 
      * Si "Quit" a été tapé par l'utilisateur, vérifié le reste de la commande pour voir si il veux vraiment quitter le jeux.
@@ -277,30 +294,43 @@ public class GameEngine
     
     /**
      * Une méthode test qui permet de tester tous les commandes du jeu en exécutant toutes les lignes d'un fichier de texte 
-     * qui contient tous ces commandes
+     * qui contient tous ces commandes. Cette méthode évite aux programmeurs de devoir tester à la main chaque commande du jeu.
      */
     public void test()
     {
         try
         {
             Scanner sr = new Scanner(new File("tests.txt") );
-			
-			while( sr.hasNextLine() )
-			{
-				interpretCommand( sr.nextLine() );
-			}
+            
+            while( sr.hasNextLine() )
+            {
+                interpretCommand( sr.nextLine() );
+            }
             
     }
         catch(FileNotFoundException ex) 
-		{
+        {
             gui.println("Fichier non trouvé");
-		}
-        
-        
-            
+        }
+   }
+   
+   public void credits()
+   {
+       gui.println("Nous sommes NGUYEN Hong Ngoc aka Ngocky et PATOIS Thibault, deux étudiants très brillants en 3ème de l'ESIEE (LES E3S EN FORCE!!!!). Nous avons crée ce jeu dans le cadre de l'apprentissage de Java, mais nous avons mis là dedans tout notre amour (un peu moins pour Thibault qui a mis tout son coeur dans les nombreuses versions de notre p   age web), donc j'espère que tu vas aimer notre jeu");
    }
 
-
-
+   public String getCouleurBouton()
+   {
+       String couleur;
+       if(couleurBouton == true)
+       {
+           couleur = "blue";
+       }
+       else
+       {
+           couleur = "green";
+       }
+       return couleur;
+   }
 
 }

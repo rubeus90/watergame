@@ -1,2 +1,10 @@
 #BlueJ class context
-numComments=0
+comment0.params=pNom\ pCurrentRoom\ pGender
+comment0.target=Player(java.lang.String,\ Room,\ java.lang.String)
+comment1.params=
+comment1.target=java.lang.String\ getDescriptionPlayer()
+comment2.params=
+comment2.target=java.lang.String\ getLongDescriptionPlayer()
+comment3.params=item
+comment3.target=void\ take(Item)
+numComments=4

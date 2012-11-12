@@ -29,7 +29,11 @@ public class UserInterface implements ActionListener
     private JButton bouton11;
     private JButton bouton12;
     private JButton bouton13;
-   
+    private JMenuItem newAction;
+    private JMenuItem saveAction;
+    private JMenuItem quitAction;
+    private JMenuItem authorAction;
+    private JMenuItem copyrightAction;
    
     private JTextArea log;
     private JLabel image;
@@ -93,29 +97,63 @@ public class UserInterface implements ActionListener
 
     /**
      * Gérer User Interface
-     * La fenêtre du jeux comporte 2 panneaux, celui de gauche sert à afficher l'image, la partie texte et 2 boutons
-     * Le panneau de droite comporte les boutons de commandes
+     * La fenêtre du jeux comporte 2 panneaux, celui en haut sert à afficher l'image
+     * Le panneau en bas comporte 3 sous-panneaux, dont le panneau des boutons de directions, la partie texte et le panneau des boutons d'options
      */
     private void createGUI()
     {
+        /***************************Créer une nouvelle fenêtre*******************************/
         myFrame = new JFrame("Water Game");
         myFrame.setResizable(false);
         
-        //L'entrée de text
+        
+         /*****************************Créer un menu bar**************************************/
+        JMenuBar menubar = new JMenuBar();
+        myFrame.setJMenuBar(menubar);
+        //Créer les boutons du menu
+        JMenu options = new JMenu("Options");
+        JMenu credits = new JMenu("Credits");
+        menubar.add(options);
+        menubar.add(credits);
+        //Créer les boutons du dropdown menu
+        JMenuItem newAction = new JMenuItem("Nouvelle partie");
+        JMenuItem saveAction = new JMenuItem("Sauvegarder la partie");
+        JMenuItem quitAction = new JMenuItem("Quitter le jeu");
+        JMenuItem authorAction = new JMenuItem("Auteurs");
+        JMenuItem copyrightAction = new JMenuItem("Copyright");
+        //Ajouter ces boutons au dropdown
+        options.add(newAction);
+        options.add(saveAction);
+        options.addSeparator();
+        options.add(quitAction);
+        credits.add(authorAction);
+        credits.add(copyrightAction);
+        
+                
+        
+        /*********************************L'entrée de text*****************************************/
         entryField = new JTextField(34);
+        
+        
+        /***********************************Affichage du text du jeu*****************************/
         log = new JTextArea();
         log.setEditable(false);
+        // Wrap la partie texte pour que quand on a un texte trop longue, le texte "reflow" automatiquement
+        log.setLineWrap(true);
+        log.setWrapStyleWord(true);
+        log.setOpaque(false);
+        log.setFocusable(false);
         
-        //L'endroit ou affiche le texte du jeu
         JScrollPane listScroller = new JScrollPane(log);
         listScroller.setPreferredSize(new Dimension(600, 280));
         listScroller.setMinimumSize(new Dimension(10,10));
+        
 
-        //Image des salles
+        /****************************Image des salles************************************/
         image = new JLabel();
         image.setPreferredSize(new Dimension(1200,600));
         
-        
+        /**********************************Tous les boutons du jeu*******************************/
         bouton1 = new JButton();
         bouton2 = new JButton("Nord");
         bouton3 = new JButton("Haut");
@@ -131,16 +169,16 @@ public class UserInterface implements ActionListener
         bouton13 = new JButton("Test");
         
         
-        
-        //Panel image en haut de la fenêtre
+        /*********************************Les panels*************************************/
+        //Panel 1 contient l'image en haut de la fenêtre
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(1200,600));
         panel.setLayout(new BorderLayout());
         panel.add(image, BorderLayout.CENTER);
         
-        //Panel corps qui comporte les boutons de navigation, la partie texte et les boutons de commandes
+        //Panel 2 corps qui comporte les boutons de navigation, la partie texte et les boutons de commandes
         JPanel panel2 = new JPanel();
-        //Panel navigation
+        //Sous panel navigation
         JPanel sspanel1 = new JPanel();
         sspanel1.setPreferredSize(new Dimension(300,300));
         sspanel1.setLayout(new GridLayout(3,3));
@@ -153,14 +191,13 @@ public class UserInterface implements ActionListener
         sspanel1.add(bouton7);
         sspanel1.add(bouton8);
         sspanel1.add(bouton9);
-        
-        //Panel texte
+        //Sous panel texte
         JPanel sspanel2 = new JPanel();
         sspanel2.setLayout(new BorderLayout());
         sspanel2.setPreferredSize(new Dimension(600,300));
         sspanel2.add(listScroller, BorderLayout.NORTH);
         sspanel2.add(entryField, BorderLayout.SOUTH);
-        //Panel boutons
+        //Sous panel boutons
         JPanel sspanel3 = new JPanel();
         sspanel3.setPreferredSize(new Dimension(300,300));
         sspanel3.setLayout(new GridLayout(2,2));
@@ -175,30 +212,19 @@ public class UserInterface implements ActionListener
         panel2.add(sspanel3);
 
         
-        //Panel box qui contient les 2 autres panels
+        //Panel 3 box qui contient les 2 autres panels
         JPanel panel3 = new JPanel();
         panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
         panel3.add(panel);
         panel3.add(panel2);
         
         
-        
-        
-        
-        
+        //Ajouter le panel box à notre fenêtre de jeu
         myFrame.setContentPane(panel3);
        
-
-//         myFrame.setLayout(new GridLayout(2,2));
-//         myFrame.getContentPane().add(panel, BorderLayout.CENTER);
-//         myFrame.getContentPane().add(panel, BorderLayout.WEST);
-//         myFrame.getContentPane().add(panel2, BorderLayout.EAST);
-//         myFrame.getContentPane().add(panel3, BorderLayout.SOUTH);
-
-
+            
         
-        
-        // add some event listeners to some components
+        /******************************add some event listeners to some components*****************************/
         myFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {System.exit(0);}
         });
@@ -217,6 +243,9 @@ public class UserInterface implements ActionListener
         bouton11.addActionListener(this);
         bouton12.addActionListener(this);
         bouton13.addActionListener(this);
+        newAction.addActionListener(this);
+        authorAction.addActionListener(this);
+       
         
         
         
@@ -239,19 +268,19 @@ public class UserInterface implements ActionListener
     {
         if(e.getSource() == bouton1) 
         {
-         engine.interpretCommand("go");
+            engine.interpretCommand("go");
         }
         else if(e.getSource() == bouton2) 
         {
-         engine.interpretCommand("go nord");
+            engine.interpretCommand("go nord");
         }       
         else if(e.getSource() == bouton3) 
         {
-         engine.interpretCommand("go monter");
+            engine.interpretCommand("go monter");
         }
         else if(e.getSource() == bouton4) 
         {
-         engine.interpretCommand("go ouest");
+            engine.interpretCommand("go ouest");
         }
 //         else if(e.getSource() == bouton5) 
 //         {
@@ -259,15 +288,15 @@ public class UserInterface implements ActionListener
 //         }
         else if(e.getSource() == bouton6) 
         {
-         engine.interpretCommand("go est");
+            engine.interpretCommand("go est");
         }
         else if(e.getSource() == bouton7) 
         {
-         engine.interpretCommand("back");
+            engine.interpretCommand("back");
         }
         else if(e.getSource() == bouton8) 
         {
-         engine.interpretCommand("go sud");
+            engine.interpretCommand("go sud");
         }
 //         else if(e.getSource() == bouton9) 
 //         {
@@ -275,23 +304,27 @@ public class UserInterface implements ActionListener
 //         }
         else if(e.getSource() == bouton10) 
         {
-         engine.interpretCommand("eat");
+            engine.interpretCommand("eat");
         }
         else if(e.getSource() == bouton11) 
         {
-         engine.interpretCommand("look");
+            engine.interpretCommand("look");
         }
         else if(e.getSource() == bouton12) 
         {
-         engine.interpretCommand("help");
+            engine.interpretCommand("help");
         }
         else if(e.getSource() == bouton13) 
         {
-         engine.test();
+            engine.test();
+        }
+       else if(e.getSource() ==  authorAction)
+        {
+            engine.credits();
         }
         
         else
-         processCommand();
+            processCommand();
     }
 
     /**
@@ -306,4 +339,5 @@ public class UserInterface implements ActionListener
 
         engine.interpretCommand(input);
     }
+    
 }

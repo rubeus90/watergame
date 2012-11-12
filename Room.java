@@ -9,7 +9,7 @@ import java.util.Iterator;
  * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.  
  *
  * Une salle représente un endroit dans le jeux.
- * Chaque salle est connecté à une autre grâce à des sorties.  Les sorties sont libellé par les directions suivantes north north, east, south, west. 
+ * Chaque salle est connecté à une autre grâce à des sorties.  Les sorties sont libellé par les directions suivantes: nord, sud, est, ouest, monter. 
  * Pour chaque direction saisie, le jeux vous envoi vers la salle voisine ou vous renvoi null si aucune salle voisine existe dans la direction voulu.
  * 
  */
@@ -99,7 +99,7 @@ public class Room
     return exitString;
     }
 
-    /**Retourner une description plus detaillee de la salle
+    /**Retourner une description plus detaillée de la salle
     * @return Description detaillee de la salle
     */
     public String getLongDescription()
@@ -113,7 +113,7 @@ public class Room
     }
 
     
-    /**Ajouter un objet dans HashMap
+    /**Ajouter un objet dans un HashMap
     */
     public void addItem(String nomItem, Item item)
     {
@@ -129,7 +129,7 @@ public class Room
     {
         Set<String> cles = items.keySet();
              
-        String itemString = "";
+        String itemString = "Regarde s'il y a des objets ici: ";
         
         for(String nom : cles)
         {
@@ -140,8 +140,7 @@ public class Room
             else
                 itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.getWeightString() + " kg";
         }
-         
-        
+                 
             return itemString;
         
     }
