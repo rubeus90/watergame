@@ -7,14 +7,6 @@ public class Game
     /**
      * Create the game and initialise its internal map.
      */
-//    public Game() 
-//    {
-//		engine = new GameEngine();
-//		gui = new UserInterface(engine);
-//		engine.setGUI(gui);
-//    }
-
-
 public static void main(String[] args)
 {
 	engine = new GameEngine();
