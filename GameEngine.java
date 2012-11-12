@@ -85,7 +85,7 @@ public class GameEngine
         grotte.addItem("massu", new Item("une grande massue", 45));
         plage.addItem("filet", new Item("un grand filet", 5));
         temple.addItem("arc", new Item("un arc en bois", 10));
-        temple.addItem("torche", new Item("une petite torche", 1));
+        //temple.addItem("torche", new Item("une petite torche", 1));
                
 
         currentRoom = temple;  // le jeu commence au temple       
@@ -185,6 +185,12 @@ public class GameEngine
         }
         else if(commandWord.equals("test"))
             test();
+        else if(commandWord.equals("credits"))
+            credits();
+        else if(commandWord.equals("take"))
+            take(currentRoom.get("arc"));
+        else if(commandWord.equals("drop"))
+            drop(currentRoom.get("arc"));
     }
 
     // implementations of user commands:

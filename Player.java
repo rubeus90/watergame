@@ -1,3 +1,5 @@
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Cette classe gère tous les aspects du joueur : son nom, la position actuelle, les objets qu'il porte, etc...
@@ -11,12 +13,15 @@ public class Player
    private Room aCurrentRoom;
    private String aGender;
    private String aDescriptionPlayer;
+   private ArrayList<Item> listeItem;
    
    public Player(final String pNom, final Room pCurrentRoom,final String pGender)
    {
        aNom = pNom;
        aCurrentRoom = pCurrentRoom;
        aGender = pGender;
+       
+       listeItem = new ArrayList<Item>();
        
        if(aGender == "f")
        {
@@ -46,11 +51,24 @@ public class Player
    
    public String getLongDescriptionPlayer()
    {
-       return("Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n");
+       String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n" + "Dans ton inventaire: " + "\n";
+       
+       for(Item items : listeItem)
+       {
+            description += items.getDescriptionItem() + "\n";
+       }
+       return description;
    }
    
-   public void take(Item item)
+   public void take(String nomItem)
    {
-       
+       HashMap<String, Item> HashMapItem = getHashMap();
+       listeItem.add(HashMapItem.get(nomItem));
+   }
+   
+   public void drop(Item item)
+   {
+       HashMap HashMapItem = getHashMap();
+       listeItem.remove(HashMapItem.get(nomItem));
    }
 }

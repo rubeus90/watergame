@@ -25,6 +25,7 @@ public class Room
     
     //     private HashMap<String, Room> room;
     private String imageName;
+    private String aNomItem;
     
 
     /**
@@ -119,7 +120,13 @@ public class Room
     {
         items.put(nomItem, item);   
     }
-
+    
+    
+    public HashMap<String, Item> getHashMap()
+    {
+        return items;
+    }
+    
     
     /**Retourner le nom, la description et le poids de tous les objets dans la salle
      * 
