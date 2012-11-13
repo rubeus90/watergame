@@ -226,7 +226,7 @@ public class UserInterface implements ActionListener
         
         /******************************add some event listeners to some components*****************************/
         myFrame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {System.exit(0);}
+            public void windowClosing(WindowEvent e) { killFrame(); }
         });
 
         entryField.addActionListener(this);
@@ -318,7 +318,7 @@ public class UserInterface implements ActionListener
         {
             engine.test();
         }
-       else if(e.getSource() ==  authorAction)
+        else if(e.getSource() == authorAction)
         {
             engine.credits();
         }
@@ -338,6 +338,12 @@ public class UserInterface implements ActionListener
         entryField.setText("");
 
         engine.interpretCommand(input);
+    }
+    
+    public void killFrame()
+    {
+    	myFrame.setVisible(false);
+    	myFrame.dispose();
     }
     
 }

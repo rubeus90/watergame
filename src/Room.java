@@ -120,13 +120,7 @@ public class Room
     {
         items.put(nomItem, item);   
     }
-    
-    
-    public HashMap<String, Item> getHashMap()
-    {
-        return items;
-    }
-    
+       
     
     /**Retourner le nom, la description et le poids de tous les objets dans la salle
      * 
@@ -152,7 +146,16 @@ public class Room
         
     }
    
-    
+    public Item getItem()
+    {
+    	Set<String> cles = items.keySet();
+    	Item valeurs = null;
+    	for(String nom : cles)
+        {
+            valeurs = items.get(nom);
+        }
+    	return valeurs;
+    }
     
     
 }

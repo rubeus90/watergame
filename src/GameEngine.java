@@ -188,9 +188,9 @@ public class GameEngine
         else if(commandWord.equals("credits"))
             credits();
 //        else if(commandWord.equals("take"))
-//            take(currentRoom.get("arc"));
+//            take();
 //        else if(commandWord.equals("drop"))
-//            drop(currentRoom.get("arc"));
+//            drop();
     }
 
     // implementations of user commands:
@@ -287,15 +287,15 @@ public class GameEngine
         gui.println("Tu as déjà mangé, tu n'as plus faim");
     }
 
-    /** 
-     * Si "Quit" a été tapé par l'utilisateur, vérifié le reste de la commande pour voir si il veux vraiment quitter le jeux.
-     * @return Vrai, si la commande quit a été correctement tapé, sinon retourne Faux.
-     */
-    private void endGame()
-    {
-        gui.println("Merci d'avoir jouer, à bientôt!");
-        gui.enable(false);
-    }
+//    /** 
+//     * Si "Quit" a été tapé par l'utilisateur, vérifié le reste de la commande pour voir si il veux vraiment quitter le jeux.
+//     * @return Vrai, si la commande quit a été correctement tapé, sinon retourne Faux.
+//     */
+//    private void endGame()
+//    {
+//        gui.println("Merci d'avoir jouer, à bientôt!");
+//        gui.enable(false);
+//    }
     
     /**
      * Une méthode test qui permet de tester tous les commandes du jeu en exécutant toutes les lignes d'un fichier de texte 
@@ -324,6 +324,9 @@ public class GameEngine
        gui.println("Nous sommes NGUYEN Hong Ngoc aka Ngocky et PATOIS Thibault, deux étudiants très brillants en 3ème de l'ESIEE (LES E3S EN FORCE!!!!). Nous avons crée ce jeu dans le cadre de l'apprentissage de Java, mais nous avons mis là dedans tout notre amour (un peu moins pour Thibault qui a mis tout son coeur dans les nombreuses versions de notre p   age web), donc j'espère que tu vas aimer notre jeu");
    }
 
-   
+   public void endGame()
+   {
+	   gui.killFrame();
+   }
 
 }
