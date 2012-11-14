@@ -1,4 +1,5 @@
-import java.util.List;
+import java.util.HashMap;
+//import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -9,16 +10,16 @@ import java.util.ArrayList;
  */
 public class Player
 {
-   private String aNom;
-   private Room aCurrentRoom;
+   private String aNom;   
    private String aGender;
+   private Room aCurrentRoom;
    private String aDescriptionPlayer;
    private ArrayList<Item> listeItem;
    
-   public Player(final String pNom, final Room pCurrentRoom,final String pGender)
+   public Player(final String pNom, final String pGender)
    {
        aNom = pNom;
-       aCurrentRoom = pCurrentRoom;
+       aCurrentRoom = null;
        aGender = pGender;
        
        listeItem = new ArrayList<Item>();
@@ -31,6 +32,11 @@ public class Player
        {
        aDescriptionPlayer = "Tu es un guerrier qui est malgré ton apparence peu viril, dispose une force exceptionnelle et la capacité de t'adapter à la nature que tes adversaires devront avoir peur de toi.";
        }
+   }
+   
+   public void setCurrentRoom(final Room pRoom)
+   {
+	   aCurrentRoom = pRoom;
    }
      
 //      
@@ -51,22 +57,60 @@ public class Player
    
    public String getLongDescriptionPlayer()
    {
-       String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n" + "Dans ton inventaire: " + "\n";
+       String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n";
        
-       for(Item items : listeItem)
-       {
-            description += items.getDescriptionItem() + "\n";
-       }
        return description;
    }
    
-//   public void take(Item item)
-//   {
-//       listeItem.add(item);
-//   }
-//   
-//   public void drop(Item item)
-//   {
-//       listeItem.remove(item);
-//   }
+   /**Ajouter un objet dans l'inventaire du joueur. L'objet pris est défini par le 2ème mot de la commande
+    * Par exemple: take arc
+    * 
+    * @param command
+    */
+   public void take(Command command)
+   {
+	   if(command.hasSecondWord())
+	   {
+		   String mot = command.getSecondWord();
+		   HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
+		   Item item = hashmap.get(mot);
+		   
+		   listeItem.add(item);		   
+	   }
+   }
+   
+   /**Retirer un objet de l'inventaire du joueur. L'objet retiré est défini par le 2ème mot de la commande
+    * Par exemple: drop arc
+    * 
+    * @param command
+    */
+   public void drop(Command command)
+   {
+	   if(command.hasSecondWord())
+	   {
+		   String mot = command.getSecondWord();
+		   HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
+		   Item item = hashmap.get(mot);
+		   
+		   listeItem.remove(item);		   
+	   }
+   }
+   
+   
+   public String getInventaire()
+   {
+	   String inventaire = "Dans ton inventaire: " + "\n";
+   
+	   if(!listeItem.isEmpty())
+	   {
+		   for(Item items : listeItem)
+		   {
+			   inventaire += items.getDescriptionItem() + "\n";
+		   }
+	   }
+	   else
+		   inventaire = "Il n'y a rien dans ton inventaire.";
+		   
+	   return inventaire;
+   }
 }

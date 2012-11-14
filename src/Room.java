@@ -25,8 +25,7 @@ public class Room
     
     //     private HashMap<String, Room> room;
     private String imageName;
-    private String aNomItem;
-    
+        
 
     /**
      * Constructeur qui permet d'initialiser la description d'une salle. "
@@ -81,9 +80,10 @@ public class Room
     return description;
     }
 
-    /*Exo 7.9 : keySet() : returns a Set view of all the keys contained in this map (a reecire en francais dans le rapport)
+    /*Exo 7.9 : keySet() : retourner dans un Set les clés de la HashMap des sorties
     *
-    * Methode getExitString() : dafuq I don't know what I'm coding.... A l'aide Thibault! Je te laisse cette explication
+    * Methode getExitString() : On crée un Set des clés de la HashMap des sorties. Pour chaque clé, on ajoute à la variable 
+    * locale exitString (un String) le nom de la sortie, et on retourne la valeur de exitString
     *
     */
     /**
@@ -139,22 +139,20 @@ public class Room
             if(valeurs == null)
                 itemString += "Il n'y a pas d'objet ici";
             else
-                itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.getWeightString() + " kg";
+                itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.toString() + " kg";
         }
                  
             return itemString;
         
     }
    
-    public Item getItem()
+    /** Un accesseur pour le HashMap des objets. Cette fonction est utilisée dans les méthodes take() et drop() de Player
+     * 
+     * @return le HashMap des objets dans chaque salle
+     */
+    public HashMap<String, Item> getHahsMap()
     {
-    	Set<String> cles = items.keySet();
-    	Item valeurs = null;
-    	for(String nom : cles)
-        {
-            valeurs = items.get(nom);
-        }
-    	return valeurs;
+    	return items;
     }
     
     

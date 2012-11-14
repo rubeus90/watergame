@@ -1,6 +1,6 @@
 import java.util.Stack;
-import java.io.FileReader;
-import java.io.BufferedReader;
+//import java.io.FileReader;
+//import java.io.BufferedReader;
 import java.util.Scanner;
 // import java.io.FileWriter;
 // import java.io.BufferedWriter;
@@ -29,8 +29,7 @@ public class GameEngine
     private UserInterface gui;
     private Stack<Room> salles;
     private Player player;
-    private boolean couleurBouton;
-    
+      
     
         
     /**
@@ -38,8 +37,7 @@ public class GameEngine
      */
     public GameEngine() 
     {
-        createRooms();
-        createPlayer();
+        createGame();
         parser = new Parser();
     }
     
@@ -53,7 +51,7 @@ public class GameEngine
     /**
      * Créé toutes les pièces et les liens entre chacunes.
      */
-    private void createRooms()
+    private void createGame()
     {
         Room foret, grotte, montagne, plaine, temple, plage;
       
@@ -82,52 +80,32 @@ public class GameEngine
         
         foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
         plaine.addItem("sabre", new Item("un sabre lumineux", 30));
-        grotte.addItem("massu", new Item("une grande massue", 45));
+        grotte.addItem("massue", new Item("une grande massue", 45));
         plage.addItem("filet", new Item("un grand filet", 5));
         temple.addItem("arc", new Item("un arc en bois", 10));
-        //temple.addItem("torche", new Item("une petite torche", 1));
+        temple.addItem("torche", new Item("une petite torche", 1));
                
 
         currentRoom = temple;  // le jeu commence au temple       
         
         salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
         l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
+        
+        //On crée le joueur
+        player = new Player("Julie","f");    
+        player.setCurrentRoom(temple);
     }
     
-    public void createPlayer()
-    {
-        player = new Player("Julie", currentRoom, "f");        
-    }
-
     
-//     /**Déroulement du jeux. Boucle infinie, jusqu'à ce que la command quit soit ecrite.*/
-//     
-//     public void play() 
-//     {            
-//         printWelcome();
-// 
-//         // Enter the main command loop.  Here we repeatedly read commands and
-//         // execute them until the game is over.
-//                 
-//         boolean finished = false;
-//         while (! finished) {
-//             Command command = parser.getCommand();
-//             finished = processCommand(command);
-//         }
-//         System.out.println("Rooooh tu veux plus jouer déjà? Bon ben bye bye alors");
-//     }
 
     /**Retourne les informations des sorties possibles
      * @return Les sorties possibles
      */
     
     private void printLocationInfo()
-    {
-//        System.out.println("Tu es " + currentRoom.getDescription());
-//        
-//        System.out.println(currentRoom.getExitString());
-        
+    {   
         gui.println(currentRoom.getLongDescription());
+        printInventaire();
     }
     
     
@@ -146,6 +124,24 @@ public class GameEngine
         printLocationInfo();
         gui.showImage(currentRoom.getImageName());
     }
+    
+    
+    /**
+     * Affiche l'aide ainsi que les commandes possibles du jeu.
+     */
+    private void printHelp() 
+    {
+        gui.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
+        gui.println("Cherche vite un abris ou de la nourriture.");
+        gui.print("\n");
+        gui.println (parser.showCommands() );
+        gui.print("\n");
+    }
+    
+    private void printInventaire()
+    {
+    	gui.println(player.getInventaire());
+    }
 
     /**
      * Quand une commande est enregistrée, excécuter l'action associée à cette commande.
@@ -154,7 +150,7 @@ public class GameEngine
      * @param command La commande à analyser.
      * 
      */
-  public void interpretCommand(String commandLine) 
+    public void interpretCommand(String commandLine) 
     {
         gui.println(commandLine);
         Command command = parser.getCommand(commandLine);
@@ -187,25 +183,34 @@ public class GameEngine
             test();
         else if(commandWord.equals("credits"))
             credits();
-//        else if(commandWord.equals("take"))
-//            take();
-//        else if(commandWord.equals("drop"))
-//            drop();
+        else if(commandWord.equals("take"))
+        {
+        	if(!command.hasSecondWord())
+        	{
+        		gui.println("Il faut préciser quel objet tu veux prendre!");
+        	}
+        	else
+        	{
+        		player.take(command);
+        		printInventaire();
+        	}
+       
+        }
+        else if(commandWord.equals("drop"))
+        {
+        	if(!command.hasSecondWord())
+        	{
+        		gui.println("Il faut préciser quel objet tu veux prendre!");
+        	}
+        	else
+        	{
+        		player.drop(command);
+        		printInventaire();
+        	}
+        }
     }
-
-    // implementations of user commands:
-
-    /**
-     * Affiche l'aide ainsi que les commandes possibles du jeu.
-     */
-    private void printHelp() 
-    {
-        gui.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
-        gui.println("Cherche vite un abris ou de la nourriture.");
-        gui.print("\n");
-        gui.println (parser.showCommands() );
-        gui.print("\n");
-    }
+    
+    
 
     /** 
      * Procédure pour passer d'une salle à une autre. Si il n'y a pas de sortie, entré un nouvelle direction. 
@@ -213,26 +218,26 @@ public class GameEngine
      */
     private void goRoom(Command command) 
     {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
+        if(!command.hasSecondWord()) 
+        {
             gui.println("Aller ou exactement, soit un peu plus précis!");
-            return;
         }
- 
+        
+        //Stocker la salle actuelle dans le stack (pour la méthode back)
         salles.push(currentRoom);
         
         String direction = command.getSecondWord();
 
-        // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
 
         if (nextRoom == null) 
         {
-            gui.println("Il n'y a rien ici, tu vas tomber dans l'eau si tu continues!");
+            gui.println("Tu arrives au bord de l'île, tu vas tomber dans l'eau si tu continues!");
         }
         else 
         {         
             currentRoom = nextRoom;
+            player.setCurrentRoom(nextRoom);
             printLocationInfo();
             
             if(currentRoom.getImageName() != null)
@@ -305,7 +310,7 @@ public class GameEngine
     {
         try
         {
-            Scanner sr = new Scanner(new File("tests.txt") );
+            Scanner sr = new Scanner(new File("Tests/testCommand.txt") );
             
             while( sr.hasNextLine() )
             {
@@ -321,9 +326,12 @@ public class GameEngine
    
    public void credits()
    {
-       gui.println("Nous sommes NGUYEN Hong Ngoc aka Ngocky et PATOIS Thibault, deux étudiants très brillants en 3ème de l'ESIEE (LES E3S EN FORCE!!!!). Nous avons crée ce jeu dans le cadre de l'apprentissage de Java, mais nous avons mis là dedans tout notre amour (un peu moins pour Thibault qui a mis tout son coeur dans les nombreuses versions de notre p   age web), donc j'espère que tu vas aimer notre jeu");
+       gui.println("Nous sommes NGUYEN Hong Ngoc aka Ngocky et PATOIS Thibault, deux étudiants très brillants en 3ème de l'ESIEE (LES E3S EN FORCE!!!!). Nous avons crée ce jeu dans le cadre de l'apprentissage de Java, mais nous avons mis là dedans tout notre amour (et n'oublie pas Thibault qui a mis tout son coeur dans les nombreuses versions de notre page web), donc j'espère que tu vas aimer notre jeu :D");
    }
 
+   /**Terminer le jeu en fermant la fenetre de jeu
+    * 
+    */
    public void endGame()
    {
 	   gui.killFrame();

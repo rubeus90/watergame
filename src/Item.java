@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Set;
-
 /**
 * Cette classe gère les objets dans les salles
 * Chaque objet est défini par sa description et son poids
