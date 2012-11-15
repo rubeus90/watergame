@@ -2,6 +2,7 @@ import java.util.HashMap;
 import java.util.Stack;
 //import java.util.List;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Cette classe gère tous les aspects du joueur : son nom, la position actuelle, les objets qu'il porte, etc...
@@ -15,7 +16,7 @@ public class Player
    private String aGender;
    private Room aCurrentRoom;
    private String aDescriptionPlayer;
-   private ArrayList<Item> listeItem;
+   private HashMap<String, Item> listeItem;
    private GameEngine engine;
    private UserInterface gui;
    private Stack<Room> salles;
@@ -25,7 +26,7 @@ public class Player
 	   aNom = pNom;
        aGender = pGender;
        
-       listeItem = new ArrayList<Item>();
+       listeItem = new HashMap<String, Item>();
        
        if(aGender == "f")
        {
@@ -93,14 +94,17 @@ public class Player
     */
    public void take(Command command)
    {
-	   if(command.hasSecondWord())
-	   {
-		   String mot = command.getSecondWord();
-		   HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
-		   Item item = hashmap.get(mot);
+	   	String mot = command.getSecondWord();
+		HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
 		   
-		   listeItem.add(item);		   
-	   }
+		if(!hashmap.containsKey(mot))
+			gui.println("Mais il n'y a pas de " + mot +" ici");
+		else
+		{
+			Item item = hashmap.get(mot);		   
+			listeItem.put(mot, item);
+			hashmap.remove(mot);
+		}	   		   
    }
    
    /**Retirer un objet de l'inventaire du joueur. L'objet retiré est défini par le 2ème mot de la commande
@@ -110,14 +114,17 @@ public class Player
     */
    public void drop(Command command)
    {
-	   if(command.hasSecondWord())
-	   {
-		   String mot = command.getSecondWord();
-		   HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
-		   Item item = hashmap.get(mot);
+	    String mot = command.getSecondWord();	
+	    HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
 		   
-		   listeItem.remove(item);		   
-	   }
+		if(!listeItem.containsKey(mot))
+			gui.println("Tu n'as pas de " + mot);
+		else
+		{
+			Item item = listeItem.get(mot);
+			listeItem.remove(mot);
+			hashmap.put(mot, item);
+		}	
    }
    
    
@@ -127,9 +134,11 @@ public class Player
    
 	   if(!listeItem.isEmpty())
 	   {
-		   for(Item items : listeItem)
+		   Set<String> keys = listeItem.keySet();
+		   for(String nom : keys)
 		   {
-			   inventaire += items.getDescriptionItem() + "\n";
+			   Item item = listeItem.get(nom);
+			   inventaire += item.getDescriptionItem() + "\n";
 		   }
 	   }
 	   else

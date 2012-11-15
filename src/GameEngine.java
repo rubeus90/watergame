@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 // import java.io.IOException;
 
+
 /**
  * Cette class est la Class principale du jeux "Water Games".
  * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.   
@@ -205,7 +206,7 @@ public class GameEngine
         {
         	if(!command.hasSecondWord())
         	{
-        		gui.println("Il faut préciser quel objet tu veux prendre!");
+        		gui.println("Il faut préciser quel objet tu veux jeter!");
         	}
         	else
         	{
