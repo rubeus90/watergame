@@ -8,8 +8,8 @@ import java.awt.image.*;
  * This class implements a simple graphical user interface with a text entry
  * area, a text output area and an optional image.
  * 
- * @author Michael Kolling
- * @version 1.0 (Jan 2003)
+ * @author Ngocky & Thibault
+ * @version 0.00001
  */
 public class UserInterface implements ActionListener
 {
@@ -51,7 +51,8 @@ public class UserInterface implements ActionListener
         engine = gameEngine;
         createGUI();
     }
-
+    
+    
     /**
      * Print out some text into the text area.
      */
@@ -333,7 +334,6 @@ public class UserInterface implements ActionListener
      */
     private void processCommand()
     {
-        boolean finished = false;
         String input = entryField.getText();
         entryField.setText("");
 

@@ -25,9 +25,9 @@ import java.io.FileNotFoundException;
 public class GameEngine 
 {
     private Parser parser;
-    private Room currentRoom;
+//    private Room currentRoom;
     private UserInterface gui;
-    private Stack<Room> salles;
+//    private Stack<Room> salles;
     private Player player;
       
     
@@ -35,8 +35,9 @@ public class GameEngine
     /**
      * Créé le jeux et initialiser la carte.
      */
-    public GameEngine() 
+    public GameEngine(final Player pPlayer) 
     {
+    	player = pPlayer;
         createGame();
         parser = new Parser();
     }
@@ -86,15 +87,17 @@ public class GameEngine
         temple.addItem("torche", new Item("une petite torche", 1));
                
 
-        currentRoom = temple;  // le jeu commence au temple       
+//        currentRoom = temple;  // le jeu commence au temple       
         
-        salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
-        l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
+//        salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
+//        l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
         
-        //On crée le joueur
-        player = new Player("Julie","f");    
-        player.setCurrentRoom(temple);
+//        //On crée le joueur
+//        player = new Player("Julie","f");    
+        player.setCurrentRoom(temple);        
     }
+    
+    
     
     
 
@@ -102,8 +105,9 @@ public class GameEngine
      * @return Les sorties possibles
      */
     
-    private void printLocationInfo()
+    public void printLocationInfo()
     {   
+    	Room currentRoom = player.getRoom();
         gui.println(currentRoom.getLongDescription());
         printInventaire();
     }
@@ -122,6 +126,7 @@ public class GameEngine
         gui.println(player.getLongDescriptionPlayer() + "\n");
                 
         printLocationInfo();
+        Room currentRoom = player.getRoom();
         gui.showImage(currentRoom.getImageName());
     }
     
@@ -165,13 +170,13 @@ public class GameEngine
         if (commandWord.equals("help"))
             printHelp();
         else if (commandWord.equals("go"))
-            goRoom(command);
+            player.goRoom(command);
         else if (commandWord.equals("eat"))
-            eat();
+            player.eat();
         else if (commandWord.equals("look"))
-            look();   
+            player.look();   
         else if(commandWord.equals("back"))
-            back(command);
+            player.back(command);
         else if (commandWord.equals("quit")) 
         {
             if(command.hasSecondWord())
@@ -210,97 +215,7 @@ public class GameEngine
         }
     }
     
-    
 
-    /** 
-     * Procédure pour passer d'une salle à une autre. Si il n'y a pas de sortie, entré un nouvelle direction. 
-     * Sinon affiché un message d'erreur.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) 
-        {
-            gui.println("Aller ou exactement, soit un peu plus précis!");
-        }
-        
-        //Stocker la salle actuelle dans le stack (pour la méthode back)
-        salles.push(currentRoom);
-        
-        String direction = command.getSecondWord();
-
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) 
-        {
-            gui.println("Tu arrives au bord de l'île, tu vas tomber dans l'eau si tu continues!");
-        }
-        else 
-        {         
-            currentRoom = nextRoom;
-            player.setCurrentRoom(nextRoom);
-            printLocationInfo();
-            
-            if(currentRoom.getImageName() != null)
-            {
-                gui.showImage(currentRoom.getImageName());
-            }
-        }
-    }
-    
-    
-    /**Implémenter la commande Back pour retourner dans la salle précédente.
-     * On stocke les salles visitée précédemment dans une Stack, à chaque fois on veut revenir sur notre pas, on utilise la commande "pop" qui prendre
-     * la denière valeur de la Stack (donc la dernière salle visitée) et qui retire cette salle de la Stack.
-     * Quand la Stack est vide, on est revenu au début du jeu.
-     */
-    public void back(Command command)
-    {
-        if(command.hasSecondWord())
-        {
-            gui.println("Tu ne peux pas revenir ou tu veux, c'est pas la fête ici!");
-        }
-        else
-        {
-            if(salles.empty() == true)
-                gui.println("Tu es revenu au début du jeu!");
-            else
-            {
-            currentRoom = salles.pop();
-            printLocationInfo();
-            
-            if(currentRoom.getImageName() != null)
-                gui.showImage(currentRoom.getImageName());
-                
-            }
-        }
-            
-            
-    }
-    
-    /**Redonner les informations de la salle et les sorties disponibles
-     */
-    private void look()
-    {
-        gui.println(currentRoom.getLongDescription());
-    }
-    
-    /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
-     * 
-     */
-    public void eat()
-    {
-        gui.println("Tu as déjà mangé, tu n'as plus faim");
-    }
-
-//    /** 
-//     * Si "Quit" a été tapé par l'utilisateur, vérifié le reste de la commande pour voir si il veux vraiment quitter le jeux.
-//     * @return Vrai, si la commande quit a été correctement tapé, sinon retourne Faux.
-//     */
-//    private void endGame()
-//    {
-//        gui.println("Merci d'avoir jouer, à bientôt!");
-//        gui.enable(false);
-//    }
     
     /**
      * Une méthode test qui permet de tester tous les commandes du jeu en exécutant toutes les lignes d'un fichier de texte 

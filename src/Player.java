@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Stack;
 //import java.util.List;
 import java.util.ArrayList;
 
@@ -15,11 +16,13 @@ public class Player
    private Room aCurrentRoom;
    private String aDescriptionPlayer;
    private ArrayList<Item> listeItem;
+   private GameEngine engine;
+   private UserInterface gui;
+   private Stack<Room> salles;
    
    public Player(final String pNom, final String pGender)
    {
-       aNom = pNom;
-       aCurrentRoom = null;
+	   aNom = pNom;
        aGender = pGender;
        
        listeItem = new ArrayList<Item>();
@@ -32,11 +35,32 @@ public class Player
        {
        aDescriptionPlayer = "Tu es un guerrier qui est malgré ton apparence peu viril, dispose une force exceptionnelle et la capacité de t'adapter à la nature que tes adversaires devront avoir peur de toi.";
        }
+       
+       salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
+       l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
+   }
+   
+      
+   public void setGameEngine(final GameEngine gameEngine)
+   {
+	   engine = gameEngine;
+   }
+   
+   public void setUserInterface(final UserInterface userinterface)
+   {
+	   gui = userinterface;
    }
    
    public void setCurrentRoom(final Room pRoom)
    {
 	   aCurrentRoom = pRoom;
+	   salles.push(aCurrentRoom);
+	   
+   }
+   
+   public Room getRoom()
+   {
+	   return aCurrentRoom;
    }
      
 //      
@@ -113,4 +137,85 @@ public class Player
 		   
 	   return inventaire;
    }
+   
+   
+   
+   /** 
+    * Procédure pour passer d'une salle à une autre. Si il n'y a pas de sortie, entré un nouvelle direction. 
+    * Sinon affiché un message d'erreur.
+    */
+   public void goRoom(Command command) 
+   {
+       if(!command.hasSecondWord()) 
+       {
+           gui.println("Aller ou exactement, soit un peu plus précis!");
+       }
+       
+       //Stocker la salle actuelle dans le stack (pour la méthode back)
+       salles.push(aCurrentRoom);
+       
+       String direction = command.getSecondWord();
+
+       Room nextRoom = aCurrentRoom.getExit(direction);
+
+       if (nextRoom == null) 
+       {
+           gui.println("Tu arrives au bord de l'île, tu vas tomber dans l'eau si tu continues!");
+       }
+       else 
+       {         
+           aCurrentRoom = nextRoom;
+//           player.setCurrentRoom(nextRoom);
+           engine.printLocationInfo();
+           
+           if(aCurrentRoom.getImageName() != null)
+           {
+               gui.showImage(aCurrentRoom.getImageName());
+           }
+       }
+   }
+   
+   /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
+    * 
+    */
+   public void eat()
+   {
+       gui.println("Tu as déjà mangé, tu n'as plus faim");
+   }
+   
+   /**Implémenter la commande Back pour retourner dans la salle précédente.
+    * On stocke les salles visitée précédemment dans une Stack, à chaque fois on veut revenir sur notre pas, on utilise la commande "pop" qui prendre
+    * la denière valeur de la Stack (donc la dernière salle visitée) et qui retire cette salle de la Stack.
+    * Quand la Stack est vide, on est revenu au début du jeu.
+    */
+   public void back(Command command)
+   {
+       if(command.hasSecondWord())
+       {
+           gui.println("Tu ne peux pas revenir ou tu veux, c'est pas la fête ici!");
+       }
+       else
+       {
+           if(salles.empty() == true)
+               gui.println("Tu es revenu au début du jeu!");
+           else
+           {
+           aCurrentRoom = salles.pop();
+           engine.printLocationInfo();
+           
+           if(aCurrentRoom.getImageName() != null)
+               gui.showImage(aCurrentRoom.getImageName());
+               
+           }
+       }         
+           
+   }
+   
+   /**Redonner les informations de la salle et les sorties disponibles
+    */
+   public void look()
+   {
+       gui.println(aCurrentRoom.getLongDescription());
+   }
+   
 }

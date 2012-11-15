@@ -1,0 +1,11 @@
+go
+go nord
+take arc
+go sud
+drop arc
+go ouest
+go est
+eat
+look
+help
+back
