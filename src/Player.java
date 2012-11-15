@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.Stack;
 //import java.util.List;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -16,17 +16,18 @@ public class Player
    private String aGender;
    private Room aCurrentRoom;
    private String aDescriptionPlayer;
-   private HashMap<String, Item> listeItem;
+//   private HashMap<String, Item> listeItem;
    private GameEngine engine;
    private UserInterface gui;
    private Stack<Room> salles;
+   private ItemListe liste;
    
    public Player(final String pNom, final String pGender)
    {
 	   aNom = pNom;
        aGender = pGender;
        
-       listeItem = new HashMap<String, Item>();
+//       listeItem = new HashMap<String, Item>();
        
        if(aGender == "f")
        {
@@ -39,6 +40,8 @@ public class Player
        
        salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
        l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
+       
+       liste = new ItemListe();
    }
    
       
@@ -95,15 +98,14 @@ public class Player
    public void take(Command command)
    {
 	   	String mot = command.getSecondWord();
-		HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
-		   
-		if(!hashmap.containsKey(mot))
+				   
+		if(!liste.getHashMapRoom().containsKey(mot))
 			gui.println("Mais il n'y a pas de " + mot +" ici");
 		else
 		{
-			Item item = hashmap.get(mot);		   
-			listeItem.put(mot, item);
-			hashmap.remove(mot);
+			Item item = liste.getHashMapRoom().get(mot);		   
+			liste.getHashMapPlayer().put(mot, item);
+			liste.getHashMapRoom().remove(mot);
 		}	   		   
    }
    
@@ -115,15 +117,14 @@ public class Player
    public void drop(Command command)
    {
 	    String mot = command.getSecondWord();	
-	    HashMap<String, Item> hashmap = aCurrentRoom.getHahsMap();
-		   
-		if(!listeItem.containsKey(mot))
+	    		   
+		if(!liste.getHashMapPlayer().containsKey(mot))
 			gui.println("Tu n'as pas de " + mot);
 		else
 		{
-			Item item = listeItem.get(mot);
-			listeItem.remove(mot);
-			hashmap.put(mot, item);
+			Item item = liste.getHashMapPlayer().get(mot);
+			liste.getHashMapPlayer().remove(mot);
+			liste.getHashMapRoom().put(mot, item);
 		}	
    }
    
@@ -132,12 +133,12 @@ public class Player
    {
 	   String inventaire = "Dans ton inventaire: " + "\n";
    
-	   if(!listeItem.isEmpty())
+	   if(!liste.getHashMapPlayer().isEmpty())
 	   {
-		   Set<String> keys = listeItem.keySet();
+		   Set<String> keys = liste.getHashMapPlayer().keySet();
 		   for(String nom : keys)
 		   {
-			   Item item = listeItem.get(nom);
+			   Item item = liste.getHashMapPlayer().get(nom);
 			   inventaire += item.getDescriptionItem() + "\n";
 		   }
 	   }
