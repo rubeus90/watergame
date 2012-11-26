@@ -24,9 +24,8 @@ public class Room
 //    private HashMap<String, Item> items;
     
     //     private HashMap<String, Room> room;
-    private String imageName;
-    private ItemListe liste;
-        
+    private String imageName;        
+    private ItemListe items;
 
     /**
      * Constructeur qui permet d'initialiser la description d'une salle. "
@@ -40,7 +39,7 @@ public class Room
         exits = new HashMap<String, Room>();
 //        items = new HashMap<String, Item>();
         imageName = image;
-        liste = new ItemListe();
+        items = new ItemListe();
     }
 
     //     /**HashMap pour contenir les rooms, chaque room est lié à son nom
@@ -120,7 +119,19 @@ public class Room
     */
     public void addItem(String nomItem, Item item)
     {
-        liste.getHashMapRoom().put(nomItem, item);   
+        items.putItem(nomItem, item);   
+    }
+    
+    /**Retirer un objet du HashMap
+     */
+    public void deleteItem(String nomItem)
+    {
+        items.removeItem(nomItem);
+    }
+    
+    public ItemListe getItemListe()
+    {
+        return items;
     }
        
     
@@ -130,13 +141,13 @@ public class Room
      */
     public String getItemString()
     {
-        Set<String> cles = liste.getHashMapRoom().keySet();
+        Set<String> cles = items.getKeys();
              
         String itemString = "Regarde s'il y a des objets ici: ";
         
         for(String nom : cles)
         {
-            Item valeurs = liste.getHashMapRoom().get(nom);
+            Item valeurs = items.getValue(nom);
             
             if(valeurs == null)
                 itemString += "Il n'y a pas d'objet ici";
@@ -154,7 +165,7 @@ public class Room
      */
 //    public HashMap<String, Item> getHahsMap()
 //    {
-//    	return items;
+//        return items;
 //    }
     
     
