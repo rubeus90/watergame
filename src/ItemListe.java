@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Set;
 
 
 /**Cette classe sert à gérer les listes d'objets pour éviter la duplication des listes d'objets (les HahsMap) dans Player et dans Room
@@ -6,26 +7,43 @@ import java.util.HashMap;
  * @author rubeus
  *
  */
-public class ItemListe {
+public class ItemListe 
+{
 
-	private HashMap<String, Item> itemPlayer;
-	private HashMap<String, Item> itemRoom;
-	
+	private HashMap<String, Item> items;
+		
 	public ItemListe()
 	{
-		itemPlayer = new HashMap<String, Item>();
-		itemRoom = new HashMap<String, Item>();
+		items = new HashMap<String, Item>();
 	}
 	
-	public HashMap<String, Item> getHashMapPlayer()
+	public HashMap<String, Item> getHashMap()
 	{
-		return itemPlayer;
+		return items;
 	}
-	
-	public HashMap<String, Item> getHashMapRoom()
+		
+	public void putItem(String nomItem, Item item)
 	{
-		return itemRoom;
+	    items.put(nomItem, item);
 	}
 	
+	public void removeItem(String nomItem)
+	{
+	    items.remove(nomItem);
+	}
 	
+	public Set<String> getKeys()
+	{
+	    return items.keySet();
+	}
+	
+	public Item getValue(String key)
+	{
+	    return items.get(key);
+	}
+	
+	public boolean containsKey(String mot)
+	{
+	    return items.containsKey(mot);
+	}
 }
