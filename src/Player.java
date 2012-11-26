@@ -1,4 +1,4 @@
-import java.util.HashMap;
+ import java.util.HashMap;
 import java.util.Stack;
 //import java.util.List;
 //import java.util.ArrayList;
@@ -20,12 +20,16 @@ public class Player
    private GameEngine engine;
    private UserInterface gui;
    private Stack<Room> salles;
-   private ItemListe liste;
+   private ItemListe items;
+   private int maxPoids;
+   private int sante;
    
    public Player(final String pNom, final String pGender)
    {
-	   aNom = pNom;
+       aNom = pNom;
        aGender = pGender;
+       maxPoids = 100;
+       sante = 80;
        
 //       listeItem = new HashMap<String, Item>();
        
@@ -41,30 +45,30 @@ public class Player
        salles = new Stack<Room>();  /*créer un Stack vide pour la méthode back, cette création est mise ici car si on la crée dans la méthode, lorsque 
        l'on exécute la commande back dès le début du jeu, ça génère des exceptions*/
        
-       liste = new ItemListe();
+       items = new ItemListe();
    }
    
       
    public void setGameEngine(final GameEngine gameEngine)
    {
-	   engine = gameEngine;
+       engine = gameEngine;
    }
    
    public void setUserInterface(final UserInterface userinterface)
    {
-	   gui = userinterface;
+       gui = userinterface;
    }
    
    public void setCurrentRoom(final Room pRoom)
    {
-	   aCurrentRoom = pRoom;
-	   salles.push(aCurrentRoom);
-	   
+       aCurrentRoom = pRoom;
+       salles.push(aCurrentRoom);
+       
    }
    
    public Room getRoom()
    {
-	   return aCurrentRoom;
+       return aCurrentRoom;
    }
      
 //      
@@ -97,16 +101,21 @@ public class Player
     */
    public void take(Command command)
    {
-	   	String mot = command.getSecondWord();
-				   
-		if(!liste.getHashMapRoom().containsKey(mot))
-			gui.println("Mais il n'y a pas de " + mot +" ici");
-		else
-		{
-			Item item = liste.getHashMapRoom().get(mot);		   
-			liste.getHashMapPlayer().put(mot, item);
-			liste.getHashMapRoom().remove(mot);
-		}	   		   
+        String mot = command.getSecondWord();
+        
+        if(this.getPoidsInventaire() <= maxPoids)
+        {        
+            if(!aCurrentRoom.getItemListe().containsKey(mot))
+                gui.println("Mais il n'y a pas de " + mot +" ici");
+            else
+            {
+                Item item = aCurrentRoom.getItemListe().getValue(mot);           
+                items.putItem(mot, item);
+                aCurrentRoom.deleteItem(mot);
+            }              
+        }
+        else
+            gui.println("Ton sac est déjà trop lourd, tu ne peux pas prendre plus d'objet. Jette un autre objet sinon!");
    }
    
    /**Retirer un objet de l'inventaire du joueur. L'objet retiré est défini par le 2ème mot de la commande
@@ -116,38 +125,49 @@ public class Player
     */
    public void drop(Command command)
    {
-	    String mot = command.getSecondWord();	
-	    		   
-		if(!liste.getHashMapPlayer().containsKey(mot))
-			gui.println("Tu n'as pas de " + mot);
-		else
-		{
-			Item item = liste.getHashMapPlayer().get(mot);
-			liste.getHashMapPlayer().remove(mot);
-			liste.getHashMapRoom().put(mot, item);
-		}	
+        String mot = command.getSecondWord();   
+                   
+        if(!items.containsKey(mot))
+            gui.println("Tu n'as pas de " + mot);
+        else
+        {
+            Item item = items.getValue(mot);
+            items.removeItem(mot);
+            aCurrentRoom.addItem(mot, item);
+        }   
    }
    
    
    public String getInventaire()
    {
-	   String inventaire = "Dans ton inventaire: " + "\n";
+       String inventaire = "Dans ton inventaire: " + "\n";
    
-	   if(!liste.getHashMapPlayer().isEmpty())
-	   {
-		   Set<String> keys = liste.getHashMapPlayer().keySet();
-		   for(String nom : keys)
-		   {
-			   Item item = liste.getHashMapPlayer().get(nom);
-			   inventaire += item.getDescriptionItem() + "\n";
-		   }
-	   }
-	   else
-		   inventaire = "Il n'y a rien dans ton inventaire.";
-		   
-	   return inventaire;
+       if(!items.getHashMap().isEmpty())
+       {
+           Set<String> keys = items.getKeys();
+           for(String nom : keys)
+           {
+               Item item = items.getValue(nom);
+               inventaire += item.getDescriptionItem() + "\n";
+           }
+       }
+       else
+           inventaire = "Il n'y a rien dans ton inventaire.";
+           
+       return inventaire;
    }
    
+   public int getPoidsInventaire()
+   {
+       Set<String> keys = items.getKeys();
+       int poids = 0;
+       for(String nom : keys)
+       {
+           Item item = items.getValue(nom);
+           poids += item.getWeightItem();
+       }
+       return poids;
+   }
    
    
    /** 
@@ -217,7 +237,7 @@ public class Player
                gui.showImage(aCurrentRoom.getImageName());
                
            }
-       }         
+       }                 
            
    }
    
@@ -227,5 +247,19 @@ public class Player
    {
        gui.println(aCurrentRoom.getLongDescription());
    }
+   
+   public void setMaxPoids()
+   {
+       if(sante>=0 && sante <20)
+            maxPoids = 0;
+       if(sante>=20 && sante < 60)
+            maxPoids = 70;
+       if(sante>=60 && sante < 80)
+            maxPoids = 100;
+       if(sante>=80 && sante <=100)
+            maxPoids = 140;
+   }
+   
+   
    
 }
