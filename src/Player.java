@@ -89,7 +89,7 @@ public class Player
    
    public String getLongDescriptionPlayer()
    {
-       String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n";
+       String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n" + "Santé : " + sante;
        
        return description;
    }
@@ -102,20 +102,24 @@ public class Player
    public void take(Command command)
    {
         String mot = command.getSecondWord();
+        Item item = aCurrentRoom.getItemListe().getValue(mot);
+        int poidsFuture = this.getPoidsInventaire() + item.getWeightItem();
         
-        if(this.getPoidsInventaire() <= maxPoids)
+        if(poidsFuture > maxPoids)
+        	gui.println("Ton sac est déjà trop lourd, tu ne peux pas prendre plus d'objet. Jette un autre objet sinon!");
+        else
         {        
             if(!aCurrentRoom.getItemListe().containsKey(mot))
                 gui.println("Mais il n'y a pas de " + mot +" ici");
             else
             {
-                Item item = aCurrentRoom.getItemListe().getValue(mot);           
+//                Item item = aCurrentRoom.getItemListe().getValue(mot);           
                 items.putItem(mot, item);
                 aCurrentRoom.deleteItem(mot);
             }              
         }
-        else
-            gui.println("Ton sac est déjà trop lourd, tu ne peux pas prendre plus d'objet. Jette un autre objet sinon!");
+        
+            
    }
    
    /**Retirer un objet de l'inventaire du joueur. L'objet retiré est défini par le 2ème mot de la commande
@@ -148,7 +152,7 @@ public class Player
            for(String nom : keys)
            {
                Item item = items.getValue(nom);
-               inventaire += item.getDescriptionItem() + "\n";
+               inventaire += item.getDescriptionItem() + " qui pèse " + item.getWeightItem() + "\n";
            }
        }
        else
@@ -168,7 +172,7 @@ public class Player
        }
        return poids;
    }
-   
+     
    
    /** 
     * Procédure pour passer d'une salle à une autre. Si il n'y a pas de sortie, entré un nouvelle direction. 
@@ -256,10 +260,26 @@ public class Player
             maxPoids = 70;
        if(sante>=60 && sante < 80)
             maxPoids = 100;
-       if(sante>=80 && sante <=100)
+       if(sante>=80)
             maxPoids = 140;
    }
    
+   public int getSante()
+   {
+	   return sante;
+   }
    
+   public void augmenteSante(final int nbr)
+   {
+	   sante += nbr;
+   }
+   
+   public void diminueSante(final int nbr)
+   {
+	   if(sante > 0)
+		   {
+		   		sante -= nbr;
+		   }
+   }
    
 }

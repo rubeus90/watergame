@@ -83,9 +83,9 @@ public class GameEngine
         foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
         plaine.addItem("sabre", new Item("un sabre lumineux", 30));
         grotte.addItem("massue", new Item("une grande massue", 45));
-        plage.addItem("filet", new Item("un grand filet", 5));
-        temple.addItem("arc", new Item("un arc en bois", 10));
-        temple.addItem("torche", new Item("une petite torche", 1));
+        plage.addItem("filet", new Item("un grand filet", 50));
+        temple.addItem("arc", new Item("un arc en bois", 400));
+        temple.addItem("torche", new Item("une petite torche", 10));
                
 
 //        currentRoom = temple;  // le jeu commence au temple       
@@ -111,6 +111,7 @@ public class GameEngine
     	Room currentRoom = player.getRoom();
         gui.println(currentRoom.getLongDescription());
         printInventaire();
+        gui.println("Ta santé: " + player.getSante());
     }
     
     
@@ -147,6 +148,7 @@ public class GameEngine
     private void printInventaire()
     {
     	gui.println(player.getInventaire());
+    	gui.println("Le poids total de ton inventaire est de " + player.getPoidsInventaire() + "kg");
     }
 
     /**
@@ -171,13 +173,19 @@ public class GameEngine
         if (commandWord.equals("help"))
             printHelp();
         else if (commandWord.equals("go"))
-            player.goRoom(command);
+        {
+        	player.diminueSante(10);
+        	player.goRoom(command);
+        }
         else if (commandWord.equals("eat"))
             player.eat();
         else if (commandWord.equals("look"))
             player.look();   
         else if(commandWord.equals("back"))
-            player.back(command);
+        {
+        	player.diminueSante(10);
+        	player.back(command);
+        }            
         else if (commandWord.equals("quit")) 
         {
             if(command.hasSecondWord())
