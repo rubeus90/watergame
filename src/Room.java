@@ -157,7 +157,16 @@ public class Room
             else
                 itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.toString() + " kg";
         }
-                 
+            
+        
+        /**********Juste pour tester l'ArrayList des potions**********/
+        for(int i=0; i<potion.size();i++)
+        {
+        	itemString += "\n" + potion.get(i).getNomPotion();        			
+        }
+        /****************************************************************/
+        
+        
             return itemString;
         
     }
@@ -172,25 +181,46 @@ public class Room
     	potion.remove(pPotion);
     }
     
+    public ArrayList<Potion> getArrayList()
+    {
+    	return potion;
+    }
     
-//    public String getPotionString()
-//    {
-//    	String listePotion = "";
-//    	for(int i=0; i < potion.size(); i++)
-//    		Potion truc = potion(i);
-//    		listePotion += truc.getPotionString();
-//    		
-//    }
-    
-    
-    /** Un accesseur pour le HashMap des objets. Cette fonction est utilisée dans les méthodes take() et drop() de Player
+    /**Cette méthode est pour vérifier si une potion appartient à l'ArrayList des potions. Manques de meilleure idée, la méthode ici 
+     * fait simplement une boucle de comparaison entre le nom de potion passé en paramètre et tous les noms de potion dans l'ArrayList.
      * 
-     * @return le HashMap des objets dans chaque salle
+     * C'est une méthode extrêmement moche donc à refaire si on a assez de temps.
+     * 
+     * @param nomPotion
+     * @return
      */
-//    public HashMap<String, Item> getHahsMap()
-//    {
-//        return items;
-//    }
+    public boolean containPotion(String nomPotion)
+    {
+       	boolean contain = false;
     
+    	for(int i=0; i<potion.size();i++)
+    	{
+    		if(potion.get(i).getNomPotion()==nomPotion)
+    			contain = true;
+    	}
+    	
+    	return contain;
+    }
     
+    /**Méthode aussi moche que la précédente
+     * 
+     * @param nomPotion
+     * @return
+     */
+    public int indexPotion(String nomPotion)
+    {
+    	int k = 0;
+    	for(int i=0; i<potion.size();i++)
+    	{
+    		if(potion.get(i).getNomPotion()==nomPotion)
+    			k = i;
+    	}
+    	
+       	return k;
+    }
 }

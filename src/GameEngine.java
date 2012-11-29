@@ -114,7 +114,7 @@ public class GameEngine
     	Room currentRoom = player.getRoom();
         gui.println(currentRoom.getLongDescription());
 //        printInventaire();
-        gui.println("Ta santé: " + player.getSante());
+        gui.println("Ta santé: " + player.getSante());   
     }
     
     

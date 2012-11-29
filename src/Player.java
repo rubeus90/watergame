@@ -295,9 +295,34 @@ public class Player
 	   String mot = command.getSecondWord();
 	   
 	   if(mot.equals("potion"))
-		   augmenteSante(10);
+	   {
+		   if(aCurrentRoom.containPotion("Potion"))
+		   {
+			   augmenteSante(10);
+			   int index = aCurrentRoom.indexPotion("Potion");
+			   aCurrentRoom.getArrayList().remove(index);
+		   }
+		   else
+		   {
+			   gui.println("Il n'y a pas (ou plus) de cette potion dans cette salle");
+		   }
+		   
+	   }
+		   	   		
 	   else if(mot.equals("soin"))
-		   augmenteSante(20);
+	   {
+		   if(aCurrentRoom.containPotion("Soin"))
+		   {
+			   augmenteSante(10);
+			   int index = aCurrentRoom.indexPotion("Soin");
+			   aCurrentRoom.getArrayList().remove(index);
+		   }
+		   else
+		   {
+			   gui.println("Il n'y a pas (ou plus) de cette potion dans cette salle");
+		   }
+	   }
+	   
 	   else
 		   gui.println("Il n'y a pas cette potion!");
    }
