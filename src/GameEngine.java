@@ -86,6 +86,9 @@ public class GameEngine
         plage.addItem("filet", new Item("un grand filet", 50));
         temple.addItem("arc", new Item("un arc en bois", 400));
         temple.addItem("torche", new Item("une petite torche", 10));
+        
+        temple.addPotion(new Potion("Potion"));
+        temple.addPotion(new Potion("Soin"));
                
 
 //        currentRoom = temple;  // le jeu commence au temple       
@@ -110,7 +113,7 @@ public class GameEngine
     {   
     	Room currentRoom = player.getRoom();
         gui.println(currentRoom.getLongDescription());
-        printInventaire();
+//        printInventaire();
         gui.println("Ta santé: " + player.getSante());
     }
     
@@ -145,7 +148,7 @@ public class GameEngine
         gui.print("\n");
     }
     
-    private void printInventaire()
+    public void printInventaire()
     {
     	gui.println(player.getInventaire());
     	gui.println("Le poids total de ton inventaire est de " + player.getPoidsInventaire() + "kg");
@@ -175,10 +178,11 @@ public class GameEngine
         else if (commandWord.equals("go"))
         {
         	player.diminueSante(10);
+        	player.setMaxPoids();
         	player.goRoom(command);
         }
-        else if (commandWord.equals("eat"))
-            player.eat();
+//        else if (commandWord.equals("eat"))
+//            player.eat();
         else if (commandWord.equals("look"))
             player.look();   
         else if(commandWord.equals("back"))
@@ -206,7 +210,7 @@ public class GameEngine
         	else
         	{
         		player.take(command);
-        		printInventaire();
+//        		printInventaire();
         	}
        
         }
@@ -219,7 +223,21 @@ public class GameEngine
         	else
         	{
         		player.drop(command);
-        		printInventaire();
+//        		printInventaire();
+        	}
+        }
+        else if(commandWord.equals("items"))
+        	printInventaire();
+        else if(commandWord.equals("boire"))
+        {
+        	if(!command.hasSecondWord())
+        	{
+        		gui.println("Tu veux boire quoi crétin?");
+        	}
+        	else
+        	{
+        		player.boire(command);
+        		gui.println("Ton niveau de santé est maintenant de " + player.getSante());        
         	}
         }
     }

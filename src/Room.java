@@ -1,6 +1,7 @@
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Set;
-import java.util.Iterator;
+//import java.util.Iterator;
 
 /**
  * Class Room - une salle ou un terrain dans le jeux d'aventure.
@@ -22,6 +23,7 @@ public class Room
     //     public Room westExit;
     private HashMap<String, Room> exits;
 //    private HashMap<String, Item> items;
+    private ArrayList<Potion> potion;
     
     //     private HashMap<String, Room> room;
     private String imageName;        
@@ -40,6 +42,7 @@ public class Room
 //        items = new HashMap<String, Item>();
         imageName = image;
         items = new ItemListe();
+        potion = new ArrayList<Potion>();
     }
 
     //     /**HashMap pour contenir les rooms, chaque room est lié à son nom
@@ -159,6 +162,27 @@ public class Room
         
     }
    
+    public void addPotion(final Potion pPotion)
+    {
+    	potion.add(pPotion);
+    }
+    
+    public void removePotion(final Potion pPotion)
+    {
+    	potion.remove(pPotion);
+    }
+    
+    
+//    public String getPotionString()
+//    {
+//    	String listePotion = "";
+//    	for(int i=0; i < potion.size(); i++)
+//    		Potion truc = potion(i);
+//    		listePotion += truc.getPotionString();
+//    		
+//    }
+    
+    
     /** Un accesseur pour le HashMap des objets. Cette fonction est utilisée dans les méthodes take() et drop() de Player
      * 
      * @return le HashMap des objets dans chaque salle

@@ -27,9 +27,9 @@ public class Player
    public Player(final String pNom, final String pGender)
    {
        aNom = pNom;
-       aGender = pGender;
-       maxPoids = 100;
+       aGender = pGender;       
        sante = 80;
+       maxPoids = 100 ;
        
 //       listeItem = new HashMap<String, Item>();
        
@@ -116,6 +116,7 @@ public class Player
 //                Item item = aCurrentRoom.getItemListe().getValue(mot);           
                 items.putItem(mot, item);
                 aCurrentRoom.deleteItem(mot);
+                gui.println("Tu as pris un(e) " + mot);
             }              
         }
         
@@ -172,6 +173,11 @@ public class Player
        }
        return poids;
    }
+   
+//   public void printInventaire()
+//   {
+//	   gui.println(getInventaire() + "\n" + "Le poids total de ton inventaire: " + getPoidsInventaire());
+//   }
      
    
    /** 
@@ -209,13 +215,13 @@ public class Player
        }
    }
    
-   /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
-    * 
-    */
-   public void eat()
-   {
-       gui.println("Tu as déjà mangé, tu n'as plus faim");
-   }
+//   /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà mangé.
+//    * 
+//    */
+//   public void eat()
+//   {
+//       gui.println("Tu as déjà mangé, tu n'as plus faim");
+//   }
    
    /**Implémenter la commande Back pour retourner dans la salle précédente.
     * On stocke les salles visitée précédemment dans une Stack, à chaque fois on veut revenir sur notre pas, on utilise la commande "pop" qui prendre
@@ -260,8 +266,10 @@ public class Player
             maxPoids = 70;
        if(sante>=60 && sante < 80)
             maxPoids = 100;
-       if(sante>=80)
+       if(sante>=80 && sante <100)
             maxPoids = 140;
+       if(sante >= 100)
+    	   maxPoids = 160;
    }
    
    public int getSante()
@@ -281,5 +289,18 @@ public class Player
 		   		sante -= nbr;
 		   }
    }
+   
+   public void boire(Command command)
+   {
+	   String mot = command.getSecondWord();
+	   
+	   if(mot.equals("potion"))
+		   augmenteSante(10);
+	   else if(mot.equals("soin"))
+		   augmenteSante(20);
+	   else
+		   gui.println("Il n'y a pas cette potion!");
+   }
+    
    
 }

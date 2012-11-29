@@ -1,8 +1,26 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.URL;
-import java.awt.image.*;
+
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * This class implements a simple graphical user interface with a text entry
@@ -34,7 +52,7 @@ public class UserInterface implements ActionListener
     private JMenuItem quitAction;
     private JMenuItem authorAction;
     private JMenuItem copyrightAction;
-   
+   private JComboBox liste;
     private JTextArea log;
     private JLabel image;
 
@@ -130,7 +148,9 @@ public class UserInterface implements ActionListener
         credits.add(authorAction);
         credits.add(copyrightAction);
         
-                
+        /****************************JComboBox******************************************************/
+                liste = new JComboBox();
+                liste.addItem("truc");
         
         /*********************************L'entrée de text*****************************************/
         entryField = new JTextField(34);
@@ -167,7 +187,7 @@ public class UserInterface implements ActionListener
         bouton10 = new JButton("Manger");
         bouton11 = new JButton("Regarder");
         bouton12 = new JButton("Aide");
-        bouton13 = new JButton("Test");
+        bouton13 = new JButton("Inventaire");
         
         
         /*********************************Les panels*************************************/
@@ -191,7 +211,11 @@ public class UserInterface implements ActionListener
         sspanel1.add(bouton6);
         sspanel1.add(bouton7);
         sspanel1.add(bouton8);
-        sspanel1.add(bouton9);
+//        sspanel1.add(bouton9);
+        
+        sspanel1.add(liste);
+        
+        
         //Sous panel texte
         JPanel sspanel2 = new JPanel();
         sspanel2.setLayout(new BorderLayout());
@@ -244,11 +268,14 @@ public class UserInterface implements ActionListener
         bouton11.addActionListener(this);
         bouton12.addActionListener(this);
         bouton13.addActionListener(this);
-        newAction.addActionListener(this);
-        authorAction.addActionListener(this);
+        
+        
+        authorAction.addMenuKeyListener(null);
+//        newAction.addActionListener(this);
+//        authorAction.addActionListener(this);
        
         
-        
+        liste.getSelectedItem();
         
         myFrame.pack();
         myFrame.setVisible(true);
@@ -317,11 +344,11 @@ public class UserInterface implements ActionListener
         }
         else if(e.getSource() == bouton13) 
         {
-            engine.test();
+            engine.printInventaire();
         }
-        else if(e.getSource() == authorAction)
+    	else if(e.getSource() == authorAction)
         {
-            engine.credits();
+        	engine.interpretCommand("help");
         }
         
         else
