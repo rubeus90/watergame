@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Set;
+
 /**
  * Cette classe fait parti du jeux " Water Games" 
  * "Water Games" est un jeux très simple à prendre en main, c'est un jeux textuel.  
@@ -9,11 +12,39 @@
 
 public class CommandWords
 {
-    // a constant array that holds all valid command words
-    private static final String[] validCommands = 
-    {
-        "go", "quit", "help", "look", "eat", "back", "test", "credits", "take", "drop", "items", "boire"
-    };
+//    // a constant array that holds all valid command words
+//    private static final String[] validCommands = 
+//    {
+//          "credits", "take", "drop", "items", "boire"
+//    };
+	
+	private HashMap<String, CommandWord> validCommands;
+	
+	public CommandWords()
+	{
+		validCommands = new HashMap<String, CommandWord>();
+		validCommands.put("go", CommandWord.GO);
+		validCommands.put("aller", CommandWord.GO);
+		validCommands.put("quit", CommandWord.QUIT);
+		validCommands.put("quitter", CommandWord.QUIT);
+		validCommands.put("help", CommandWord.HELP);
+		validCommands.put("aide", CommandWord.HELP);
+		validCommands.put("look", CommandWord.LOOK);
+		validCommands.put("regarder", CommandWord.LOOK);
+		validCommands.put("back", CommandWord.BACK);
+		validCommands.put("retourner", CommandWord.BACK);
+		validCommands.put("test", CommandWord.TEST);
+		validCommands.put("tester", CommandWord.TEST);
+		validCommands.put("credits", CommandWord.CREDITS);
+		validCommands.put("take", CommandWord.TAKE);
+		validCommands.put("prendre", CommandWord.TAKE);
+		validCommands.put("drop", CommandWord.DROP);
+		validCommands.put("jetter", CommandWord.DROP);
+		validCommands.put("items", CommandWord.ITEMS);
+		validCommands.put("inventaire", CommandWord.ITEMS);
+		validCommands.put("drink", CommandWord.DRINK);
+		validCommands.put("boire", CommandWord.DRINK);
+	}
     
     
     /**Afficher tous les commandes
@@ -22,21 +53,22 @@ public class CommandWords
     public String getCommandlist()
     {
        String Commandlist = "Les commandes sont:";
-        for(String commands : validCommands) 
-        {
-            Commandlist += " " + commands;
-        }
-        return Commandlist;
+       Set<String> keys = validCommands.keySet();
+       for(String commands : keys) 
+       {
+           Commandlist += " " + commands;
+       }
+       return Commandlist;
     }
    
 
-    /**
-     * Constructeur - initialise les commandes du jeux.
-     */
-    public CommandWords()
-    {
-        // nothing to do at the moment...
-    }
+//    /**
+//     * Constructeur - initialise les commandes du jeux.
+//     */
+//    public CommandWords()
+//    {
+//        // nothing to do at the moment...
+//    }
 
     /**
      * Vérifie si la commande rentré par l'utilisateur est une commande valide. 
@@ -45,11 +77,26 @@ public class CommandWords
      */
     public boolean isCommand(String aString)
     {
-        for(int i = 0; i < validCommands.length; i++) {
-            if(validCommands[i].equals(aString))
+    	Set<String> keys = validCommands.keySet();
+    	for(String commands : keys)
+//        for(int i = 0; i < validCommands.length; i++) {
+            if(commands.equals(aString))
                 return true;
-        }
+        
         // if we get here, the string was not found in the commands
         return false;
+    }
+    
+    public CommandWord getCommandWord(String commandWord)
+    {
+        CommandWord command = validCommands.get(commandWord);
+        if(command != null) 
+        {
+            return command;
+        }
+        else 
+        {
+            return CommandWord.UNKNOWN;
+        }
     }
 }

@@ -189,7 +189,7 @@ public class Room
     /**Cette méthode est pour vérifier si une potion appartient à l'ArrayList des potions. Manques de meilleure idée, la méthode ici 
      * fait simplement une boucle de comparaison entre le nom de potion passé en paramètre et tous les noms de potion dans l'ArrayList.
      * 
-     * C'est une méthode extrêmement moche donc à refaire si on a assez de temps.
+     * C'est une méthode a priori moche donc à refaire si on a assez de temps.
      * 
      * @param nomPotion
      * @return
@@ -207,7 +207,7 @@ public class Room
     	return contain;
     }
     
-    /**Méthode aussi moche que la précédente
+    /**Méthode aussi moche que la précédente pour retourner l'index de la potion voulue
      * 
      * @param nomPotion
      * @return

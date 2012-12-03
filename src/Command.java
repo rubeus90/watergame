@@ -18,7 +18,7 @@
 
 public class Command
 {
-    private String commandWord;
+    private CommandWord commandWord;
     private String secondWord;
 
     /**
@@ -28,9 +28,9 @@ public class Command
      * @param secondWord Second mot de la commande.
      */
     
-    public Command(String firstWord, String secondWord)
+    public Command(CommandWord commandWord, String secondWord)
     {
-        commandWord = firstWord;
+        this.commandWord = commandWord;
         this.secondWord = secondWord;
     }
 
@@ -39,7 +39,7 @@ public class Command
      * Si la commande n'a pas été reconnu, le résultat sera NULL.
      * @return Le premier mot de la commande.
      */
-    public String getCommandWord()
+    public CommandWord getCommandWord()
     {
         return commandWord;
     }
@@ -60,7 +60,7 @@ public class Command
      */
     public boolean isUnknown()
     {
-        return (commandWord == null);
+        return (commandWord == CommandWord.UNKNOWN);
     }
 
     /**
@@ -72,5 +72,9 @@ public class Command
         return (secondWord != null);
     }
    
-    
+    @Override
+    public String toString()
+    {
+    	return "" + commandWord + " " + secondWord;
+    }
 }

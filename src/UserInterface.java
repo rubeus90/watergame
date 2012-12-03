@@ -3,7 +3,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusListener;
+//import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
@@ -55,6 +55,7 @@ public class UserInterface implements ActionListener
    private JComboBox liste;
     private JTextArea log;
     private JLabel image;
+    private Parser parser;
 
 
     /**
@@ -184,9 +185,9 @@ public class UserInterface implements ActionListener
         bouton7 = new JButton("Back");
         bouton8 = new JButton("Sud");
         bouton9 = new JButton();
-        bouton10 = new JButton("Manger");
-        bouton11 = new JButton("Regarder");
-        bouton12 = new JButton("Aide");
+        bouton10 = new JButton("Potion");
+        bouton11 = new JButton("Soin");
+        bouton12 = new JButton("Regarder");
         bouton13 = new JButton("Inventaire");
         
         
@@ -294,21 +295,22 @@ public class UserInterface implements ActionListener
      */
     public void actionPerformed(ActionEvent e) 
     {
-        if(e.getSource() == bouton1) 
+//        if(e.getSource() == bouton1) 
+//        {
+//            engine.interpretCommand("go");
+//        }
+    	
+        if(e.getSource() == bouton2) 
         {
-            engine.interpretCommand("go");
-        }
-        else if(e.getSource() == bouton2) 
-        {
-            engine.interpretCommand("go nord");
+            engine.interpretCommand(new Command(CommandWord.GO, "nord"));
         }       
         else if(e.getSource() == bouton3) 
         {
-            engine.interpretCommand("go monter");
+            engine.interpretCommand(new Command(CommandWord.GO, "monter"));
         }
         else if(e.getSource() == bouton4) 
         {
-            engine.interpretCommand("go ouest");
+            engine.interpretCommand(new Command(CommandWord.GO, "ouest"));
         }
 //         else if(e.getSource() == bouton5) 
 //         {
@@ -316,15 +318,15 @@ public class UserInterface implements ActionListener
 //         }
         else if(e.getSource() == bouton6) 
         {
-            engine.interpretCommand("go est");
+            engine.interpretCommand(new Command(CommandWord.GO, "est"));
         }
         else if(e.getSource() == bouton7) 
         {
-            engine.interpretCommand("back");
+            engine.interpretCommand(new Command(CommandWord.BACK, null));
         }
         else if(e.getSource() == bouton8) 
         {
-            engine.interpretCommand("go sud");
+            engine.interpretCommand(new Command(CommandWord.GO, "sud"));
         }
 //         else if(e.getSource() == bouton9) 
 //         {
@@ -332,15 +334,15 @@ public class UserInterface implements ActionListener
 //         }
         else if(e.getSource() == bouton10) 
         {
-            engine.interpretCommand("eat");
+            engine.interpretCommand(new Command(CommandWord.DRINK, "potion"));
         }
         else if(e.getSource() == bouton11) 
         {
-            engine.interpretCommand("look");
+            engine.interpretCommand(new Command(CommandWord.DRINK, "soin"));
         }
         else if(e.getSource() == bouton12) 
         {
-            engine.interpretCommand("help");
+            engine.interpretCommand(new Command(CommandWord.LOOK, null));
         }
         else if(e.getSource() == bouton13) 
         {
@@ -348,7 +350,7 @@ public class UserInterface implements ActionListener
         }
     	else if(e.getSource() == authorAction)
         {
-        	engine.interpretCommand("help");
+        	engine.interpretCommand(new Command(CommandWord.CREDITS, null));
         }
         
         else
@@ -363,8 +365,9 @@ public class UserInterface implements ActionListener
     {
         String input = entryField.getText();
         entryField.setText("");
+        Command command = parser.getCommand(input);
 
-        engine.interpretCommand(input);
+        engine.interpretCommand(command);
     }
     
     public void killFrame()

@@ -2,6 +2,10 @@ import javax.swing.JApplet;
 
 public class Game extends JApplet
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7803629994015778818L;
 	private static GameEngine engine;
 	private static UserInterface gui;
 	private static Player player;

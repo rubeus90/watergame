@@ -161,83 +161,103 @@ public class GameEngine
      * @param command La commande à analyser.
      * 
      */
-    public void interpretCommand(String commandLine) 
+    public void interpretCommand(Command command) 
     {
-        gui.println(commandLine);
-        Command command = parser.getCommand(commandLine);
-
-        if(command.isUnknown()) 
+//        gui.println(commandLine);
+//        Command command = parser.getCommand(commandLine);
+        CommandWord commandWord = command.getCommandWord();
+        gui.println(command.toString());
+        
+        switch(commandWord)
         {
-            gui.println("Je ne comprend pas ce que tu veux faire...");
-            return;
-        }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("help"))
-            printHelp();
-        else if (commandWord.equals("go"))
-        {
-        	player.diminueSante(10);
-        	player.setMaxPoids();
-        	player.goRoom(command);
-        }
-//        else if (commandWord.equals("eat"))
-//            player.eat();
-        else if (commandWord.equals("look"))
-            player.look();   
-        else if(commandWord.equals("back"))
-        {
-        	player.diminueSante(10);
-        	player.back(command);
-        }            
-        else if (commandWord.equals("quit")) 
-        {
-            if(command.hasSecondWord())
-                gui.println("Quit quoi? Si tu veux quitter le jeux, écris juste quit");
-            else
-                endGame();
-        }
-        else if(commandWord.equals("test"))
-            test();
-        else if(commandWord.equals("credits"))
-            credits();
-        else if(commandWord.equals("take"))
-        {
-        	if(!command.hasSecondWord())
+        	case UNKNOWN:
         	{
-        		gui.println("Il faut préciser quel objet tu veux prendre!");
+        		gui.println("Je ne comprend pas ce que tu veux faire...");
+//              return;
+        		break;
         	}
-        	else
+        	case HELP: 
+        		{
+        			printHelp(); 
+        			break;
+        		}
+        	case GO:
         	{
-        		player.take(command);
-//        		printInventaire();
+        		player.diminueSante(10);
+            	player.setMaxPoids();
+            	player.goRoom(command);
+            	break;
         	}
-       
-        }
-        else if(commandWord.equals("drop"))
-        {
-        	if(!command.hasSecondWord())
+        	case LOOK: 
+        		{
+        			player.look();
+        			break;
+        		}
+        	case BACK:
         	{
-        		gui.println("Il faut préciser quel objet tu veux jeter!");
+        		player.diminueSante(10);
+            	player.back(command);
+            	break;
         	}
-        	else
+        	case QUIT:
         	{
-        		player.drop(command);
-//        		printInventaire();
+        		if(command.hasSecondWord())
+                    gui.println("Quit quoi? Si tu veux quitter le jeux, écris juste quit");
+                else
+                    endGame();
+        		break;
         	}
-        }
-        else if(commandWord.equals("items"))
-        	printInventaire();
-        else if(commandWord.equals("boire"))
-        {
-        	if(!command.hasSecondWord())
+        	case TEST: 
+        		{
+        			test();
+        			break;
+        		}
+        	case CREDITS: 
+        		{
+        			credits();
+        			break;
+        		}
+        	case TAKE:
         	{
-        		gui.println("Tu veux boire quoi crétin?");
+        		if(!command.hasSecondWord())
+            	{
+            		gui.println("Il faut préciser quel objet tu veux prendre!");
+            	}
+            	else
+            	{
+            		player.take(command);
+            	}
+        		break;
         	}
-        	else
+        	case DROP:
         	{
-        		player.boire(command);
-        		gui.println("Ton niveau de santé est maintenant de " + player.getSante());        
+        		if(!command.hasSecondWord())
+            	{
+            		gui.println("Il faut préciser quel objet tu veux jeter!");
+            	}
+            	else
+            	{
+            		player.drop(command);
+            	}
+        		break;
+        	}
+        	case ITEMS: 
+        		{
+        			printInventaire();
+        			break;
+        		}
+        	case DRINK:
+        	{
+        		if(!command.hasSecondWord())
+            	{
+            		gui.println("Tu veux boire quoi crétin?");
+            	}
+            	else
+            	{
+            		player.boire(command);
+            		gui.println("Ton niveau de santé est maintenant de " + player.getSante());        
+            	}
+        		break;
         	}
         }
     }
@@ -256,7 +276,10 @@ public class GameEngine
             
             while( sr.hasNextLine() )
             {
-                interpretCommand( sr.nextLine() );
+            	String line = sr.nextLine();
+            	Command command = parser.getCommand(line);
+            	
+                interpretCommand( command );
             }
             
     }

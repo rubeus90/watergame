@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**Cette classe gère la/les potions du jeu. Pour l'instant il y a une seule potion disponible.
  * 
  * @author rubeus
