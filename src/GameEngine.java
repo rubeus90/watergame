@@ -70,7 +70,7 @@ public class GameEngine
         foret.setExit("sud", plaine);
         grotte.setExit("ouest", foret);
         grotte.setExit("monter", montagne);
-        grotte.setExit("sud", temple);
+//        grotte.setExit("sud", temple);
         montagne.setExit("ouest", grotte);
         plaine.setExit("nord", foret);
         plaine.setExit("est", temple);
@@ -170,6 +170,9 @@ public class GameEngine
         
         switch(commandWord)
         {
+        	default:
+        		gui.processCommand();
+//        
         	case UNKNOWN:
         	{
         		gui.println("Je ne comprend pas ce que tu veux faire...");
@@ -301,5 +304,10 @@ public class GameEngine
    {
 	   gui.killFrame();
    }
+   
+//   public void gameOver()
+//   {
+//	   gui.createGameOver();
+//   }
 
 }

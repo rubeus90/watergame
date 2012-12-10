@@ -200,7 +200,7 @@ public class Player
 
        if (nextRoom == null) 
        {
-           gui.println("Tu arrives au bord de l'île, tu vas tomber dans l'eau si tu continues!");
+           gui.println("Tu ne peux pas aller par là! Soit il n'y a rien ici, soit le chemin que tu viens de prendre est de sens unique.");
        }
        else 
        {         
@@ -285,9 +285,15 @@ public class Player
    public void diminueSante(final int nbr)
    {
 	   if(sante > 0)
-		   {
-		   		sante -= nbr;
-		   }
+	   {
+		   sante -= nbr;
+	   }
+	 	   
+	//	   else 
+	//	   {
+	//		   engine.gameOver();
+	//	   }
+		   
    }
    
    public void boire(Command command)

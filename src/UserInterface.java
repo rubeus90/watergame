@@ -21,6 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import java.awt.Image;
+import javax.imageio.ImageIO;
+import java.awt.Graphics;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * This class implements a simple graphical user interface with a text entry
@@ -150,8 +156,8 @@ public class UserInterface implements ActionListener
         credits.add(copyrightAction);
         
         /****************************JComboBox******************************************************/
-                liste = new JComboBox();
-                liste.addItem("truc");
+        liste = new JComboBox();
+        liste.addItem("truc");
         
         /*********************************L'entrée de text*****************************************/
         entryField = new JTextField(34);
@@ -275,8 +281,10 @@ public class UserInterface implements ActionListener
 //        newAction.addActionListener(this);
 //        authorAction.addActionListener(this);
        
-        
+        /****************************************************************/
         liste.getSelectedItem();
+        /******************************************************************/	
+        
         
         myFrame.pack();
         myFrame.setVisible(true);
@@ -361,7 +369,7 @@ public class UserInterface implements ActionListener
      * A command has been entered. Read the command and do whatever is 
      * necessary to process it.
      */
-    private void processCommand()
+    public void processCommand()
     {
         String input = entryField.getText();
         entryField.setText("");
@@ -375,5 +383,25 @@ public class UserInterface implements ActionListener
     	myFrame.setVisible(false);
     	myFrame.dispose();
     }
+    
+//    public void createGameOver()
+//    {
+//    	myFrame.removeAll();
+////    	ImageIcon img = new ImageIcon("images/gameover.jpg");
+//    	JPanel panel = new JPanel();
+//    	Image img = ImageIO.read(new File("images/gameover.jpg"));
+//        panel.drawImage(img, 0, 0, this);
+//        //Pour une image de fond
+//        //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+//    	
+////    	image.setIcon(img);
+//////    	JLabel gameOver = new JLabel(image);
+////    	
+//    	
+////    	panel.add(image,BorderLayout.CENTER);
+////    	myFrame.setContentPane(panel);
+//        
+////    	showImage("images/gameover.jpg");
+//    }
     
 }
