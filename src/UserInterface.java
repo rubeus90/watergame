@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.event.MenuKeyListener;
+
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import java.awt.Graphics;
@@ -267,7 +269,7 @@ public class UserInterface implements ActionListener {
 		bouton12.addActionListener(this);
 		bouton13.addActionListener(this);
 
-		authorAction.addMenuKeyListener(null);
+		authorAction.addActionListener(this);
 		// newAction.addActionListener(this);
 		// authorAction.addActionListener(this);
 
