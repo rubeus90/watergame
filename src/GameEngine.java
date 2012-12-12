@@ -8,6 +8,7 @@ import java.util.Scanner;
 // import java.net.URL;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 // import java.io.IOException;
 
@@ -32,6 +33,8 @@ public class GameEngine {
 	private Player player;
 	private CommandWords commandWords;
 	private Beamer beamer;
+	private ArrayList<Room> rooms;
+	private Scanner sr;
 
 	/**
 	 * Créé le jeux et initialiser la carte.
@@ -63,6 +66,19 @@ public class GameEngine {
 		temple = new Room("dans le temple au centre de l'île", "images/temple.png", "temple");
 		plage = new Room("à la plage au sud de l'île", "images/plage.jpeg", "plage");
 
+		/*Créer une ArrayList qui contient toutes les salles du jeu, cette ArrayList est utilisée dans 
+		 * la classe TransporterRoom et RoomRandomizer*/
+		rooms = new ArrayList<Room>();
+		rooms.add(plage);
+		rooms.add(temple);
+		rooms.add(plaine);
+		rooms.add(montagne);
+		rooms.add(grotte);
+		rooms.add(foret);
+		
+		TransporterRoom secret = new TransporterRoom(" dans la salle secrète", null, "secret", rooms); 
+		
+		
 		// initialise room exits
 		foret.setExit("est", grotte);
 		foret.setExit("sud", plaine);
@@ -83,6 +99,9 @@ public class GameEngine {
 		montagne.setExit("plaine", plaine);
 		montagne.setExit("temple", temple);
 		montagne.setExit("plage", plage);
+		
+		/*La salle secrète*/
+		temple.setExit("secret", secret);
 		
 
 		foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
@@ -313,7 +332,7 @@ public class GameEngine {
 	public void test() 
 	{
 		try {
-			Scanner sr = new Scanner(new File("Tests/testCommand.txt"));
+			sr = new Scanner(new File("./src/Tests/testCommand.txt"));
 
 			while (sr.hasNextLine()) {
 				interpretCommand(sr.nextLine());

@@ -23,8 +23,7 @@ public class CommandWords {
 		validCommands = new HashMap<String, CommandWord>();
 
 		for (CommandWord command : CommandWord.values())
-			if (command != CommandWord.UNKNOWN)
-				validCommands.put(command.toString(), command);
+			validCommands.put(command.toString(), command);
 
 		// validCommands.put("go", CommandWord.GO);
 		// validCommands.put("aller", CommandWord.GO);
@@ -101,11 +100,15 @@ public class CommandWords {
 
 	public CommandWord getCommandWord(String commandWord) 
 	{
-		CommandWord command = validCommands.get(commandWord);
-		if (command != null) 
+		if(validCommands.containsKey(commandWord))
 		{
-			return command;
-		} 
+			return validCommands.get(commandWord);
+		}
+//		CommandWord command = validCommands.get(commandWord);
+//		if (command != null) 
+//		{
+//			return command;
+//		} 
 		else 
 		{
 			return CommandWord.UNKNOWN;
