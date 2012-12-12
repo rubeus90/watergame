@@ -30,6 +30,7 @@ public class Room {
 	// private HashMap<String, Room> room;
 	private String imageName;
 	private ItemListe items;
+	private String nomRoom;
 
 	/**
 	 * Constructeur qui permet d'initialiser la description d'une salle. "
@@ -38,13 +39,14 @@ public class Room {
 	 * @param description
 	 *            La description de la salle.
 	 */
-	public Room(String description, String image) {
+	public Room(String description, String image, String pNomRoom) {
 		this.description = description;
 		exits = new HashMap<String, Room>();
 		// items = new HashMap<String, Item>();
 		imageName = image;
 		items = new ItemListe();
 		potion = new ArrayList<Potion>();
+		nomRoom = pNomRoom;
 	}
 
 	// /**HashMap pour contenir les rooms, chaque room est lié à son nom
@@ -123,12 +125,22 @@ public class Room {
 	public String getImageName() {
 		return imageName;
 	}
+	
+	public String getNomRoom()
+	{
+		return nomRoom;
+	}
 
 	/**
 	 * Ajouter un objet dans un HashMap
 	 */
 	public void addItem(String nomItem, Item item) {
 		items.putItem(nomItem, item);
+	}
+	
+	public void addItem(Beamer beamer)
+	{
+		items.putItem("EnderPearl", beamer);
 	}
 
 	/**
@@ -223,4 +235,6 @@ public class Room {
 
 		return k;
 	}
+	
+	
 }

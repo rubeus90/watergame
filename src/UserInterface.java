@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -119,7 +120,8 @@ public class UserInterface implements ActionListener {
 	 * dont le panneau des boutons de directions, la partie texte et le panneau
 	 * des boutons d'options
 	 */
-	private void createGUI() {
+	public void createGUI() 
+	{
 		/*************************** Créer une nouvelle fenêtre *******************************/
 		myFrame = new JFrame("Water Game");
 		myFrame.setResizable(false);
@@ -174,6 +176,8 @@ public class UserInterface implements ActionListener {
 		/********************************** Tous les boutons du jeu *******************************/
 		bouton1 = new JButton();
 		bouton2 = new JButton("Nord");
+		if(engine.getPlayer().getRoom().getExit("nord") == null)
+			bouton2.setBackground(Color.GRAY);
 		bouton3 = new JButton("Haut");
 		bouton4 = new JButton("Ouest");
 		bouton5 = new JButton();

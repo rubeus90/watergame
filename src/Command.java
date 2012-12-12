@@ -44,7 +44,7 @@ public class Command
 	 * @return Le premier mot de la commande.
 	 */
 	public CommandWord getCommandWord() 
-	{
+	{		
 		return commandWord;
 	}
 

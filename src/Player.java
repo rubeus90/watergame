@@ -96,24 +96,31 @@ public class Player {
 	 * 
 	 * @param command
 	 */
-	public void take(Command command) {
+	public void take(Command command) 
+	{
 		String mot = command.getSecondWord();
-		Item item = aCurrentRoom.getItemListe().getValue(mot);
-		int poidsFuture = this.getPoidsInventaire() + item.getWeightItem();
+		
+		if (!aCurrentRoom.getItemListe().containsKey(mot))
+		{
+			gui.println("Mais il n'y a pas de " + mot + " ici");
+		}
+		else 
+		{		
+		
+			Item item = aCurrentRoom.getItemListe().getValue(mot);
+			int poidsFuture = this.getPoidsInventaire() + item.getWeightItem();
 
-		if (poidsFuture > maxPoids)
-			gui.println("Ton sac est déjà trop lourd, tu ne peux pas prendre plus d'objet. Jette un autre objet sinon!");
-		else {
-			if (!aCurrentRoom.getItemListe().containsKey(mot))
-				gui.println("Mais il n'y a pas de " + mot + " ici");
-			else {
+			if (poidsFuture > maxPoids)
+				gui.println("Ton sac est déjà trop lourd, tu ne peux pas prendre plus d'objet. Jette un autre objet sinon!");
+			else 
+			{
 				// Item item = aCurrentRoom.getItemListe().getValue(mot);
 				items.putItem(mot, item);
 				aCurrentRoom.deleteItem(mot);
 				gui.println("Tu as pris un(e) " + mot);
+				
 			}
 		}
-
 	}
 
 	/**
@@ -191,6 +198,7 @@ public class Player {
 
 			if (aCurrentRoom.getImageName() != null) {
 				gui.showImage(aCurrentRoom.getImageName());
+			
 			}
 		}
 	}
@@ -280,7 +288,7 @@ public class Player {
 
 		else if (mot.equals("soin")) {
 			if (aCurrentRoom.containPotion("Soin")) {
-				augmenteSante(10);
+				augmenteSante(20);
 				int index = aCurrentRoom.indexPotion("Soin");
 				aCurrentRoom.getArrayList().remove(index);
 			} else {
@@ -292,4 +300,13 @@ public class Player {
 			gui.println("Il n'y a pas cette potion!");
 	}
 
+	public ItemListe getItemListe()
+	{
+		return items;
+	}
+	
+	public void teleporter(Command command)
+	{		
+		this.goRoom(command);
+	}
 }

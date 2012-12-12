@@ -102,9 +102,12 @@ public class CommandWords {
 	public CommandWord getCommandWord(String commandWord) 
 	{
 		CommandWord command = validCommands.get(commandWord);
-		if (command != null) {
+		if (command != null) 
+		{
 			return command;
-		} else {
+		} 
+		else 
+		{
 			return CommandWord.UNKNOWN;
 		}
 	}

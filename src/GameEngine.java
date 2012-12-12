@@ -31,6 +31,7 @@ public class GameEngine {
 	// private Stack<Room> salles;
 	private Player player;
 	private CommandWords commandWords;
+	private Beamer beamer;
 
 	/**
 	 * Créé le jeux et initialiser la carte.
@@ -50,20 +51,17 @@ public class GameEngine {
 	/**
 	 * Créé toutes les pièces et les liens entre chacunes.
 	 */
-	private void createGame() {
+	private void createGame() 
+	{
 		Room foret, grotte, montagne, plaine, temple, plage;
 
 		// create the rooms
-		foret = new Room(" dans la forêt au nord-ouest de l'île",
-				"images/foret.png");
-		grotte = new Room("dans la grotte au nord de l'île",
-				"images/grotte.jpg");
-		montagne = new Room("dans les montagnesau nord-est de l'île",
-				"images/montagne.png");
-		plaine = new Room("à la plaine à l'ouest de l'île", "images/plaine.jpg");
-		temple = new Room("dans le temple au centre de l'île",
-				"images/temple.png");
-		plage = new Room("à la plage au sud de l'île", "images/plage.jpeg");
+		foret = new Room(" dans la forêt au nord-ouest de l'île", "images/foret.png", "foret");
+		grotte = new Room("dans la grotte au nord de l'île", "images/grotte.jpg", "grotte");
+		montagne = new Room("dans les montagnesau nord-est de l'île", "images/montagne.png", "montagne");
+		plaine = new Room("à la plaine à l'ouest de l'île", "images/plaine.jpg", "plaine");
+		temple = new Room("dans le temple au centre de l'île", "images/temple.png", "temple");
+		plage = new Room("à la plage au sud de l'île", "images/plage.jpeg", "plage");
 
 		// initialise room exits
 		foret.setExit("est", grotte);
@@ -78,13 +76,24 @@ public class GameEngine {
 		temple.setExit("sud", plage);
 		temple.setExit("ouest", plaine);
 		plage.setExit("nord", temple);
+		
+		/*Pour le teleporteur*/
+		montagne.setExit("foret", foret);
+		montagne.setExit("grotte", grotte);
+		montagne.setExit("plaine", plaine);
+		montagne.setExit("temple", temple);
+		montagne.setExit("plage", plage);
+		
 
 		foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
 		plaine.addItem("sabre", new Item("un sabre lumineux", 30));
 		grotte.addItem("massue", new Item("une grande massue", 45));
 		plage.addItem("filet", new Item("un grand filet", 50));
-		temple.addItem("arc", new Item("un arc en bois", 400));
+		temple.addItem("arc", new Item("un arc en bois", 40));
 		temple.addItem("torche", new Item("une petite torche", 10));
+		
+		beamer = new Beamer();
+		temple.addItem(beamer);
 
 		temple.addPotion(new Potion("Potion"));
 		temple.addPotion(new Potion("Soin"));
@@ -110,11 +119,31 @@ public class GameEngine {
 	 * @return Les sorties possibles
 	 */
 
-	public void printLocationInfo() {
+	public void printLocationInfo() 
+	{
 		Room currentRoom = player.getRoom();
 		gui.println(currentRoom.getLongDescription());
 		// printInventaire();
 		gui.println("Ta santé: " + player.getSante());
+		
+		chargerPierre(); //appelle la fonction charge pierre
+		
+	}
+	
+	/** 
+	 * methode qui permet de charger la pierre magique si l utilisateur la possede et est dans la foret
+	 *  
+	 */
+	public void chargerPierre()
+	{
+		if(player.getRoom().getNomRoom() == "foret") //si l utilisateur est dans la foret
+		{
+			if(player.getItemListe().getHashMap().containsKey("EnderPearl")) // si il possede la pierre
+			{
+				gui.println("Ta da, un autel magique est apparu!!!! Cet autel transforme ta pierre en une pierre magique qui te permet depuis la montagne de te téléporter n'importe ou!!!!" + "\n" + "Il suffit d'utiliser la commande: teleporter + nom de la salle");
+				beamer.setActivation(true);
+			}
+		}
 	}
 
 	/**
@@ -165,6 +194,7 @@ public class GameEngine {
 		Command command = parser.getCommand(commandLine);
 		String commandWord = command.getStringCommandWord();
 		CommandWord truc = commandWords.getCommandWord(commandWord);
+		
 		
 		switch(truc)
 		{
@@ -253,12 +283,24 @@ public class GameEngine {
 				}
 				break;
 			}
+			case TELEPORTER:
+			{
+				if(beamer.getValueActivation())
+				{
+					player.teleporter(command);
+					beamer.setActivation(false);
+				}
+				else
+					gui.println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");
+				break;
+			}
 			default: 
 			{
 				gui.processCommand();
 				break;
 			}
 		}
+		
 		
 	}
 
@@ -268,7 +310,8 @@ public class GameEngine {
 	 * commandes. Cette méthode évite aux programmeurs de devoir tester à la
 	 * main chaque commande du jeu.
 	 */
-	public void test() {
+	public void test() 
+	{
 		try {
 			Scanner sr = new Scanner(new File("Tests/testCommand.txt"));
 
@@ -289,8 +332,14 @@ public class GameEngine {
 	 * Terminer le jeu en fermant la fenetre de jeu
 	 * 
 	 */
-	public void endGame() {
+	public void endGame() 
+	{
 		gui.killFrame();
+	}
+	
+	public Player getPlayer()
+	{
+		return player;
 	}
 
 }
