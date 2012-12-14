@@ -56,15 +56,18 @@ public class GameEngine {
 	 */
 	private void createGame() 
 	{
-		Room foret, grotte, montagne, plaine, temple, plage;
+		Room foret, grotte, montagne, plaine, temple, plage, vallee, pic, eau;
 
 		// create the rooms
-		foret = new Room(" dans la forêt au nord-ouest de l'île", "images/foret.png", "foret");
-		grotte = new Room("dans la grotte au nord de l'île", "images/grotte.jpg", "grotte");
-		montagne = new Room("dans les montagnesau nord-est de l'île", "images/montagne.png", "montagne");
-		plaine = new Room("à la plaine à l'ouest de l'île", "images/plaine.jpg", "plaine");
-		temple = new Room("dans le temple au centre de l'île", "images/temple.png", "temple");
-		plage = new Room("à la plage au sud de l'île", "images/plage.jpeg", "plage");
+		foret = new Room("dans la forêt", "images/foret.png", "foret");
+		grotte = new Room("dans la grotte", "images/grotte.jpg", "grotte");
+		montagne = new Room("dans les montagnesau", "images/montagne.png", "montagne");
+		plaine = new Room("à la plaine", "images/plaine.png", "plaine");
+		temple = new Room("dans le temple", "images/temple.png", "temple");
+		plage = new Room("à la plage", "images/plage.jpeg", "plage");
+		vallee = new Room("dans la vallée", "images/vallee.jpg", "vallee");
+		pic = new Room("en haut du pic", "images/pic.jpg", "pic");
+		eau = new Room("mort noyé", "images/Mort.png", "eau");
 
 		/*Créer une ArrayList qui contient toutes les salles du jeu, cette ArrayList est utilisée dans 
 		 * la classe TransporterRoom et RoomRandomizer*/
@@ -75,23 +78,36 @@ public class GameEngine {
 		rooms.add(montagne);
 		rooms.add(grotte);
 		rooms.add(foret);
+		rooms.add(vallee);
+		rooms.add(pic);
+		rooms.add(eau);
 		
-		TransporterRoom secret = new TransporterRoom(" dans la salle secrète", null, "secret", rooms); 
-		
+		TransporterRoom secret = new TransporterRoom(" dans la salle secrète", "images/SalleSecrete.png", "secret", rooms);
+				
 		
 		// initialise room exits
-		foret.setExit("est", grotte);
+		foret.setExit("est", vallee);		
 		foret.setExit("sud", plaine);
-		grotte.setExit("ouest", foret);
-		grotte.setExit("monter", montagne);
-//		grotte.setExit("sud", temple);
-		montagne.setExit("ouest", grotte);
+		foret.setExit("nord", eau);
+		
+		grotte.setExit("sud", vallee);
+		grotte.setExit("ouest", eau);
+		grotte.setExit("est", eau);
+		
+		montagne.setExit("ouest", vallee);
+		montagne.setExit("nord", eau);
+		
 		plaine.setExit("nord", foret);
 		plaine.setExit("est", temple);
-		temple.setExit("nord", grotte);
+		plaine.setExit("sud", eau);
+		
+		temple.setExit("nord", vallee);
 		temple.setExit("sud", plage);
 		temple.setExit("ouest", plaine);
+				
 		plage.setExit("nord", temple);
+		plage.setExit("ouest", eau);
+		plage.setExit("est", eau);
 		
 		/*Pour le teleporteur*/
 		montagne.setExit("foret", foret);
@@ -99,9 +115,20 @@ public class GameEngine {
 		montagne.setExit("plaine", plaine);
 		montagne.setExit("temple", temple);
 		montagne.setExit("plage", plage);
+		montagne.setExit("vallee", vallee);
+		montagne.setExit("pic", pic);
+		
+		pic.setExit("ouest", montagne);
+		pic.setExit("nord", eau);
+		pic.setExit("sud", eau);
+		
+		vallee.setExit("nord", grotte);
+		vallee.setExit("sud", temple);
+		vallee.setExit("ouest", foret);
+		vallee.setExit("est", montagne);
 		
 		/*La salle secrète*/
-		temple.setExit("secret", secret);
+		temple.setExit("est", secret);
 		
 
 		foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
