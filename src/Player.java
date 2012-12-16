@@ -4,6 +4,7 @@ import java.util.Stack;
 //import java.util.ArrayList;
 import java.util.Set;
 
+
 /**
  * Cette classe gère tous les aspects du joueur : son nom, la position actuelle,
  * les objets qu'il porte, etc...
@@ -52,6 +53,16 @@ public class Player {
 
 	public void setGameEngine(final GameEngine gameEngine) {
 		engine = gameEngine;
+	}
+	
+	public GameEngine getGameEngine()
+	{
+		return engine;
+	}
+	
+	public UserInterface getGUI()
+	{
+		return gui;
 	}
 
 	public void setUserInterface(final UserInterface userinterface) {
@@ -149,7 +160,7 @@ public class Player {
 			for (String nom : keys) {
 				Item item = items.getValue(nom);
 				inventaire += item.getDescriptionItem() + " qui pèse "
-						+ item.getWeightItem() + "\n";
+						+ item.getWeightItem() + " kg" + "\n";
 			}
 		} else
 			inventaire = "Il n'y a rien dans ton inventaire.";

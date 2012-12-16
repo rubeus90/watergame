@@ -1,3 +1,5 @@
+
+
 /**
  * Cette classe fait parti du jeux " Water Games" "Water Games" est un jeux très
  * simple à prendre en main, c'est un jeux textuel.
@@ -15,9 +17,9 @@
  * 
  */
 
-public class Command 
+public abstract class Command 
 {
-	private CommandWord commandWord;
+//	private CommandWord commandWord;
 	private String secondWord;
 
 	/**
@@ -31,10 +33,15 @@ public class Command
 	 *            Second mot de la commande.
 	 */
 
-	public Command(CommandWord commandWord, String secondWord) 
+//	public Command(CommandWord commandWord, String secondWord) 
+//	{
+//		this.commandWord = commandWord;
+//		this.secondWord = secondWord;
+//	}
+	
+	public Command()
 	{
-		this.commandWord = commandWord;
-		this.secondWord = secondWord;
+		secondWord = null;
 	}
 
 	/**
@@ -43,15 +50,15 @@ public class Command
 	 * 
 	 * @return Le premier mot de la commande.
 	 */
-	public CommandWord getCommandWord() 
-	{		
-		return commandWord;
-	}
-
-	public String getStringCommandWord() 
-	{
-		return commandWord.toString();
-	}
+//	public CommandWord getCommandWord() 
+//	{		
+//		return commandWord;
+//	}
+//
+//	public String getStringCommandWord() 
+//	{
+//		return commandWord.toString();
+//	}
 
 	/**
 	 * Retourne le deuxième mot de la commande. Si la commande n'a pas été
@@ -69,10 +76,10 @@ public class Command
 	 * 
 	 * @return vrai si la commande n'a pas été reconnu.
 	 */
-	public boolean isUnknown() 
-	{
-		return (commandWord == CommandWord.UNKNOWN);
-	}
+//	public boolean isUnknown() 
+//	{
+//		return (commandWord == CommandWord.UNKNOWN);
+//	}
 
 	/**
 	 * Fonction boolean qui retourne vrai si la commande possède un second mot.
@@ -84,9 +91,16 @@ public class Command
 		return (secondWord != null);
 	}
 
-	@Override
-	public String toString() 
-	{
-		return "" + commandWord + " " + secondWord;
-	}
+//	@Override
+//	public String toString() 
+//	{
+//		return "" + commandWord + " " + secondWord;
+//	}
+	
+	public void setSecondWord(String secondWord)
+    {
+        this.secondWord = secondWord;
+    }
+	
+	public abstract void execute(Player player);
 }

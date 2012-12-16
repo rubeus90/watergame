@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+
 // import java.io.IOException;
 
 /**
@@ -63,9 +64,9 @@ public class GameEngine {
 		grotte = new Room("dans la grotte", "images/grotte.jpg", "grotte");
 		montagne = new Room("dans les montagnesau", "images/montagne.png", "montagne");
 		plaine = new Room("à la plaine", "images/plaine.png", "plaine");
-		temple = new Room("dans le temple", "images/temple.png", "temple");
+		temple = new Room("dans le temple Dharma", "images/temple.png", "temple");
 		plage = new Room("à la plage", "images/plage.jpeg", "plage");
-		vallee = new Room("dans la vallée", "images/vallee.jpg", "vallee");
+		vallee = new Room("dans la vallée de Dana", "images/vallee.jpg", "vallee");
 		pic = new Room("en haut du pic", "images/pic.jpg", "pic");
 		eau = new Room("mort noyé", "images/Mort.png", "eau");
 
@@ -211,7 +212,7 @@ public class GameEngine {
 	/**
 	 * Affiche l'aide ainsi que les commandes possibles du jeu.
 	 */
-	private void printHelp() {
+	public void printHelp() {
 		gui.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
 		gui.println("Cherche vite un abris ou de la nourriture.");
 		gui.print("\n");
@@ -222,7 +223,7 @@ public class GameEngine {
 	public void printInventaire() {
 		gui.println(player.getInventaire());
 		gui.println("Le poids total de ton inventaire est de "
-				+ player.getPoidsInventaire() + "kg");
+				+ player.getPoidsInventaire() + " kg");
 	}
 
 	/**
@@ -238,114 +239,117 @@ public class GameEngine {
 	{
 		gui.println(commandLine);
 		Command command = parser.getCommand(commandLine);
-		String commandWord = command.getStringCommandWord();
-		CommandWord truc = commandWords.getCommandWord(commandWord);
 		
+		command.execute(player);
 		
-		switch(truc)
-		{
-			case UNKNOWN:
-			{
-				gui.println("Je ne comprend pas ce que tu veux faire...");
-				return;
-			}
-			
-			case GO:
-			{
-				player.diminueSante(10);
-				player.setMaxPoids();
-				player.goRoom(command);
-				break;
-			}
-			case HELP:
-			{
-				printHelp();
-				break;
-			}
-			case LOOK:
-			{
-				player.look();
-				break;
-			}
-			case QUIT:
-			{
-				if (command.hasSecondWord())
-					gui.println("Quit quoi? Si tu veux quitter le jeux, écris juste quit");
-				else
-					endGame();
-				break;
-			}
-			case BACK:
-			{
-				player.diminueSante(10);
-				player.back(command);
-				break;
-			}
-			case TEST:
-			{
-				test();
-				break;
-			}
-			case CREDITS:
-			{
-				credits();
-				break;
-			}
-			case TAKE:
-			{
-				if (!command.hasSecondWord()) {
-					gui.println("Il faut préciser quel objet tu veux prendre!");
-				} else {
-					player.take(command);
-					printInventaire();
-				}
-				break;
-			}
-			case DROP:
-			{
-				if (!command.hasSecondWord()) {
-					gui.println("Il faut préciser quel objet tu veux jeter!");
-				} else {
-					player.drop(command);
-					printInventaire();
-				}
-				break;
-			}
-			case ITEMS:
-			{
-				printInventaire();
-				break;
-			}
-			case DRINK:
-			{
-				if (!command.hasSecondWord()) 
-				{
-					gui.println("Tu veux boire quoi crétin?");
-				} 
-				else 
-				{
-					player.boire(command);
-					gui.println("Ton niveau de santé est maintenant de " + player.getSante());
-				}
-				break;
-			}
-			case TELEPORTER:
-			{
-				if(beamer.getValueActivation())
-				{
-					player.teleporter(command);
-					beamer.setActivation(false);
-				}
-				else
-					gui.println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");
-				break;
-			}
-			default: 
-			{
-				gui.processCommand();
-				break;
-			}
-		}
+//		String commandWord = command.getStringCommandWord();
+//		CommandWord truc = commandWords.getCommandWord(commandWord);
+//		
+//		
+//		switch(truc)
+//		{
+//			case UNKNOWN:/
+//			{
+//				gui.println("Je ne comprend pas ce que tu veux faire...");
+//				return;
+//			}
+//			
+//			case GO:/
+//			{
+//				player.diminueSante(10);
+//				player.setMaxPoids();
+//				player.goRoom(command);
+//				break;
+//			}
+//			case HELP:/
+//			{
+//				printHelp();
+//				break;
+//			}
+//			case LOOK:/
+//			{
+//				player.look();
+//				break;
+//			}
+//			case QUIT:/
+//			{
+//				if (command.hasSecondWord())
+//					gui.println("Quit quoi? Si tu veux quitter le jeux, écris juste quit");
+//				else
+//					endGame();
+//				break;
+//			}
+//			case BACK:/
+//			{
+//				player.diminueSante(10);
+//				player.back(command);
+//				break;
+//			}
+//			case TEST:/
+//			{
+//				test();
+//				break;
+//			}
+//			case CREDITS:/
+//			{
+//				credits();
+//				break;
+//			}
+//			case TAKE:/
+//			{
+//				if (!command.hasSecondWord()) {
+//					gui.println("Il faut préciser quel objet tu veux prendre!");
+//				} else {
+//					player.take(command);
+//					printInventaire();
+//				}
+//				break;
+//			}
+//			case DROP:/
+//			{
+//				if (!command.hasSecondWord()) {
+//					gui.println("Il faut préciser quel objet tu veux jeter!");
+//				} else {
+//					player.drop(command);
+//					printInventaire();
+//				}
+//				break;
+//			}
+//			case ITEMS:/
+//			{
+//				printInventaire();
+//				break;
+//			}
+//			case DRINK:/
+//			{
+//				if (!command.hasSecondWord()) 
+//				{
+//					gui.println("Tu veux boire quoi crétin?");
+//				} 
+//				else 
+//				{
+//					player.boire(command);
+//					gui.println("Ton niveau de santé est maintenant de " + player.getSante());
+//				}
+//				break;
+//			}
+//			case TELEPORTER:/
+//			{
+//				if(beamer.getValueActivation())
+//				{
+//					player.teleporter(command);
+//					beamer.setActivation(false);
+//				}
+//				else
+//					gui.println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");
+//				break;
+//			}
+//			default: 
+//			{
+//				gui.processCommand();
+//				break;
+//			}
+//		}
 		
 		
 	}
@@ -386,6 +390,11 @@ public class GameEngine {
 	public Player getPlayer()
 	{
 		return player;
+	}
+	
+	public Beamer getBeamer()
+	{
+		return beamer;
 	}
 
 }

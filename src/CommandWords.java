@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Set;
 
+
 /**
  * Cette classe fait parti du jeux " Water Games" "Water Games" est un jeux très
  * simple à prendre en main, c'est un jeux textuel.
@@ -17,13 +18,30 @@ public class CommandWords {
 	// "credits", "take", "drop", "items", "boire"
 	// };
 
-	private HashMap<String, CommandWord> validCommands;
+	private HashMap<CommandWord, String> validCommands;
+	private HashMap<String, Command> commands;
 
 	public CommandWords() {
-		validCommands = new HashMap<String, CommandWord>();
+		validCommands = new HashMap<CommandWord, String>();
 
 		for (CommandWord command : CommandWord.values())
-			validCommands.put(command.toString(), command);
+			validCommands.put(command, command.toString());
+		
+		commands = new HashMap<String, Command>();
+        commands.put(validCommands.get(CommandWord.GO), new GoCommand());
+        commands.put(validCommands.get(CommandWord.HELP), new HelpCommand());
+        commands.put(validCommands.get(CommandWord.QUIT), new QuitCommand());
+        commands.put(validCommands.get(CommandWord.LOOK), new LookCommand());
+        commands.put(validCommands.get(CommandWord.BACK), new BackCommand());
+        commands.put(validCommands.get(CommandWord.TEST), new TestCommand());
+        commands.put(validCommands.get(CommandWord.CREDITS), new CreditsCommand());
+        commands.put(validCommands.get(CommandWord.TAKE), new TakeCommand());
+        commands.put(validCommands.get(CommandWord.DROP), new DropCommand());
+        commands.put(validCommands.get(CommandWord.ITEMS), new ItemsCommand());
+        commands.put(validCommands.get(CommandWord.DRINK), new DrinkCommand());
+        commands.put(validCommands.get(CommandWord.UNKNOWN), new UnknownCommand());
+        commands.put(validCommands.get(CommandWord.TELEPORTER), new TeleporterCommand());
+   
 
 		// validCommands.put("go", CommandWord.GO);
 		// validCommands.put("aller", CommandWord.GO);
@@ -56,9 +74,9 @@ public class CommandWords {
 	 */
 	public String getCommandlist() {
 		String Commandlist = "Les commandes sont:";
-		Set<String> keys = validCommands.keySet();
-		for (String commands : keys) {
-			Commandlist += " " + commands;
+		Set<CommandWord> keys = validCommands.keySet();
+		for (CommandWord commands : keys) {
+			Commandlist += " " + commands.toString();
 		}
 		return Commandlist;
 	}
@@ -90,28 +108,38 @@ public class CommandWords {
 
 	public boolean isCommand(CommandWord aCommands) 
 	{
-		Set<String> keys = validCommands.keySet();
-		for (String commands : keys) {
-			if (validCommands.get(commands) == aCommands)
+		Set<CommandWord> keys = validCommands.keySet();
+		for (CommandWord commands : keys) {
+			if (commands == aCommands)
 				return true;
 		}
 		return false;
 	}
 
-	public CommandWord getCommandWord(String commandWord) 
-	{
-		if(validCommands.containsKey(commandWord))
-		{
-			return validCommands.get(commandWord);
-		}
-//		CommandWord command = validCommands.get(commandWord);
-//		if (command != null) 
+//	public CommandWord getCommandWord(String commandWord) 
+//	{
+//		if(validCommands.containsKey(commandWord))
 //		{
-//			return command;
-//		} 
-		else 
+//			return validCommands.get(commandWord);
+//		}
+////		CommandWord command = validCommands.get(commandWord);
+////		if (command != null) 
+////		{
+////			return command;
+////		} 
+//		else 
+//		{
+//			return CommandWord.UNKNOWN;
+//		}
+//	}
+	
+	public Command get(String word)
+    {
+		if(commands.containsKey(word))
 		{
-			return CommandWord.UNKNOWN;
+			return (Command)commands.get(word);
 		}
-	}
+		else
+			return new UnknownCommand();
+    }
 }

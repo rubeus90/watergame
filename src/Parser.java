@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
 /**
  * Cette classe fait parti du jeux " Water Games" "Water Games" est un jeux très
  * simple à prendre en main, c'est un jeux textuel.
@@ -41,7 +42,7 @@ public class Parser {
 
 		if (tokenizer.hasMoreTokens())
 			word = tokenizer.nextToken(); // get first word
-			word1 = commands.getCommandWord(word);
+//			word1 = commands.getCommandWord(word);
 		// else
 		// word1 = null;
 		if (tokenizer.hasMoreTokens())
@@ -54,10 +55,17 @@ public class Parser {
 		// Now check whether this word is known. If so, create a command
 		// with it. If not, create a "null" command (for unknown command).
 
-		if (commands.isCommand(word1))
-			return new Command(word1, word2);
-		else
-			return new Command(null, word2);
+		Command command = commands.get(word);
+		command.setSecondWord(word2);
+		
+		return command;
+		
+		
+		
+//		if (commands.isCommand(word1))
+//			return new Command(word1, word2);
+//		else
+//			return new Command(null, word2);
 
 	}
 	
