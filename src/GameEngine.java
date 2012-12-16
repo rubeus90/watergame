@@ -360,16 +360,42 @@ public class GameEngine {
 	 * commandes. Cette méthode évite aux programmeurs de devoir tester à la
 	 * main chaque commande du jeu.
 	 */
-	public void test() 
+	public void test(Command command) 
 	{
-		try {
-			sr = new Scanner(new File("./src/Tests/testCommand.txt"));
-
-			while (sr.hasNextLine()) {
-				interpretCommand(sr.nextLine());
+		try 
+		{
+			if(command.hasSecondWord())
+			{
+				String secondWord = command.getSecondWord();
+			
+				switch(secondWord)
+				{
+					case "gagner":
+					{
+						sr = new Scanner(new File("./src/Tests/gagner.txt"));
+						break;
+					}
+					case "commands":
+					{
+						sr = new Scanner(new File("./src/Tests/testCommand.txt"));
+						break;
+					}
+								
+				}
+			
+			
+				while (sr.hasNextLine()) 
+				{
+					interpretCommand(sr.nextLine());
+				}
 			}
+			else
+				gui.println("Je sais pas quoi tester....");
+		}
+					
 
-		} catch (FileNotFoundException ex) {
+		catch (FileNotFoundException ex) 
+		{
 			gui.println("Fichier non trouvé");
 		}
 	}

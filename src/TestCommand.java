@@ -7,6 +7,6 @@ public class TestCommand extends Command
 	
 	public void execute(Player player)
 	{
-		player.getGameEngine().test();
+		player.getGameEngine().test(this);
 	}
 }
