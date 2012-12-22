@@ -1,5 +1,9 @@
 import javax.swing.JApplet;
 
+import pgk_Game.GameEngine;
+import pgk_Game.UserInterface;
+import pkg_Characters.Player;
+
 public class Game extends JApplet {
 	/**
 	 * 
