@@ -32,7 +32,7 @@ public class GoCommand extends Command
 
 		if (nextRoom == null) 
 		{
-			player.getGUI().println("Tu ne peux pas aller par là, soit il n'y a rien ici, soit le chemin que tu viens de prendre est sens unique");
+			player.getGUI().println("\n" + "Tu ne peux pas aller par là, soit il n'y a rien ici, soit le chemin que tu viens de prendre est de sens unique");
 		} 
 		else 
 		{
@@ -44,9 +44,8 @@ public class GoCommand extends Command
 			{
 				player.getGUI().showImage(player.getRoom().getImageName());
 			}
-		}
-		
-		player.getGUI().resetTextPanel();
+			player.getGUI().resetTextPanel();
+		}	
 		
 	}
 }

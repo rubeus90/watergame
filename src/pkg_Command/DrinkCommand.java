@@ -12,7 +12,7 @@ public class DrinkCommand extends Command
 	{
 		if (!this.hasSecondWord()) 
 		{
-			player.getGUI().println("Tu veux boire quoi crétin?");
+			player.getGUI().println("\n" + "Tu veux boire quoi crétin?");
 		} 
 		else 
 		{
@@ -27,7 +27,7 @@ public class DrinkCommand extends Command
 				} 
 				else 
 				{
-					player.getGUI().println("Il n'y a pas (ou plus) de cette potion dans cette salle");
+					player.getGUI().println("\n" + "Il n'y a pas (ou plus) de cette potion dans cette salle");
 				}
 
 				}
@@ -47,11 +47,11 @@ public class DrinkCommand extends Command
 			}
 
 			else
-				player.getGUI().println("Il n'y a pas cette potion!");
+				player.getGUI().println("\n" + "Ce que tu demandes de boire n'existe pas!");
 		}
 			
 			
-			player.getGUI().println("Ton niveau de santé est maintenant de " + player.getSante());
+			player.getGUI().println("\n" + "Ton niveau de santé est maintenant de " + player.getSante());
 	}
 	
 }

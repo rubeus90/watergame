@@ -155,7 +155,8 @@ public class Room {
 	 * 
 	 * @return Les sorties disponibles
 	 */
-	public String getExitString() {
+	public String getExitString() 
+	{
 		String exitString = "Les autres endroits : ";
 
 		Set<String> keys = exits.keySet();
@@ -210,8 +211,7 @@ public class Room {
 	 */
 	public String getLongDescription() 
 	{
-		return "Tu es " + description + ".\n" + getExitString() + "\n"
-				+ getItemString() + "\n" + "\n" + "Oh mon dieu tu n'es pas seul dans cet endroit! Il y a un " + getBotString() + "ici";
+		return "Tu es " + description + "\n" + getExitString() + "\n" + "\n"+ getItemString() + "\n" + "\n" + getBotString();
 	}
 
 	public String getNomRoom()
@@ -258,8 +258,11 @@ public class Room {
 		String nomBots = "";
 		Set<String> keys = bots.keySet();
 		for(String nom : keys)
-			nomBots += nom + " ";
+			nomBots += nom + "  ";
 		
-		return nomBots;
+		if(nomBots != "")
+			return "!!!! Fais attention, il y a d'autre(s) ennemi(s) dans cet endroit: " + nomBots + "!!!!";
+		else 
+			return "Il n'y a pas d'ennemi ici!";
 	}
 }

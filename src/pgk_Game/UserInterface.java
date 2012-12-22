@@ -382,4 +382,9 @@ public class UserInterface implements ActionListener {
 		print("\n");
 		engine.printLocationInfo();
 	}
+	
+	public JTextArea getJTextArea()
+	{
+		return log;
+	}
 }

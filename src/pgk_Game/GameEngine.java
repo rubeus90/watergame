@@ -227,6 +227,7 @@ public class GameEngine {
 		Command command = parser.getCommand(commandLine);
 		
 		command.execute(player);
+		gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 		
 //		String commandWord = command.getStringCommandWord();
 //		CommandWord truc = commandWords.getCommandWord(commandWord);
@@ -370,7 +371,7 @@ public class GameEngine {
 		Room currentRoom = player.getRoom();
 		gui.println(currentRoom.getLongDescription());
 		// printInventaire();
-		gui.println("Ta santé: " + player.getSante());
+		gui.println("\n" + "Ta santé: " + player.getSante());
 		
 		chargerPierre(); //appelle la fonction charge pierre
 		
@@ -392,6 +393,7 @@ public class GameEngine {
 		printLocationInfo();
 		Room currentRoom = player.getRoom();
 		gui.showImage(currentRoom.getImageName());
+		gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 	}
 	
 	public void setGUI(UserInterface userInterface) 
