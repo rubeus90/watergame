@@ -17,6 +17,7 @@ import pkg_Characters.Bots;
 import pkg_Command.Command;
 import pkg_Command.CommandWords;
 import pkg_Command.Parser;
+import pkg_Items.Beamer;
 import pkg_Items.Item;
 import pkg_Items.Pierre;
 import pkg_Items.Potion;
@@ -47,6 +48,7 @@ public class GameEngine {
 	private Player player;
 	private CommandWords commandWords;
 	private Pierre pierre;
+	private Beamer beamer;
 	private ArrayList<Room> rooms;
 	private Scanner sr;
 	
@@ -158,13 +160,14 @@ public class GameEngine {
 		temple.setExit("est", secret);
 		
 		//Créer les objets dans les salles
-		foret.addItem("hache", new Item("une petite hache toute pourrie", 40));
-		plaine.addItem("sabre", new Item("un sabre lumineux", 30));
-		grotte.addItem("massue", new Item("une grande massue", 45));
-		plage.addItem("filet", new Item("un grand filet", 50));
-		temple.addItem("arc", new Item("un arc en bois", 40));
-		temple.addItem("torche", new Item("une petite torche", 10));
+		foret.addItem("hache", new Item("Une petite hache toute pourrie", 40));
+		plaine.addItem("sabre", new Item("Un sabre lumineux", 30));
+		grotte.addItem("massue", new Item("Une grande massue", 45));
+		plage.addItem("filet", new Item("Un grand filet", 50));
+		temple.addItem("arc", new Item("Un arc en bois", 40));
+		temple.addItem("torche", new Item("Une petite torche", 10));
 		
+		//Ajouter le teleporteur
 		pierre = new Pierre();
 		temple.addItem(pierre);
 
@@ -180,6 +183,10 @@ public class GameEngine {
 		//Ajouter les bots dans les salles
 		foret.addBot("Creeper", new Bots("Creeper", null, 0, false));
 		plage.addBot("Blaze", new Bots("Blaze", null, 100, true));		
+		
+		//Ajouter le Beamer
+		beamer = new Beamer();
+		temple.addItem(beamer);
 	}
 	
 

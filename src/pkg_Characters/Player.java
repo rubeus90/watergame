@@ -1,9 +1,9 @@
 package pkg_Characters;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Stack;
-//import java.util.List;
-//import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import pgk_Game.GameEngine;
@@ -33,6 +33,7 @@ public class Player {
 	private ItemListe items;
 	private int maxPoids;
 	private int sante;
+	private ArrayList<Room> beamerRoom;
 
 	public Player(final String pNom, final String pGender) {
 		aNom = pNom;
@@ -58,6 +59,7 @@ public class Player {
 									 */
 
 		items = new ItemListe();
+		beamerRoom = new ArrayList<Room>();
 	}
 
 	public void augmenteSante(final int nbr) {
@@ -352,5 +354,9 @@ public class Player {
 		gui = userinterface;
 	}
 	
-	
+	public ArrayList<Room> getBeamerRoom()
+	{
+		return beamerRoom;
+	}
+		
 }
