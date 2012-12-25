@@ -152,6 +152,10 @@ public class UserInterface implements ActionListener
 		{
 			engine.interpretCommand("credits");
 		}
+		else if (e.getSource() == newAction) 
+		{
+			engine.newGame();
+		}
 
 		else
 			processCommand();
@@ -312,6 +316,7 @@ public class UserInterface implements ActionListener
 
 		authorAction.addActionListener(this);
 		quitAction.addActionListener(this);
+		newAction.addActionListener(this);
 
 		/****************************************************************/
 		liste.getSelectedItem();
@@ -412,5 +417,10 @@ public class UserInterface implements ActionListener
 			image.setIcon(icon);
 			myFrame.pack();
 		}
+	}
+	
+	public JFrame getFrame()
+	{
+		return myFrame;
 	}
 }

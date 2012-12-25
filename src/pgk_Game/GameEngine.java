@@ -40,7 +40,8 @@ import pkg_Room.TransporterRoom;
  * 
  */
 
-public class GameEngine {
+public class GameEngine 
+{
 	private Parser parser;
 	// private Room currentRoom;
 	private UserInterface gui;
@@ -79,6 +80,21 @@ public class GameEngine {
 			}
 		}
 	}
+	
+	public void newGame()
+	{
+		createGame();
+		player.setSante(80);
+		player.getItemListe().getHashMap().clear();
+		
+		if (player.getRoom().getImageName() != null) 
+		{
+			gui.showImage(player.getRoom().getImageName());
+		}
+		gui.resetTextPanel();		
+	}
+	
+	
 
 	/**
 	 * Créé toutes les pièces et les liens entre chacunes.
@@ -455,3 +471,5 @@ public class GameEngine {
 //	}
 
 }
+
+
