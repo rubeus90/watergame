@@ -10,6 +10,6 @@ public class ChargerCommand extends Command
 	public void execute(Player player)
 	{
 		player.getBeamerRoom().add(0, player.getRoom());
-		player.getGUI().println("Tu as charge le beamer ici");
+		player.getGUI().println("Tu as chargé le beamer ici");
 	}
 }

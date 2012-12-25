@@ -186,22 +186,31 @@ public class Room {
 	 * 
 	 * @return Nom, description et poids des objets
 	 */
-	public String getItemString() {
-		Set<String> cles = items.getKeys();
-
+	public String getItemString() 
+	{
 		String itemString = "Regarde s'il y a des objets ici: ";
-
-		for (String nom : cles) {
-			Item valeurs = items.getValue(nom);
-
-			if (valeurs == null)
-				itemString += "Il n'y a pas d'objet ici";
-			else
-				itemString += "\n" + valeurs.getDescriptionItem()
-						+ " qui pèse " + valeurs.toString() + " kg";
+		
+		if (!items.getHashMap().isEmpty())
+		{
+			Set<String> cles = items.getKeys();
+			for (String nom : cles) 
+			{
+				if(nom != "beamer")
+				{
+					Item valeurs = items.getValue(nom);
+					itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.toString() + " kg";
+				}
+			}
 		}
+		else
+		{
+			itemString = "Il n'y a pas d'objet ici";
+		}
+		
 
-		/********** Juste pour tester l'ArrayList des potions **********/
+	
+		/********** L'ArrayList des potions **********/
+		itemString += "\n";
 		for (int i = 0; i < potion.size(); i++) {
 			itemString += "\n" + potion.get(i).getNomPotion();
 		}

@@ -169,17 +169,21 @@ public class Player {
 		return gui;
 	}
 
-	public String getInventaire() {
+	public String getInventaire() 
+	{
 		String inventaire = "Dans ton inventaire: " + "\n";
 
-		if (!items.getHashMap().isEmpty()) {
+		if (!items.getHashMap().isEmpty()) 
+		{
 			Set<String> keys = items.getKeys();
-			for (String nom : keys) {
-				Item item = items.getValue(nom);
-				inventaire += item.getDescriptionItem() + " qui pèse "
-						+ item.getWeightItem() + " kg" + "\n";
+			for (String nom : keys) 
+			{
+					Item item = items.getValue(nom);
+					inventaire += item.getDescriptionItem() + " qui pèse " + item.getWeightItem() + " kg" + "\n";
 			}
-		} else
+			
+		} 
+		else
 			inventaire = "Il n'y a rien dans ton inventaire.";
 
 		return inventaire;
@@ -190,9 +194,9 @@ public class Player {
 		return items;
 	}
 
-	public String getLongDescriptionPlayer() {
-		String description = "Tu t'appelles " + aNom + "." + "\n"
-				+ aDescriptionPlayer + "\n" + "Santé : " + sante;
+	public String getLongDescriptionPlayer() 
+	{
+		String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n" + "Santé : " + sante;
 
 		return description;
 	}
@@ -350,7 +354,8 @@ public class Player {
 		sante = pSante;
 	}
 	
-	public void setUserInterface(final UserInterface userinterface) {
+	public void setUserInterface(final UserInterface userinterface) 
+	{
 		gui = userinterface;
 	}
 	

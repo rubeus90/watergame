@@ -1,7 +1,6 @@
 package pkg_Command;
 
 import pkg_Characters.Player;
-import pkg_Room.Room;
 
 public class UtiliserCommand extends Command
 {
