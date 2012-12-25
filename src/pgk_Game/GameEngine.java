@@ -18,8 +18,8 @@ import pkg_Command.Command;
 import pkg_Command.CommandWords;
 import pkg_Command.Parser;
 import pkg_Items.Item;
+import pkg_Items.Pierre;
 import pkg_Items.Potion;
-import pkg_Room.Beamer;
 import pkg_Room.Room;
 import pkg_Room.TransporterRoom;
 
@@ -46,7 +46,7 @@ public class GameEngine {
 	// private Stack<Room> salles;
 	private Player player;
 	private CommandWords commandWords;
-	private Beamer beamer;
+	private Pierre pierre;
 	private ArrayList<Room> rooms;
 	private Scanner sr;
 	
@@ -73,7 +73,7 @@ public class GameEngine {
 			if(player.getItemListe().getHashMap().containsKey("EnderPearl")) // si il possède la pierre
 			{
 				gui.println("Ta da, un autel magique est apparu!!!! Cet autel transforme ta pierre en une pierre magique qui te permet depuis la montagne de te téléporter n'importe ou!!!!" + "\n" + "Il suffit d'utiliser la commande: teleporter + nom de la salle");
-				beamer.setActivation(true);
+				pierre.setActivation(true);
 			}
 		}
 	}
@@ -165,8 +165,8 @@ public class GameEngine {
 		temple.addItem("arc", new Item("un arc en bois", 40));
 		temple.addItem("torche", new Item("une petite torche", 10));
 		
-		beamer = new Beamer();
-		temple.addItem(beamer);
+		pierre = new Pierre();
+		temple.addItem(pierre);
 
 		//Créeer les potions dans les salles
 		temple.addPotion(new Potion("Potion"));
@@ -196,9 +196,9 @@ public class GameEngine {
 		gui.killFrame();
 	}
 
-	public Beamer getBeamer()
+	public Pierre getPierre()
 	{
-		return beamer;
+		return pierre;
 	}
 
 	public UserInterface getGUI()

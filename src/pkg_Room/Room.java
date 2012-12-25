@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import pkg_Characters.Bots;
+import pkg_Items.Pierre;
 import pkg_Items.Item;
 import pkg_Items.ItemListe;
 import pkg_Items.Potion;
@@ -73,9 +74,9 @@ public class Room {
 		bots.put(nomBot, bot);
 	}
 
-	public void addItem(Beamer beamer)
+	public void addItem(Pierre pierre)
 	{
-		items.putItem("EnderPearl", beamer);
+		items.putItem("EnderPearl", pierre);
 	}
 
 	/**

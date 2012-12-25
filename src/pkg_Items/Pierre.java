@@ -1,5 +1,4 @@
-package pkg_Room;
-import pkg_Items.Item;
+package pkg_Items;
 
 /**
  * Cette classe crée un téléporteur. Le téléporteur est caractérisé par son état d'activation. Quand le joueur récupère 
@@ -9,11 +8,11 @@ import pkg_Items.Item;
  * @author Ngoc & Thibault
  *
  */
-public class Beamer extends Item
+public class Pierre extends Item
 {
 	private boolean activated;
 	
-	public Beamer()
+	public Pierre()
 	{
 		super("La pierre EnderPearl", 0);
 		activated = false;

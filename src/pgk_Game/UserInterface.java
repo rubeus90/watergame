@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 //import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -43,7 +44,8 @@ import java.io.IOException;
  * @author Ngocky & Thibault
  * @version 0.00001
  */
-public class UserInterface implements ActionListener {
+public class UserInterface implements ActionListener
+{
 	private GameEngine engine;
 	private JFrame myFrame;
 	private JTextField entryField;
@@ -85,42 +87,74 @@ public class UserInterface implements ActionListener {
 	}
 
 	/**
-	 * Print out some text into the text area.
+	 * Actionlistener interface for entry textfield.
 	 */
-	public void print(String text) {
-		log.append(text);
-		log.setCaretPosition(log.getDocument().getLength());
-	}
-
-	/**
-	 * Print out some text into the text area, followed by a line break.
-	 */
-	public void println(String text) {
-		log.append(text + "\n");
-		log.setCaretPosition(log.getDocument().getLength());
-	}
-
-	/**
-	 * Show an image file in the interface.
-	 */
-	public void showImage(String imageName) {
-		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
-		if (imageURL == null)
-			System.out.println("image not found");
-		else {
-			ImageIcon icon = new ImageIcon(imageURL);
-			image.setIcon(icon);
-			myFrame.pack();
+	public void actionPerformed(ActionEvent e) 
+	{
+		
+		if (e.getSource() == bouton1) 
+		{
+			engine.interpretCommand("go");
+		} 
+		else if (e.getSource() == bouton2) 
+		{
+			engine.interpretCommand("go nord");
+		} 
+		else if (e.getSource() == bouton3) 
+		{
+			engine.interpretCommand("go monter");
+		} 
+		else if (e.getSource() == bouton4) 
+		{
+			engine.interpretCommand("go ouest");
 		}
-	}
+		// else if(e.getSource() == bouton5)
+		// {
+		// engine.interpretCommand();
+		// }
+		else if (e.getSource() == bouton6) 
+		{
+			engine.interpretCommand("go est");
+		} 
+		else if (e.getSource() == bouton7) 
+		{
+			engine.interpretCommand("back");
+		} 
+		else if (e.getSource() == bouton8) 
+		{
+			engine.interpretCommand("go sud");
+		}
+		// else if(e.getSource() == bouton9)
+		// {
+		// engine.interpretCommand();
+		// }
+		else if (e.getSource() == bouton10) 
+		{
+			engine.interpretCommand("drink potion");
+		} 
+		else if (e.getSource() == bouton11) 
+		{
+			engine.interpretCommand("drink soin");
+		} 
+		else if (e.getSource() == bouton12) 
+		{
+			engine.interpretCommand("look");
+		} 
+		else if (e.getSource() == bouton13) 
+		{
+			engine.printInventaire();
+		} 
+		else if (e.getSource() == quitAction) 
+		{
+			engine.interpretCommand("quit");
+		}
+		else if (e.getSource() == authorAction) 
+		{
+			engine.interpretCommand("credits");
+		}
 
-	/**
-	 * Enable or disable input in the input field.
-	 */
-	public void enable(boolean on) {
-		entryField.setEditable(on);
-		if (!on)
-			entryField.getCaret().setBlinkRate(0);
+		else
+			processCommand();
 	}
 
 	/**
@@ -144,11 +178,11 @@ public class UserInterface implements ActionListener {
 		menubar.add(options);
 		menubar.add(credits);
 		// Créer les boutons du dropdown menu
-		JMenuItem newAction = new JMenuItem("Nouvelle partie");
-		JMenuItem saveAction = new JMenuItem("Sauvegarder la partie");
-		JMenuItem quitAction = new JMenuItem("Quitter le jeu");
-		JMenuItem authorAction = new JMenuItem("Auteurs");
-		JMenuItem copyrightAction = new JMenuItem("Copyright");
+		newAction = new JMenuItem("Nouvelle partie");
+		saveAction = new JMenuItem("Sauvegarder la partie");
+		quitAction = new JMenuItem("Quitter le jeu");
+		authorAction = new JMenuItem("Auteurs");
+		copyrightAction = new JMenuItem("Copyright");
 		// Ajouter ces boutons au dropdown
 		options.add(newAction);
 		options.add(saveAction);
@@ -277,8 +311,7 @@ public class UserInterface implements ActionListener {
 		bouton13.addActionListener(this);
 
 		authorAction.addActionListener(this);
-		// newAction.addActionListener(this);
-		// authorAction.addActionListener(this);
+		quitAction.addActionListener(this);
 
 		/****************************************************************/
 		liste.getSelectedItem();
@@ -289,55 +322,44 @@ public class UserInterface implements ActionListener {
 		entryField.requestFocus();
 	}
 
+	/**
+	 * Enable or disable input in the input field.
+	 */
+	public void enable(boolean on) {
+		entryField.setEditable(on);
+		if (!on)
+			entryField.getCaret().setBlinkRate(0);
+	}
+
+	public JTextArea getJTextArea()
+	{
+		return log;
+	}
+
+	public void killFrame() {
+		myFrame.setVisible(false);
+		myFrame.dispose();
+	}
+
 	// public void eat()
 	// {
 	// System.out.println("Tu as déjà mangé, tu n'as plus faim");
 	// }
 
 	/**
-	 * Actionlistener interface for entry textfield.
+	 * Print out some text into the text area.
 	 */
-	public void actionPerformed(ActionEvent e) 
-	{
-		
-		if (e.getSource() == bouton1) {
-			engine.interpretCommand("go");
-		} else if (e.getSource() == bouton2) {
-			engine.interpretCommand("go nord");
-		} else if (e.getSource() == bouton3) {
-			engine.interpretCommand("go monter");
-		} else if (e.getSource() == bouton4) {
-			engine.interpretCommand("go ouest");
-		}
-		// else if(e.getSource() == bouton5)
-		// {
-		// engine.interpretCommand();
-		// }
-		else if (e.getSource() == bouton6) {
-			engine.interpretCommand("go est");
-		} else if (e.getSource() == bouton7) {
-			engine.interpretCommand("back");
-		} else if (e.getSource() == bouton8) {
-			engine.interpretCommand("go sud");
-		}
-		// else if(e.getSource() == bouton9)
-		// {
-		// engine.interpretCommand();
-		// }
-		else if (e.getSource() == bouton10) {
-			engine.interpretCommand("drink potion");
-		} else if (e.getSource() == bouton11) {
-			engine.interpretCommand("drink soin");
-		} else if (e.getSource() == bouton12) {
-			engine.interpretCommand("look");
-		} else if (e.getSource() == bouton13) {
-			engine.printInventaire();
-		} else if (e.getSource() == authorAction) {
-			engine.interpretCommand("help");
-		}
+	public void print(String text) {
+		log.append(text);
+		log.setCaretPosition(log.getDocument().getLength());
+	}
 
-		else
-			processCommand();
+	/**
+	 * Print out some text into the text area, followed by a line break.
+	 */
+	public void println(String text) {
+		log.append(text + "\n");
+		log.setCaretPosition(log.getDocument().getLength());
 	}
 
 	/**
@@ -349,11 +371,6 @@ public class UserInterface implements ActionListener {
 		entryField.setText("");
 
 		engine.interpretCommand(input);
-	}
-
-	public void killFrame() {
-		myFrame.setVisible(false);
-		myFrame.dispose();
 	}
 
 	// public void createGameOver()
@@ -383,8 +400,17 @@ public class UserInterface implements ActionListener {
 		engine.printLocationInfo();
 	}
 	
-	public JTextArea getJTextArea()
-	{
-		return log;
+	/**
+	 * Show an image file in the interface.
+	 */
+	public void showImage(String imageName) {
+		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
+		if (imageURL == null)
+			System.out.println("image not found");
+		else {
+			ImageIcon icon = new ImageIcon(imageURL);
+			image.setIcon(icon);
+			myFrame.pack();
+		}
 	}
 }

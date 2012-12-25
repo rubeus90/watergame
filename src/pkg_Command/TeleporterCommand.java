@@ -11,7 +11,7 @@ public class TeleporterCommand extends Command
 	
 	public void execute(Player player)
 	{
-		if(player.getGameEngine().getBeamer().getValueActivation())
+		if(player.getGameEngine().getPierre().getValueActivation())
 		{
 			if (!this.hasSecondWord()) 
 			{
@@ -43,7 +43,7 @@ public class TeleporterCommand extends Command
 				player.getGUI().resetTextPanel();
 			}			
 			
-			player.getGameEngine().getBeamer().setActivation(false);
+			player.getGameEngine().getPierre().setActivation(false);
 		}
 		else
 			player.getGUI().println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");
