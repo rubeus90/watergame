@@ -228,14 +228,17 @@ public class UserInterface implements ActionListener
 
 		/********************************** Tous les boutons du jeu *******************************/
 		bouton1 = new JButton();
+		bouton1.setEnabled(false);
 		bouton2 = new JButton("Nord");
 		bouton3 = new JButton("Haut");
 		bouton4 = new JButton("Ouest");
 		bouton5 = new JButton();
+		bouton5.setEnabled(false);
 		bouton6 = new JButton("Est");
 		bouton7 = new JButton("Back");
 		bouton8 = new JButton("Sud");
 		bouton9 = new JButton();
+		bouton9.setEnabled(false);
 		bouton10 = new JButton("Potion");
 		bouton11 = new JButton("Soin");
 		bouton12 = new JButton("Regarder");
@@ -451,29 +454,29 @@ public class UserInterface implements ActionListener
 	public void colorButton()
 	{
 		if(engine.getPlayer().getRoom().getExit("nord") == null)
-			bouton2.setBackground(Color.GRAY);
+			bouton2.setEnabled(false);
 		else
-			bouton2.setBackground(null);
+			bouton2.setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("haut") == null)
-			bouton3.setBackground(Color.GRAY);
+			bouton3.setEnabled(false);
 		else
-			bouton3.setBackground(null);
+			bouton3.setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("ouest") == null)
-			bouton4.setBackground(Color.GRAY);
+			bouton4.setEnabled(false);
 		else
-			bouton4.setBackground(null);
+			bouton4.setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("est") == null)
-			bouton6.setBackground(Color.GRAY);
+			bouton6.setEnabled(false);
 		else
-			bouton6.setBackground(null);
+			bouton6.setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("sud") == null)
-			bouton8.setBackground(Color.GRAY);
+			bouton8.setEnabled(false);
 		else
-			bouton8.setBackground(null);
+			bouton8.setEnabled(true);
 		
 		panel2.repaint();
 	}
