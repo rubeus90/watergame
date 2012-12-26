@@ -287,14 +287,16 @@ public class UserInterface implements ActionListener
 		panel2.add(sspanel2);
 		panel2.add(sspanel3);
 
-		// Panel 3 box qui contient les 2 autres panels
-		JPanel panel3 = new JPanel();
-		panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
-		panel3.add(panel);
-		panel3.add(panel2);
+//		// Panel 3 box qui contient les 2 autres panels
+//		JPanel panel3 = new JPanel();
+//		panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
+//		panel3.add(panel);
+//		panel3.add(panel2);
 
 		// Ajouter le panel box à notre fenêtre de jeu
-		myFrame.setContentPane(panel3);
+		myFrame.setLayout(new BorderLayout());
+		myFrame.add(panel, BorderLayout.NORTH);
+		myFrame.add(panel2, BorderLayout.SOUTH);
 
 		/****************************** add some event listeners to some components *****************************/
 		myFrame.addWindowListener(new WindowAdapter() {
@@ -434,5 +436,16 @@ public class UserInterface implements ActionListener
 	public JFrame getFrame()
 	{
 		return myFrame;
+	}
+	
+	public void showDialogue()
+	{
+		myFrame.remove(panel2);
+		JPanel panelDialogue = new JPanel();
+		panelDialogue.add(log, BorderLayout.CENTER);
+		myFrame.add(panelDialogue);
+		log.setText("");
+		print("\n");
+		
 	}
 }

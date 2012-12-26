@@ -13,14 +13,8 @@ import pkg_Room.Room;
  */
 public abstract class Dialogue 
 {
-	private Bots bot;
-	private Room room;
-	
-	public Dialogue(final Bots bot, final Room room)
-	{
-		this.bot = bot;
-		this.room = room;
-	}
+	public Dialogue()
+	{}
 	
 	public abstract void afficheDialogue(GameEngine engine)
 	;

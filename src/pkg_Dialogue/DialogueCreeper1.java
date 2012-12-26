@@ -7,13 +7,12 @@ import pkg_Room.Room;
 
 public class DialogueCreeper1 extends Dialogue
 {
-	public DialogueCreeper1(final Bots creeper, final Room foret)
-	{
-		super(creeper, foret);
-	}
+	public DialogueCreeper1()
+	{}
 	
 	public void afficheDialogue(GameEngine engine)
 	{
+		engine.getGUI().showDialogue();
 		engine.getGUI().println("Hey hey, toi ! Oui toi là !  Je suis bloqué dans un trou juste là. Vient m'aider !" + "\n");
 		
 		if(this.help(true))
