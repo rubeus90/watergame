@@ -79,6 +79,9 @@ public class UserInterface implements ActionListener
 	private JPanel sspanel2;
 	private JPanel panel;
 	private JPanel panel2;
+	private JPanel panel3;
+	private JButton buttonParler;
+	private JButton buttonAttaque;
 
 
 	/**
@@ -93,6 +96,7 @@ public class UserInterface implements ActionListener
 		engine = gameEngine;
 		createGUI();
 		colorButton();
+		createInteractionBot();
 	}
 
 	/**
@@ -173,6 +177,14 @@ public class UserInterface implements ActionListener
 		{
 			createCopyright();
 		}
+		else if (e.getSource() == buttonParler) 
+		{
+			engine.interpretCommand("parler");
+		}
+		else if (e.getSource() == buttonAttaque) 
+		{
+			engine.interpretCommand("attaque");
+		}
 
 		else
 			processCommand();
@@ -188,7 +200,7 @@ public class UserInterface implements ActionListener
 	{
 		/*************************** Créer une nouvelle fenêtre *******************************/
 		myFrame = new JFrame("Water Game");
-		myFrame.setResizable(false);
+		myFrame.setResizable(true);
 
 		/***************************** Créer un menu bar **************************************/
 		JMenuBar menubar = new JMenuBar();
@@ -257,6 +269,11 @@ public class UserInterface implements ActionListener
 		bouton11 = new JButton("Soin");
 		bouton12 = new JButton("Regarder");
 		bouton13 = new JButton("Inventaire");
+		
+		buttonParler = new JButton("Parler");
+		buttonParler.setPreferredSize(new Dimension(300, 20));
+		buttonAttaque = new JButton("Attaquer");
+		buttonAttaque.setPreferredSize(new Dimension(300, 20));
 
 		/********************************* Les panels *************************************/
 		// Panel 1 contient l'image en haut de la fenêtre
@@ -336,6 +353,9 @@ public class UserInterface implements ActionListener
 		bouton11.addActionListener(this);
 		bouton12.addActionListener(this);
 		bouton13.addActionListener(this);
+		
+		buttonParler.addActionListener(this);
+		buttonAttaque.addActionListener(this);
 
 		quitAction.addActionListener(this);
 		newAction.addActionListener(this);
@@ -469,6 +489,27 @@ public class UserInterface implements ActionListener
 		panelDialogue.add(buttonNext, BorderLayout.EAST);
 	}
 	
+	public void createInteractionBot()
+	{
+		if(engine.getPlayer().getRoom().getBot() != null)
+		{
+			sspanel2.remove(entryField);
+			sspanel2.add(buttonParler, BorderLayout.WEST);
+			sspanel2.add(buttonAttaque, BorderLayout.EAST);
+			sspanel2.repaint();
+			
+		}
+		else
+		{
+			if(buttonParler != null && buttonAttaque != null)
+			{
+				sspanel2.remove(buttonParler);
+				sspanel2.remove(buttonAttaque);
+				sspanel2.add(entryField);
+				sspanel2.repaint();
+			}
+		}
+	}
 	
 	public void colorButton()
 	{
@@ -586,4 +627,6 @@ public class UserInterface implements ActionListener
         
         gpl.setContentPane(editorScrollPane);
 	}
+	
+	
 }

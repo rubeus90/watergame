@@ -14,7 +14,7 @@ public class GoCommand extends Command
 
     public void execute(Player player)
     {
-    	player.diminueSante(10);
+    	player.diminueSante(2);
 		player.setMaxPoids();
 		
 		

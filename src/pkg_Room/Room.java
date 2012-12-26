@@ -288,7 +288,10 @@ public class Room {
 		Set<String> keys = bots.keySet();
 		for(String nom : keys)
 		{
-			bot = bots.get(nom);
+			if(nom != null)
+				bot = bots.get(nom);
+			else
+				bot = null;
 		}
 		return bot;
 	}

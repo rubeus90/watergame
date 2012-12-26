@@ -258,6 +258,7 @@ public class GameEngine
 		if(player.getSante() > 0)
 		{			
 			gui.colorButton();
+			gui.createInteractionBot();
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 		}
 		else
