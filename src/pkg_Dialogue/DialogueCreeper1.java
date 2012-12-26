@@ -20,8 +20,8 @@ public class DialogueCreeper1 extends Dialogue
 			engine.getGUI().println("Quoi tu n'as pas de corde ? Tu comptais m'aider comment ? Tu es élastigirl peut-être ? Je plaisante, t'inquiètes pas. Je pense que tu pourra trouver une corde en haut du PIC. Si tu m'aides à sortir de là, je te donnerai quelques conseils pour survivre sur cette île" + "\n");
 		else
 		{
-			engine.getGUI().println("Tchiiiiiiiiiiii...... BOOOOOOOM!!!!" + "Creeper a explosé dans la face, tu es mort!!!! Faillait accepter d'aider Creeper, espèce de méchant sans coeur!!!!" + "\n");
-			engine.getPlayer().setSante(0);
+//			engine.getGUI().println("Tchiiiiiiiiiiii...... BOOOOOOOM!!!!" + "Creeper a explosé dans la face, tu es mort!!!! Faillait accepter d'aider Creeper, espèce de méchant sans coeur!!!!" + "\n");
+			engine.getGUI().createGameOver("creeper");
 		}
 	}
 	

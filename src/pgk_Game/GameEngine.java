@@ -83,7 +83,10 @@ public class GameEngine
 	
 	public void newGame()
 	{
+		endGame();
 		createGame();
+		gui.createGUI();
+		
 		player.setSante(80);
 		player.getItemListe().getHashMap().clear();
 		
@@ -91,10 +94,9 @@ public class GameEngine
 		{
 			gui.showImage(player.getRoom().getImageName());
 		}
-		gui.resetTextPanel();		
+		gui.resetTextPanel();	
 	}
-	
-	
+		
 
 	/**
 	 * Créé toutes les pièces et les liens entre chacunes.
@@ -248,9 +250,15 @@ public class GameEngine
 	{
 //		gui.println(commandLine);
 		Command command = parser.getCommand(commandLine);
-		
 		command.execute(player);
-		gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
+		if(player.getSante() > 0)
+		{			
+			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
+		}
+		else
+		{
+			gui.createGameOver("sante");
+		}
 		
 //		String commandWord = command.getStringCommandWord();
 //		CommandWord truc = commandWords.getCommandWord(commandWord);

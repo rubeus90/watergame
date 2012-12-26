@@ -37,15 +37,22 @@ public class GoCommand extends Command
 		else 
 		{
 			player.setRoom(nextRoom);
-			// player.setCurrentRoom(nextRoom);
-			player.getGameEngine().printLocationInfo();
-
-			if (player.getRoom().getImageName() != null) 
+			
+			//Si la salle suivante n'est pas l'eau, le jeu continue, si c'est l'eau, le joueur est mort, on arrête le jeu
+			if(player.getRoom().getNomRoom() != "eau")
 			{
-				player.getGUI().showImage(player.getRoom().getImageName());
+				player.getGameEngine().printLocationInfo();
+
+				if (player.getRoom().getImageName() != null) 
+				{
+					player.getGUI().showImage(player.getRoom().getImageName());
+				}
+				player.getGUI().resetTextPanel();
 			}
-			player.getGUI().resetTextPanel();
+			else
+			{
+				player.getGUI().createGameOver("eau");
+			}
 		}	
-		
-	}
+    }
 }

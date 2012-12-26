@@ -3,6 +3,7 @@ package pgk_Game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.ItemListener;
 //import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.ImageObserver;
 import java.net.URL;
 
 import javax.swing.BoxLayout;
@@ -44,7 +46,7 @@ import java.io.IOException;
  * @author Ngocky & Thibault
  * @version 0.00001
  */
-public class UserInterface implements ActionListener
+public class UserInterface implements ActionListener 
 {
 	private GameEngine engine;
 	private JFrame myFrame;
@@ -72,6 +74,8 @@ public class UserInterface implements ActionListener
 	private JLabel image;
 	private Parser parser;
 	private JPanel sspanel2;
+	private JPanel panel;
+	private JPanel panel2;
 
 
 	/**
@@ -124,10 +128,10 @@ public class UserInterface implements ActionListener
 		{
 			engine.interpretCommand("go sud");
 		}
-		// else if(e.getSource() == bouton9)
-		// {
-		// engine.interpretCommand();
-		// }
+		 else if(e.getSource() == bouton9)
+		 {
+			 createGameOver("sante");
+		 }
 		else if (e.getSource() == bouton10) 
 		{
 			engine.interpretCommand("drink potion");
@@ -239,14 +243,14 @@ public class UserInterface implements ActionListener
 
 		/********************************* Les panels *************************************/
 		// Panel 1 contient l'image en haut de la fenêtre
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setPreferredSize(new Dimension(1200, 600));
 		panel.setLayout(new BorderLayout());
 		panel.add(image, BorderLayout.CENTER);
 
 		// Panel 2 corps qui comporte les boutons de navigation, la partie texte
 		// et les boutons de commandes
-		JPanel panel2 = new JPanel();
+		panel2 = new JPanel();
 		// Sous panel navigation
 		JPanel sspanel1 = new JPanel();
 		sspanel1.setPreferredSize(new Dimension(300, 300));
@@ -259,9 +263,9 @@ public class UserInterface implements ActionListener
 		sspanel1.add(bouton6);
 		sspanel1.add(bouton7);
 		sspanel1.add(bouton8);
-		// sspanel1.add(bouton9);
+		 sspanel1.add(bouton9);
 
-		sspanel1.add(liste);
+//		sspanel1.add(liste);
 
 		// Sous panel texte
 		sspanel2 = new JPanel();
@@ -308,7 +312,7 @@ public class UserInterface implements ActionListener
 		bouton6.addActionListener(this);
 		bouton7.addActionListener(this);
 		bouton8.addActionListener(this);
-		// bouton9.addActionListener(this);
+		bouton9.addActionListener(this);
 		bouton10.addActionListener(this);
 		bouton11.addActionListener(this);
 		bouton12.addActionListener(this);
@@ -378,25 +382,32 @@ public class UserInterface implements ActionListener
 		engine.interpretCommand(input);
 	}
 
-	// public void createGameOver()
-	// {
-	// myFrame.removeAll();
-	// // ImageIcon img = new ImageIcon("images/gameover.jpg");
-	// JPanel panel = new JPanel();
-	// Image img = ImageIO.read(new File("images/gameover.jpg"));
-	// panel.drawImage(img, 0, 0, this);
-	// //Pour une image de fond
-	// //g.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-	//
-	// // image.setIcon(img);
-	// //// JLabel gameOver = new JLabel(image);
-	// //
-	//
-	// // panel.add(image,BorderLayout.CENTER);
-	// // myFrame.setContentPane(panel);
-	//
-	// // showImage("images/gameover.jpg");
-	// }
+	 public void createGameOver(String raison)
+	 {
+		 myFrame.remove(panel2);
+		 
+		 switch(raison)
+		 {
+		  	case "eau" : 
+			{
+				  showImage("images/Mort.png");
+				  break;
+			}
+		  	case "sante" :
+		  	{
+		  		showImage("images/gameover.jpg");
+		  		break;
+		  	}
+		  	case "creeper" :
+		  	{
+		  		showImage("images/gameover.jpg");
+		  		break;
+		  	}
+		  	default:
+		  		showImage("images/gameover.jpg");
+		 }
+	 }
+	 
 
 	public void resetTextPanel()
 	{
@@ -408,10 +419,11 @@ public class UserInterface implements ActionListener
 	/**
 	 * Show an image file in the interface.
 	 */
-	public void showImage(String imageName) {
+	public void showImage(String imageName) 
+	{
 		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
 		if (imageURL == null)
-			System.out.println("image not found");
+			System.out.println("Image non trouvé");
 		else {
 			ImageIcon icon = new ImageIcon(imageURL);
 			image.setIcon(icon);
