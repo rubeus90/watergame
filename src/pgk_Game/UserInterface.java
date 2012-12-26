@@ -1,5 +1,6 @@
 package pgk_Game;
 
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -18,6 +19,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -67,6 +69,7 @@ public class UserInterface implements ActionListener
 	private JMenuItem newAction;
 	private JMenuItem saveAction;
 	private JMenuItem quitAction;
+	private JMenuItem helpAction;
 	private JMenuItem authorAction;
 	private JMenuItem copyrightAction;
 	private JComboBox liste;
@@ -150,17 +153,25 @@ public class UserInterface implements ActionListener
 		{
 			engine.printInventaire();
 		} 
+		else if (e.getSource() == newAction) 
+		{
+			engine.newGame();
+		}
 		else if (e.getSource() == quitAction) 
 		{
 			engine.interpretCommand("quit");
 		}
+		else if (e.getSource() == helpAction) 
+		{
+			createHelp();
+		}
 		else if (e.getSource() == authorAction) 
 		{
-			engine.interpretCommand("credits");
+			createCredits();
 		}
-		else if (e.getSource() == newAction) 
+		else if (e.getSource() == copyrightAction) 
 		{
-			engine.newGame();
+			createCopyright();
 		}
 
 		else
@@ -184,20 +195,23 @@ public class UserInterface implements ActionListener
 		myFrame.setJMenuBar(menubar);
 		// Créer les boutons du menu
 		JMenu options = new JMenu("Options");
-		JMenu credits = new JMenu("Credits");
+		JMenu credits = new JMenu("Aide");
 		menubar.add(options);
 		menubar.add(credits);
 		// Créer les boutons du dropdown menu
 		newAction = new JMenuItem("Nouvelle partie");
 		saveAction = new JMenuItem("Sauvegarder la partie");
 		quitAction = new JMenuItem("Quitter le jeu");
-		authorAction = new JMenuItem("Auteurs");
+		helpAction = new JMenuItem("Liste des commandes");
+		authorAction = new JMenuItem("About Water Games");
 		copyrightAction = new JMenuItem("Copyright");
 		// Ajouter ces boutons au dropdown
 		options.add(newAction);
 		options.add(saveAction);
 		options.addSeparator();
 		options.add(quitAction);
+		credits.add(helpAction);
+		credits.addSeparator();
 		credits.add(authorAction);
 		credits.add(copyrightAction);
 
@@ -323,9 +337,11 @@ public class UserInterface implements ActionListener
 		bouton12.addActionListener(this);
 		bouton13.addActionListener(this);
 
-		authorAction.addActionListener(this);
 		quitAction.addActionListener(this);
 		newAction.addActionListener(this);
+		helpAction.addActionListener(this);
+		authorAction.addActionListener(this);
+		copyrightAction.addActionListener(this);
 
 		/****************************************************************/
 		liste.getSelectedItem();
@@ -445,11 +461,14 @@ public class UserInterface implements ActionListener
 	{
 		myFrame.remove(panel2);
 		JPanel panelDialogue = new JPanel();
-		panelDialogue.add(log, BorderLayout.CENTER);
+		panelDialogue.add(log, BorderLayout.WEST);
 		myFrame.add(panelDialogue);
 		log.setText("");
 		print("\n");
+		JButton buttonNext = new JButton("Suivant");
+		panelDialogue.add(buttonNext, BorderLayout.EAST);
 	}
+	
 	
 	public void colorButton()
 	{
@@ -481,4 +500,90 @@ public class UserInterface implements ActionListener
 		panel2.repaint();
 	}
 	
+	public void createHelp()
+	{
+		JFrame help = new JFrame("Liste des commandes");
+		help.setSize(800, 1000);
+	    help.setVisible(true);
+	    
+	    JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        if (helpURL != null) {
+            try {
+                editorPane.setPage(helpURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + helpURL);
+            }
+        } else {
+            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+        }
+        
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        editorPane.setEditable(false);
+        
+        help.setContentPane(editorScrollPane);
+	}
+	
+	public void createCredits()
+	{
+		JFrame credits = new JFrame("About Water Game");
+		credits.setSize(800, 1000);
+	    credits.setVisible(true);
+	    
+	    JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        if (helpURL != null) {
+            try {
+                editorPane.setPage(helpURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + helpURL);
+            }
+        } else {
+            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+        }
+        
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        editorPane.setEditable(false);
+        
+        credits.setContentPane(editorScrollPane);
+	}
+	
+	public void createCopyright()
+	{
+		JFrame gpl = new JFrame("Copyright");
+		gpl.setSize(800, 1000);
+	    gpl.setVisible(true);
+	    
+	    JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        if (helpURL != null) {
+            try {
+                editorPane.setPage(helpURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + helpURL);
+            }
+        } else {
+            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+        }
+        
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        editorPane.setEditable(false);
+        
+        gpl.setContentPane(editorScrollPane);
+	}
 }
