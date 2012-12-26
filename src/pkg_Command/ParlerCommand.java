@@ -6,8 +6,12 @@ import pkg_Dialogue.*;
 
 public class ParlerCommand extends Command
 {
+	private Dialogue dialogueCreeper1;
+	
 	public ParlerCommand()
-	{}
+	{
+		dialogueCreeper1 = new DialogueCreeper1();
+	}
 	
 	public void execute(Player player)
 	{
@@ -24,8 +28,8 @@ public class ParlerCommand extends Command
 					{
 						case "foret":
 						{
-							Dialogue dialogue = new DialogueCreeper1();
-							dialogue.afficheDialogue(player.getGameEngine());
+							dialogueCreeper1.afficheDialogue(player.getGameEngine());
+							dialogueCreeper1.suivant();
 							break;
 						}
 						case "grotte":

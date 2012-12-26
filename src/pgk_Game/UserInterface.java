@@ -77,12 +77,18 @@ public class UserInterface implements ActionListener
 	private JTextArea log;
 	private JLabel image;
 	private Parser parser;
+	private JPanel sspanel1;
 	private JPanel sspanel2;
+	private JPanel sspanel3;
 	private JPanel panel;
 	private JPanel panel2;
 	private JPanel panel3;
 	private JButton buttonParler;
 	private JButton buttonAttaque;
+	private JButton buttonNext;
+	private JButton buttonHelp;
+	private JButton buttonNotHelp;
+	private JPanel panelDialogue;
 
 
 	/**
@@ -185,6 +191,10 @@ public class UserInterface implements ActionListener
 		{
 			engine.interpretCommand("attaque");
 		}
+		else if (e.getSource() == buttonNext) 
+		{
+			engine.interpretCommand("parler");
+		}
 
 		else
 			processCommand();
@@ -200,7 +210,7 @@ public class UserInterface implements ActionListener
 	{
 		/*************************** Créer une nouvelle fenêtre *******************************/
 		myFrame = new JFrame("Water Game");
-		myFrame.setResizable(false);
+		myFrame.setResizable(true);
 
 		/***************************** Créer un menu bar **************************************/
 		JMenuBar menubar = new JMenuBar();
@@ -242,7 +252,9 @@ public class UserInterface implements ActionListener
 		log.setLineWrap(true);
 		log.setWrapStyleWord(true);
 		log.setOpaque(false);
-		log.setFocusable(false);
+		log.setFocusable(false);		
+		
+		log.setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 13));
 
 		listScroller = new JScrollPane(log);
 		listScroller.setPreferredSize(new Dimension(600, 280));
@@ -274,6 +286,13 @@ public class UserInterface implements ActionListener
 		buttonParler.setPreferredSize(new Dimension(300, 20));
 		buttonAttaque = new JButton("Attaquer");
 		buttonAttaque.setPreferredSize(new Dimension(300, 20));
+		
+		buttonNext = new JButton("Suivant");
+		buttonNext.setPreferredSize(new Dimension(100,300));
+		buttonHelp = new JButton();
+		buttonHelp.setPreferredSize(new Dimension(100,150));
+		buttonNotHelp = new JButton();
+		buttonNotHelp.setPreferredSize(new Dimension(100,150));
 
 		/********************************* Les panels *************************************/
 		// Panel 1 contient l'image en haut de la fenêtre
@@ -286,7 +305,7 @@ public class UserInterface implements ActionListener
 		// et les boutons de commandes
 		panel2 = new JPanel();
 		// Sous panel navigation
-		JPanel sspanel1 = new JPanel();
+		sspanel1 = new JPanel();
 		sspanel1.setPreferredSize(new Dimension(300, 300));
 		sspanel1.setLayout(new GridLayout(3, 3));
 		sspanel1.add(bouton1);
@@ -308,7 +327,7 @@ public class UserInterface implements ActionListener
 		sspanel2.add(listScroller, BorderLayout.NORTH);
 		sspanel2.add(entryField, BorderLayout.SOUTH);
 		// Sous panel boutons
-		JPanel sspanel3 = new JPanel();
+		sspanel3 = new JPanel();
 		sspanel3.setPreferredSize(new Dimension(300, 300));
 		sspanel3.setLayout(new GridLayout(2, 2));
 		sspanel3.add(bouton10);
@@ -356,12 +375,15 @@ public class UserInterface implements ActionListener
 		
 		buttonParler.addActionListener(this);
 		buttonAttaque.addActionListener(this);
+		
+		buttonNext.addActionListener(this);
 
 		quitAction.addActionListener(this);
 		newAction.addActionListener(this);
 		helpAction.addActionListener(this);
 		authorAction.addActionListener(this);
 		copyrightAction.addActionListener(this);
+		
 
 		/****************************************************************/
 		liste.getSelectedItem();
@@ -472,7 +494,8 @@ public class UserInterface implements ActionListener
 		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
 		if (imageURL == null)
 			System.out.println("Image non trouvé");
-		else {
+		else 
+		{
 			ImageIcon icon = new ImageIcon(imageURL);
 			image.setIcon(icon);
 			myFrame.pack();
@@ -491,15 +514,31 @@ public class UserInterface implements ActionListener
 	public void showDialogue()
 	{
 		myFrame.remove(panel2);
-		JPanel panelDialogue = new JPanel();
+		panelDialogue = new JPanel();
 		panelDialogue.setLayout(new BorderLayout());
 		panelDialogue.add(log, BorderLayout.CENTER);
 		myFrame.add(panelDialogue);
 		log.setText("");
+		log.setFont(new Font("Verdana", Font.BOLD, 13));
 		print("\n");
-		JButton buttonNext = new JButton("Suivant");
-		buttonNext.setPreferredSize(new Dimension(100,300));
+		
 		panelDialogue.add(buttonNext, BorderLayout.EAST);
+	}
+	
+	public void closeDialogue()
+	{
+		myFrame.remove(panelDialogue);
+		listScroller = new JScrollPane(log);
+		log.setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 13));
+		listScroller.setPreferredSize(new Dimension(600, 280));
+		listScroller.setMinimumSize(new Dimension(10, 10));
+		sspanel2.add(listScroller, BorderLayout.NORTH);
+		sspanel2.add(entryField, BorderLayout.SOUTH);
+		panel2.add(sspanel1);
+		panel2.add(sspanel2);
+		panel2.add(sspanel3);
+		myFrame.add(panel2);
+		resetTextPanel();
 	}
 	
 	/**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
