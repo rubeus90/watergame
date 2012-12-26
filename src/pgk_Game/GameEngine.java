@@ -255,10 +255,11 @@ public class GameEngine
 //		gui.println(commandLine);
 		Command command = parser.getCommand(commandLine);
 		command.execute(player);
+		
 		if(player.getSante() > 0)
 		{			
-			gui.colorButton();
 			gui.createInteractionBot();
+			gui.colorButton();
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 		}
 		else

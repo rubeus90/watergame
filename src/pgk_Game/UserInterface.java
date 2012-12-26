@@ -53,6 +53,7 @@ public class UserInterface implements ActionListener
 	private GameEngine engine;
 	private JFrame myFrame;
 	private JTextField entryField;
+	private JScrollPane listScroller;
 	private JButton bouton1;
 	private JButton bouton2;
 	private JButton bouton3;
@@ -96,7 +97,6 @@ public class UserInterface implements ActionListener
 		engine = gameEngine;
 		createGUI();
 		colorButton();
-		createInteractionBot();
 	}
 
 	/**
@@ -200,7 +200,7 @@ public class UserInterface implements ActionListener
 	{
 		/*************************** Créer une nouvelle fenêtre *******************************/
 		myFrame = new JFrame("Water Game");
-		myFrame.setResizable(true);
+		myFrame.setResizable(false);
 
 		/***************************** Créer un menu bar **************************************/
 		JMenuBar menubar = new JMenuBar();
@@ -244,7 +244,7 @@ public class UserInterface implements ActionListener
 		log.setOpaque(false);
 		log.setFocusable(false);
 
-		JScrollPane listScroller = new JScrollPane(log);
+		listScroller = new JScrollPane(log);
 		listScroller.setPreferredSize(new Dimension(600, 280));
 		listScroller.setMinimumSize(new Dimension(10, 10));
 
@@ -297,7 +297,7 @@ public class UserInterface implements ActionListener
 		sspanel1.add(bouton6);
 		sspanel1.add(bouton7);
 		sspanel1.add(bouton8);
-		 sspanel1.add(bouton9);
+		sspanel1.add(bouton9);
 
 //		sspanel1.add(liste);
 
@@ -423,6 +423,10 @@ public class UserInterface implements ActionListener
 		engine.interpretCommand(input);
 	}
 
+	/**Cette méthode crée la fenêtre quand le joueur a perdu. L'image montré est choisie en fonction de la raison
+	 * pour laquelle le joueur est mort
+	 * @param raison
+	 */
 	 public void createGameOver(String raison)
 	 {
 		 myFrame.remove(panel2);
@@ -450,6 +454,9 @@ public class UserInterface implements ActionListener
 	 }
 	 
 
+	 /**Cette méthode permet d'actualiser le panneau de texte à chaque fois qu'une commande est rentré, ainsi
+	  * on a pas le texte de tous les mouvements du joueur affiché
+	  */
 	public void resetTextPanel()
 	{
 		log.setText("");
@@ -458,7 +465,7 @@ public class UserInterface implements ActionListener
 	}
 	
 	/**
-	 * Show an image file in the interface.
+	 * Afficher une image dans l'interface
 	 */
 	public void showImage(String imageName) 
 	{
@@ -477,40 +484,62 @@ public class UserInterface implements ActionListener
 		return myFrame;
 	}
 	
+	/**Cette méthode permet de passer du jeu en mode normal en mode dialogue
+	 * c'est-à-dire enlever les boutons, afficher le texte du dialogue et les boutons pour l'avancement du dialogue
+	 * 
+	 */
 	public void showDialogue()
 	{
 		myFrame.remove(panel2);
 		JPanel panelDialogue = new JPanel();
-		panelDialogue.add(log, BorderLayout.WEST);
+		panelDialogue.setLayout(new BorderLayout());
+		panelDialogue.add(log, BorderLayout.CENTER);
 		myFrame.add(panelDialogue);
 		log.setText("");
 		print("\n");
 		JButton buttonNext = new JButton("Suivant");
+		buttonNext.setPreferredSize(new Dimension(100,300));
 		panelDialogue.add(buttonNext, BorderLayout.EAST);
 	}
 	
+	/**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
+	 * Les boutons sont retirées si aucun bot n'est présent dans l'endroit
+	 */
 	public void createInteractionBot()
 	{
+		JPanel panel3 = new JPanel();
+		panel3.setLayout(new BorderLayout());
+		panel3.add(buttonParler, BorderLayout.WEST);
+		panel3.add(buttonAttaque, BorderLayout.EAST);
+		
+		//S'il y a un bot
 		if(engine.getPlayer().getRoom().getBot() != null)
 		{
-			sspanel2.remove(entryField);
-			sspanel2.add(buttonParler, BorderLayout.WEST);
-			sspanel2.add(buttonAttaque, BorderLayout.EAST);
+			sspanel2.setLayout(new BorderLayout());
+			sspanel2.removeAll();
+			sspanel2.add(panel3, BorderLayout.SOUTH);
+			panel3.setVisible(true);
+			sspanel2.add(listScroller, BorderLayout.NORTH);
 			sspanel2.repaint();
 			
 		}
+		//S'il n'y a pas de bot
 		else
 		{
-			if(buttonParler != null && buttonAttaque != null)
+			if(panel3 != null)
 			{
-				sspanel2.remove(buttonParler);
-				sspanel2.remove(buttonAttaque);
-				sspanel2.add(entryField);
+				sspanel2.setLayout(new BorderLayout());
+				sspanel2.removeAll();
+				sspanel2.add(entryField, BorderLayout.SOUTH);
+				sspanel2.add(listScroller, BorderLayout.NORTH);
 				sspanel2.repaint();
 			}
 		}
 	}
 	
+	/**Cette méthode permet de désactiver les boutons quand la sortie correspondante n'est pas disponible et
+	 * la réactive dans le cas contraire
+	 */
 	public void colorButton()
 	{
 		if(engine.getPlayer().getRoom().getExit("nord") == null)
@@ -541,6 +570,9 @@ public class UserInterface implements ActionListener
 		panel2.repaint();
 	}
 	
+	/**Créer la fenêtre des commandes disponibles
+	 * 
+	 */
 	public void createHelp()
 	{
 		JFrame help = new JFrame("Liste des commandes");
@@ -570,9 +602,12 @@ public class UserInterface implements ActionListener
         help.setContentPane(editorScrollPane);
 	}
 	
+	/**Créer la fenêtre About Water Games
+	 * 
+	 */
 	public void createCredits()
 	{
-		JFrame credits = new JFrame("About Water Game");
+		JFrame credits = new JFrame("About Water Games");
 		credits.setSize(800, 1000);
 	    credits.setVisible(true);
 	    
@@ -599,6 +634,9 @@ public class UserInterface implements ActionListener
         credits.setContentPane(editorScrollPane);
 	}
 	
+	/**Créer la fenêtre Copyright
+	 * 
+	 */
 	public void createCopyright()
 	{
 		JFrame gpl = new JFrame("Copyright");
