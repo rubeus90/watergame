@@ -88,7 +88,7 @@ public class GameEngine
 		endGame();
 		createGame();
 		gui.createGUI();
-		
+				
 		player.setSante(80);
 		player.getItemListe().getHashMap().clear();
 		
@@ -257,6 +257,7 @@ public class GameEngine
 		command.execute(player);
 		if(player.getSante() > 0)
 		{			
+			gui.colorButton();
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 		}
 		else

@@ -85,9 +85,11 @@ public class UserInterface implements ActionListener
 	 * @param gameEngine
 	 *            The GameEngine object implementing the game logic.
 	 */
-	public UserInterface(GameEngine gameEngine) {
+	public UserInterface(GameEngine gameEngine) 
+	{
 		engine = gameEngine;
 		createGUI();
+		colorButton();
 	}
 
 	/**
@@ -227,8 +229,6 @@ public class UserInterface implements ActionListener
 		/********************************** Tous les boutons du jeu *******************************/
 		bouton1 = new JButton();
 		bouton2 = new JButton("Nord");
-		if(engine.getPlayer().getRoom().getExit("nord") == null)
-			bouton2.setBackground(Color.GRAY);
 		bouton3 = new JButton("Haut");
 		bouton4 = new JButton("Ouest");
 		bouton5 = new JButton();
@@ -446,6 +446,36 @@ public class UserInterface implements ActionListener
 		myFrame.add(panelDialogue);
 		log.setText("");
 		print("\n");
-		
 	}
+	
+	public void colorButton()
+	{
+		if(engine.getPlayer().getRoom().getExit("nord") == null)
+			bouton2.setBackground(Color.GRAY);
+		else
+			bouton2.setBackground(null);
+		
+		if(engine.getPlayer().getRoom().getExit("haut") == null)
+			bouton3.setBackground(Color.GRAY);
+		else
+			bouton3.setBackground(null);
+		
+		if(engine.getPlayer().getRoom().getExit("ouest") == null)
+			bouton4.setBackground(Color.GRAY);
+		else
+			bouton4.setBackground(null);
+		
+		if(engine.getPlayer().getRoom().getExit("est") == null)
+			bouton6.setBackground(Color.GRAY);
+		else
+			bouton6.setBackground(null);
+		
+		if(engine.getPlayer().getRoom().getExit("sud") == null)
+			bouton8.setBackground(Color.GRAY);
+		else
+			bouton8.setBackground(null);
+		
+		panel2.repaint();
+	}
+	
 }

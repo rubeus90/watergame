@@ -47,7 +47,9 @@ public class GoCommand extends Command
 				{
 					player.getGUI().showImage(player.getRoom().getImageName());
 				}
+				
 				player.getGUI().resetTextPanel();
+				
 			}
 			else
 			{
