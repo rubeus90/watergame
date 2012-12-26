@@ -196,7 +196,7 @@ public class Player {
 
 	public String getLongDescriptionPlayer() 
 	{
-		String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n" + "Santé : " + sante;
+		String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n";
 
 		return description;
 	}
@@ -364,5 +364,9 @@ public class Player {
 		return beamerRoom;
 	}
 		
+	public String getNom()
+	{
+		return aNom;
+	}
 	
 }

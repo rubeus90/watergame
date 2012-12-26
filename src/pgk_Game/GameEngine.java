@@ -52,6 +52,8 @@ public class GameEngine
 	private Beamer beamer;
 	private ArrayList<Room> rooms;
 	private Scanner sr;
+	private Bots creeper;
+	private Bots blaze;
 	
 
 	/**
@@ -199,8 +201,10 @@ public class GameEngine
 		player.setCurrentRoom(temple);
 		
 		//Ajouter les bots dans les salles
-		foret.addBot("Creeper", new Bots("Creeper", null, 0, false));
-		plage.addBot("Blaze", new Bots("Blaze", null, 100, true));		
+		creeper = new Bots("Creeper", null, false);
+		blaze = new Bots("Blaze", null, true);
+		foret.addBot("Creeper", creeper);
+		plage.addBot("Blaze", blaze);		
 		
 		//Ajouter le Beamer
 		beamer = new Beamer();
@@ -477,7 +481,8 @@ public class GameEngine
 //			gui.println("Fichier non trouvé");
 //		}
 //	}
-
+	
+	
 }
 
 

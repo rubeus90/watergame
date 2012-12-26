@@ -7,25 +7,18 @@ package pkg_Characters;
  */
 public class Bots extends Player
 {
-	private int force;
-	private boolean isBoss;
+	private boolean attaquable;
 	
 	
-	public Bots(final String pNom, final String pGender, final int pForce, final boolean pIsBoss)
+	public Bots(final String pNom, final String pGender, final boolean attaquable)
 	{
 		super(pNom, pGender);
-		this.force = pForce;
-		this.isBoss = pIsBoss; 
+		this.attaquable = attaquable; 
 	}
 	
-	public int getForce()
+	public boolean attaquable()
 	{
-		return force;
-	}
-	
-	public boolean getIsBoss()
-	{
-		return isBoss;
+		return attaquable;
 	}
 	
 	

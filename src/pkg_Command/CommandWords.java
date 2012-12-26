@@ -44,6 +44,7 @@ public class CommandWords {
         commands.put(validCommands.get(CommandWord.TELEPORTER), new TeleporterCommand());
         commands.put(validCommands.get(CommandWord.CHARGER), new ChargerCommand());
         commands.put(validCommands.get(CommandWord.UTILISER), new UtiliserCommand());
+        commands.put(validCommands.get(CommandWord.ATTAQUE), new AttaqueCommand());
    
 
 		// validCommands.put("go", CommandWord.GO);

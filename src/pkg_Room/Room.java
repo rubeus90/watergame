@@ -281,4 +281,15 @@ public class Room {
 		else 
 			return "Il n'y a pas d'ennemi ici!";
 	}
+	
+	public Bots getBot()
+	{
+		Bots bot = null;
+		Set<String> keys = bots.keySet();
+		for(String nom : keys)
+		{
+			bot = bots.get(nom);
+		}
+		return bot;
+	}
 }
