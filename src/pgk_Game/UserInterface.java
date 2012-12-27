@@ -463,6 +463,10 @@ public class UserInterface implements ActionListener
 	 public void createGameOver(String raison)
 	 {
 		 myFrame.remove(panel2);
+		 if(panelDialogue2 != null)
+			{
+				myFrame.remove(panelDialogue2);
+			}
 		 
 		 switch(raison)
 		 {
@@ -529,6 +533,11 @@ public class UserInterface implements ActionListener
 			case 1 :
 			{
 				myFrame.remove(panel2);
+				if(panelDialogue2 != null)
+				{
+					myFrame.remove(panelDialogue2);
+				}
+				
 				panelDialogue = new JPanel();
 				panelDialogue.setLayout(new BorderLayout());
 				panelDialogue.add(log, BorderLayout.CENTER);
@@ -543,7 +552,7 @@ public class UserInterface implements ActionListener
 			}
 			case 2:
 			{
-				myFrame.remove(panel2);
+				myFrame.remove(panelDialogue);
 				panelDialogue2 = new JPanel();
 				panelDialogue2.setLayout(new BorderLayout());
 				panelDialogue2.add(log, BorderLayout.CENTER);

@@ -25,6 +25,8 @@ public class DialogueCreeper1 extends Dialogue
 			{
 				case 1:
 				{
+					engine.getGUI().showDialogue(2);
+					
 					engine.getGUI().println("Creeper : Hey hey, toi ! Oui toi là !  Je suis bloqué dans un trou juste là. Viens m'aider !");
 					super.suivant();
 					break;
