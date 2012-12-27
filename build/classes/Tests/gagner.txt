@@ -4,3 +4,7 @@ go ouest
 go est
 go est
 teleporter pic
+take corde
+go ouest
+go ouest
+go ouest

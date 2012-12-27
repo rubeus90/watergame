@@ -74,6 +74,11 @@ public class Room {
 	{
 		bots.put(nomBot, bot);
 	}
+	
+	public void removeBot(String nomBot)
+	{
+		bots.remove(nomBot);
+	}
 
 	public void addItem(Pierre pierre)
 	{

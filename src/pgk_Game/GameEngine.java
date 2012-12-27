@@ -54,6 +54,7 @@ public class GameEngine
 	private Scanner sr;
 	private Bots creeper;
 	private Bots blaze;
+	private boolean gameResetted;
 	
 
 	/**
@@ -65,6 +66,7 @@ public class GameEngine
 		createGame();
 		parser = new Parser();
 		commandWords = new CommandWords();
+		gameResetted = false;
 	}
 
 	/** 
@@ -87,6 +89,7 @@ public class GameEngine
 	{
 		endGame();
 		createGame();
+		gameResetted = true;
 		gui.createGUI();
 				
 		player.setSante(80);
@@ -186,6 +189,7 @@ public class GameEngine
 		plage.addItem("filet", new Item("Un grand filet", 50));
 		temple.addItem("arc", new Item("Un arc en bois", 40));
 		temple.addItem("torche", new Item("Une petite torche", 10));
+		pic.addItem("corde", new Item("Une corde", 1));
 		
 		//Ajouter le teleporteur
 		pierre = new Pierre();
@@ -485,6 +489,15 @@ public class GameEngine
 //		}
 //	}
 	
+	public boolean gameResetted()
+	{
+		return gameResetted;
+	}
+	
+	public ArrayList<Room> getArrayListRoom()
+	{
+		return rooms;
+	}
 }
 
 

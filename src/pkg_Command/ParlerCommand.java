@@ -28,8 +28,18 @@ public class ParlerCommand extends Command
 					{
 						case "foret":
 						{
-							dialogueCreeper1.afficheDialogue(player.getGameEngine());
-							dialogueCreeper1.suivant();
+							if(!player.getGameEngine().gameResetted())
+							{
+								dialogueCreeper1.afficheDialogue(player.getGameEngine());
+							}
+							//Si le jeu est recommencé, on remet le compteur des étapes de dialogue à 1
+							else
+							{
+								if(dialogueCreeper1.getEtape() == 0)
+									dialogueCreeper1.setEtape(1);
+								
+								dialogueCreeper1.afficheDialogue(player.getGameEngine());
+							}
 							break;
 						}
 						case "grotte":
