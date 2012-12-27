@@ -75,7 +75,7 @@ public class GameEngine
 	 */
 	public void chargerPierre()
 	{
-		if(player.getRoom().getNomRoom() == "foret") //si l'utilisateur est dans la forêt
+		if(player.getRoom().getNomRoom() == "foret") //si l'utilisateur est dans la foret
 		{
 			if(player.getItemListe().getHashMap().containsKey("EnderPearl")) // si il possède la pierre
 			{

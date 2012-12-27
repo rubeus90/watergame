@@ -9,8 +9,7 @@ public class GoCommand extends Command
 {
 	
 	public GoCommand()
-    {
-    }
+    {}
 
     public void execute(Player player)
     {

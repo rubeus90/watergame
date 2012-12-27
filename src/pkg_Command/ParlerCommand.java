@@ -6,7 +6,7 @@ import pkg_Dialogue.*;
 
 public class ParlerCommand extends Command
 {
-	private Dialogue dialogueCreeper1;
+	private DialogueCreeper1 dialogueCreeper1;
 	
 	public ParlerCommand()
 	{
@@ -43,6 +43,11 @@ public class ParlerCommand extends Command
 							{
 								dialogueCreeper1.afficheDialogue(player.getGameEngine());
 							}
+							
+							//Juste pour debug le jeu
+//							player.getGUI().println("" + dialogueCreeper1.getEtape());
+//							player.getGUI().println("" + player.getGameEngine().gameResetted());
+							
 							break;
 						}
 						case "grotte":

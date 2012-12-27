@@ -6,9 +6,9 @@ import pkg_Characters.Bots;
 import pkg_Items.Item;
 import pkg_Room.Room;
 
-public class DialogueCreeper1 extends Dialogue
+public class DialogueCreeper2 extends Dialogue
 {
-	public DialogueCreeper1()
+	public DialogueCreeper2()
 	{
 		super();
 	}
@@ -71,31 +71,31 @@ public class DialogueCreeper1 extends Dialogue
 		{
 			if(super.getEtape() == 0)
 			{
-				super.setEtape(1);
+				super.setEtape(2);
 			}
 			switch(etape)
 			{
-				case 0:
+				case 1:
 				{
 					engine.getGUI().println("Creeper : Ah voilà tu es de retours! Je vois que tu as trouvé une corde." +
 							"Maintenant utilise la corde pour me sortir de là!");
 					super.suivant();
 					break;
 				}
-				case 1:
+				case 2:
 				{
 					engine.getGUI().println("Creeper : Merci de m'avoir sauvé. Pour te remercier, je vais te donner cette épée.");
 					engine.getPlayer().getItemListe().putItem("epee", new Item("Une épée en acier rare", 2));
 					super.suivant();
 					break;
 				}
-				case 2:
+				case 3:
 				{
 					engine.getGUI().println("Creeper : Allons-nous en d'ici, c'est trop risqué de rester ici!");
 					super.suivant();
 					break;
 				}
-				case 3:
+				case 4:
 				{
 					engine.getGUI().println("Creeper : Il faut que l'on se sépare. Si tu veux me retrouver, je serai dans la " +
 							"grotte pas loin d'ici.");
