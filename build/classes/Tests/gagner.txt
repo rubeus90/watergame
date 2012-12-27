@@ -8,3 +8,8 @@ take corde
 go ouest
 go ouest
 go ouest
+parler
+parler
+parler
+parler
+parler

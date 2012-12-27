@@ -28,16 +28,19 @@ public class ParlerCommand extends Command
 					{
 						case "foret":
 						{
-							if(!player.getGameEngine().gameResetted())
-							{
-								dialogueCreeper1.afficheDialogue(player.getGameEngine());
-							}
 							//Si le jeu est recommencé, on remet le compteur des étapes de dialogue à 1
+							if(player.getGameEngine().gameResetted() && dialogueCreeper1.getEtape() != 1)
+							{
+								dialogueCreeper1.setEtape(1);
+								dialogueCreeper1.afficheDialogue(player.getGameEngine());
+								
+								/*on remet la valeur de gameResetted à false, donc quand on fait suivant, on va tomber dans
+								 * la condition de else, comme ça la valeur de l'étape n'est pas réinitialisée à 1 à chaque fois
+								 */
+								player.getGameEngine().setResetGame(); 
+							}
 							else
 							{
-								if(dialogueCreeper1.getEtape() == 0)
-									dialogueCreeper1.setEtape(1);
-								
 								dialogueCreeper1.afficheDialogue(player.getGameEngine());
 							}
 							break;
@@ -49,6 +52,11 @@ public class ParlerCommand extends Command
 						}
 						default:{}
 					}
+					break;
+				}
+				case("Blaze"):
+				{
+					player.getGUI().println("A implementer");
 					break;
 				}
 				default: {}

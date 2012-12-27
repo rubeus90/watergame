@@ -15,8 +15,8 @@ public class DialogueCreeper1 extends Dialogue
 	
 	public void afficheDialogue(GameEngine engine)
 	{
-		engine.getGUI().showDialogue();
-		
+		engine.getGUI().showDialogue(1);
+				
 		int etape = super.getEtape();
 		
 		if(!engine.getPlayer().getItemListe().containsKey("corde"))

@@ -494,6 +494,11 @@ public class GameEngine
 		return gameResetted;
 	}
 	
+	public void setResetGame()
+	{
+		gameResetted = false;
+	}
+	
 	public ArrayList<Room> getArrayListRoom()
 	{
 		return rooms;

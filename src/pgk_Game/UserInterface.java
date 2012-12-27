@@ -89,6 +89,7 @@ public class UserInterface implements ActionListener
 	private JButton buttonHelp;
 	private JButton buttonNotHelp;
 	private JPanel panelDialogue;
+	private JPanel panelDialogue2;
 
 
 	/**
@@ -195,6 +196,14 @@ public class UserInterface implements ActionListener
 		{
 			engine.interpretCommand("parler");
 		}
+		else if (e.getSource() == buttonHelp) 
+		{
+			engine.interpretCommand("parler");
+		}
+		else if (e.getSource() == buttonNotHelp) 
+		{
+			createGameOver("creeper");
+		}
 
 		else
 			processCommand();
@@ -289,10 +298,10 @@ public class UserInterface implements ActionListener
 		
 		buttonNext = new JButton("Suivant");
 		buttonNext.setPreferredSize(new Dimension(100,300));
-		buttonHelp = new JButton();
-		buttonHelp.setPreferredSize(new Dimension(100,150));
-		buttonNotHelp = new JButton();
-		buttonNotHelp.setPreferredSize(new Dimension(100,150));
+		buttonHelp = new JButton("Aider Creeper");
+		buttonHelp.setPreferredSize(new Dimension(300,150));
+		buttonNotHelp = new JButton("Je ne veux pas l'aider");
+		buttonNotHelp.setPreferredSize(new Dimension(300,150));
 
 		/********************************* Les panels *************************************/
 		// Panel 1 contient l'image en haut de la fenêtre
@@ -375,6 +384,8 @@ public class UserInterface implements ActionListener
 		
 		buttonParler.addActionListener(this);
 		buttonAttaque.addActionListener(this);
+		buttonHelp.addActionListener(this);
+		buttonNotHelp.addActionListener(this);
 		
 		buttonNext.addActionListener(this);
 
@@ -511,18 +522,49 @@ public class UserInterface implements ActionListener
 	 * c'est-à-dire enlever les boutons, afficher le texte du dialogue et les boutons pour l'avancement du dialogue
 	 * 
 	 */
-	public void showDialogue()
+	public void showDialogue(int mode)
 	{
-		myFrame.remove(panel2);
-		panelDialogue = new JPanel();
-		panelDialogue.setLayout(new BorderLayout());
-		panelDialogue.add(log, BorderLayout.CENTER);
-		myFrame.add(panelDialogue);
-		log.setText("");
-		log.setFont(new Font("Verdana", Font.BOLD, 13));
-		print("\n");
+		switch(mode)
+		{
+			case 1 :
+			{
+				myFrame.remove(panel2);
+				panelDialogue = new JPanel();
+				panelDialogue.setLayout(new BorderLayout());
+				panelDialogue.add(log, BorderLayout.CENTER);
+				myFrame.add(panelDialogue);
+				log.setText("");
+				log.setFont(new Font("Verdana", Font.BOLD, 13));
+				print("\n");
+				
+				panelDialogue.add(buttonNext, BorderLayout.EAST);
+				panelDialogue.repaint();
+				break;
+			}
+			case 2:
+			{
+				myFrame.remove(panel2);
+				panelDialogue2 = new JPanel();
+				panelDialogue2.setLayout(new BorderLayout());
+				panelDialogue2.add(log, BorderLayout.CENTER);
+				myFrame.add(panelDialogue2);
+				log.setText("");
+				log.setFont(new Font("Verdana", Font.BOLD, 13));
+				print("\n");
+				
+				JPanel help = new JPanel();
+				help.setLayout(new BorderLayout());
+				help.add(buttonHelp, BorderLayout.NORTH);
+				help.add(buttonNotHelp, BorderLayout.SOUTH);
+				panelDialogue2.add(help, BorderLayout.EAST);
+				panelDialogue2.repaint();
+				break;
+			}
+			default: {}
+			
+			
+		}
 		
-		panelDialogue.add(buttonNext, BorderLayout.EAST);
 	}
 	
 	public void closeDialogue()
