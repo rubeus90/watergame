@@ -14,6 +14,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.ImageObserver;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -54,43 +55,13 @@ public class UserInterface implements ActionListener
 	private JFrame myFrame;
 	private JTextField entryField;
 	private JScrollPane listScroller;
-	private JButton bouton1;
-	private JButton bouton2;
-	private JButton bouton3;
-	private JButton bouton4;
-	private JButton bouton5;
-	private JButton bouton6;
-	private JButton bouton7;
-	private JButton bouton8;
-	private JButton bouton9;
-	private JButton bouton10;
-	private JButton bouton11;
-	private JButton bouton12;
-	private JButton bouton13;
-	private JMenuItem newAction;
-	private JMenuItem saveAction;
-	private JMenuItem quitAction;
-	private JMenuItem helpAction;
-	private JMenuItem authorAction;
-	private JMenuItem copyrightAction;
+	private HashMap<String, JButton> buttons;
+	private HashMap<String, JPanel>  panels;
+	private HashMap<String, JMenuItem> menus;
 	private JComboBox liste;
 	private JTextArea log;
 	private JLabel image;
 	private Parser parser;
-	private JPanel sspanel1;
-	private JPanel sspanel2;
-	private JPanel sspanel3;
-	private JPanel panel;
-	private JPanel panel2;
-	private JPanel panel3;
-	private JButton buttonParler;
-	private JButton buttonAttaque;
-	private JButton buttonNext;
-	private JButton buttonHelp;
-	private JButton buttonNotHelp;
-	private JPanel panelDialogue;
-	private JPanel panelDialogue2;
-
 
 	/**
 	 * Construct a UserInterface. As a parameter, a Game Engine (an object
@@ -112,19 +83,19 @@ public class UserInterface implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		
-		if (e.getSource() == bouton1) 
+		if (e.getSource() == buttons.get("bouton1")) 
 		{
 			engine.interpretCommand("go");
 		} 
-		else if (e.getSource() == bouton2) 
+		else if (e.getSource() == buttons.get("bouton2")) 
 		{
 			engine.interpretCommand("go nord");
 		} 
-		else if (e.getSource() == bouton3) 
+		else if (e.getSource() == buttons.get("bouton3")) 
 		{
 			engine.interpretCommand("go monter");
 		} 
-		else if (e.getSource() == bouton4) 
+		else if (e.getSource() == buttons.get("bouton4")) 
 		{
 			engine.interpretCommand("go ouest");
 		}
@@ -132,81 +103,83 @@ public class UserInterface implements ActionListener
 		// {
 		// engine.interpretCommand();
 		// }
-		else if (e.getSource() == bouton6) 
+		else if (e.getSource() == buttons.get("bouton6")) 
 		{
 			engine.interpretCommand("go est");
 		} 
-		else if (e.getSource() == bouton7) 
+		else if (e.getSource() == buttons.get("bouton7")) 
 		{
 			engine.interpretCommand("back");
 		} 
-		else if (e.getSource() == bouton8) 
+		else if (e.getSource() == buttons.get("bouton8")) 
 		{
 			engine.interpretCommand("go sud");
 		}
-		 else if(e.getSource() == bouton9)
+		 else if(e.getSource() == buttons.get("bouton9"))
 		 {
 			 createGameOver("sante");
 		 }
-		else if (e.getSource() == bouton10) 
+		else if (e.getSource() == buttons.get("bouton10")) 
 		{
 			engine.interpretCommand("drink potion");
 		} 
-		else if (e.getSource() == bouton11) 
+		else if (e.getSource() == buttons.get("bouton11")) 
 		{
 			engine.interpretCommand("drink soin");
 		} 
-		else if (e.getSource() == bouton12) 
+		else if (e.getSource() == buttons.get("bouton12")) 
 		{
 			engine.interpretCommand("look");
 		} 
-		else if (e.getSource() == bouton13) 
+		else if (e.getSource() == buttons.get("bouton13")) 
 		{
 			engine.printInventaire();
 		} 
-		else if (e.getSource() == newAction) 
+		else if (e.getSource() == menus.get("newAction")) 
 		{
 			engine.newGame();
 		}
-		else if (e.getSource() == quitAction) 
+		else if (e.getSource() == menus.get("quitAction")) 
 		{
 			engine.interpretCommand("quit");
 		}
-		else if (e.getSource() == helpAction) 
+		else if (e.getSource() == menus.get("helpAction")) 
 		{
 			createHelp();
 		}
-		else if (e.getSource() == authorAction) 
+		else if (e.getSource() == menus.get("authorAction")) 
 		{
 			createCredits();
 		}
-		else if (e.getSource() == copyrightAction) 
+		else if (e.getSource() == menus.get("copyrightAction")) 
 		{
 			createCopyright();
 		}
-		else if (e.getSource() == buttonParler) 
+		else if (e.getSource() == buttons.get("boutonParler")) 
 		{
 			engine.interpretCommand("parler");
 		}
-		else if (e.getSource() == buttonAttaque) 
+		else if (e.getSource() == buttons.get("boutonAttaque")) 
 		{
 			engine.interpretCommand("attaque");
 		}
-		else if (e.getSource() == buttonNext) 
+		else if (e.getSource() == buttons.get("boutonNext")) 
 		{
 			engine.interpretCommand("parler");
 		}
-		else if (e.getSource() == buttonHelp) 
+		else if (e.getSource() == buttons.get("boutonHelp")) 
 		{
 			engine.interpretCommand("parler");
 		}
-		else if (e.getSource() == buttonNotHelp) 
+		else if (e.getSource() == buttons.get("boutonNotHelp")) 
 		{
 			createGameOver("creeper");
 		}
 
 		else
 			processCommand();
+		
+		//e.getActionCommand(String)
 	}
 
 	/**
@@ -217,10 +190,15 @@ public class UserInterface implements ActionListener
 	 */
 	public void createGUI() 
 	{
+		
+		buttons = new HashMap<String, JButton>();
+		panels = new HashMap<String, JPanel>();
+		menus = new HashMap<String, JMenuItem>();
+		
 		/*************************** Créer une nouvelle fenêtre *******************************/
 		myFrame = new JFrame("Water Game");
 		myFrame.setResizable(true);
-
+		
 		/***************************** Créer un menu bar **************************************/
 		JMenuBar menubar = new JMenuBar();
 		myFrame.setJMenuBar(menubar);
@@ -230,12 +208,20 @@ public class UserInterface implements ActionListener
 		menubar.add(options);
 		menubar.add(credits);
 		// Créer les boutons du dropdown menu
-		newAction = new JMenuItem("Nouvelle partie");
-		saveAction = new JMenuItem("Sauvegarder la partie");
-		quitAction = new JMenuItem("Quitter le jeu");
-		helpAction = new JMenuItem("Liste des commandes");
-		authorAction = new JMenuItem("About Water Games");
-		copyrightAction = new JMenuItem("Copyright");
+		JMenuItem newAction = new JMenuItem("Nouvelle partie");
+		JMenuItem saveAction = new JMenuItem("Sauvegarder la partie");
+		JMenuItem quitAction = new JMenuItem("Quitter le jeu");
+		JMenuItem helpAction = new JMenuItem("Liste des commandes");
+		JMenuItem authorAction = new JMenuItem("About Water Games");
+		JMenuItem copyrightAction = new JMenuItem("Copyright");
+		
+		menus.put("newAction", newAction);
+		menus.put("saveAction", saveAction);
+		menus.put("quitAction", quitAction);
+		menus.put("helpAction", helpAction);
+		menus.put("authorAction", authorAction);
+		menus.put("copyrightAction", copyrightAction);
+		
 		// Ajouter ces boutons au dropdown
 		options.add(newAction);
 		options.add(saveAction);
@@ -274,47 +260,66 @@ public class UserInterface implements ActionListener
 		image.setPreferredSize(new Dimension(1200, 600));
 
 		/********************************** Tous les boutons du jeu *******************************/
-		bouton1 = new JButton();
+		JButton bouton1 = new JButton();
 		bouton1.setEnabled(false);
-		bouton2 = new JButton("Nord");
-		bouton3 = new JButton("Haut");
-		bouton4 = new JButton("Ouest");
-		bouton5 = new JButton();
+		JButton bouton2 = new JButton("Nord");
+		JButton bouton3 = new JButton("Haut");
+		JButton bouton4 = new JButton("Ouest");
+		JButton bouton5 = new JButton();
 		bouton5.setEnabled(false);
-		bouton6 = new JButton("Est");
-		bouton7 = new JButton("Back");
-		bouton8 = new JButton("Sud");
-		bouton9 = new JButton();
+		JButton bouton6 = new JButton("Est");
+		JButton bouton7 = new JButton("Back");
+		JButton bouton8 = new JButton("Sud");
+		JButton bouton9 = new JButton();
 		bouton9.setEnabled(false);
-		bouton10 = new JButton("Potion");
-		bouton11 = new JButton("Soin");
-		bouton12 = new JButton("Regarder");
-		bouton13 = new JButton("Inventaire");
+		JButton bouton10 = new JButton("Potion");
+		JButton bouton11 = new JButton("Soin");
+		JButton bouton12 = new JButton("Regarder");
+		JButton bouton13 = new JButton("Inventaire");
 		
-		buttonParler = new JButton("Parler");
+		JButton buttonParler = new JButton("Parler");
 		buttonParler.setPreferredSize(new Dimension(300, 20));
-		buttonAttaque = new JButton("Attaquer");
+		JButton buttonAttaque = new JButton("Attaquer");
 		buttonAttaque.setPreferredSize(new Dimension(300, 20));
 		
-		buttonNext = new JButton("Suivant");
+		JButton buttonNext = new JButton("Suivant");
 		buttonNext.setPreferredSize(new Dimension(100,300));
-		buttonHelp = new JButton("Aider Creeper");
+		JButton buttonHelp = new JButton("Aider Creeper");
 		buttonHelp.setPreferredSize(new Dimension(300,150));
-		buttonNotHelp = new JButton("Je ne veux pas l'aider");
+		JButton buttonNotHelp = new JButton("Je ne veux pas l'aider");
 		buttonNotHelp.setPreferredSize(new Dimension(300,150));
-
+		
+		buttons.put("bouton1", bouton1);
+		buttons.put("bouton2", bouton2);
+		buttons.put("bouton3", bouton3);
+		buttons.put("bouton4", bouton4);
+		buttons.put("bouton5", bouton5);
+		buttons.put("bouton6", bouton6);
+		buttons.put("bouton7", bouton7);
+		buttons.put("bouton8", bouton8);
+		buttons.put("bouton9", bouton9);
+		buttons.put("bouton10", bouton10);
+		buttons.put("bouton11", bouton11);
+		buttons.put("bouton12", bouton12);
+		buttons.put("bouton13", bouton13);
+		buttons.put("boutonNext", buttonNext);
+		buttons.put("boutonParler", buttonParler);
+		buttons.put("boutonAttaque", buttonAttaque);
+		buttons.put("boutonHelp", buttonHelp);
+		buttons.put("boutonNotHelp", buttonNotHelp);
+		
 		/********************************* Les panels *************************************/
 		// Panel 1 contient l'image en haut de la fenêtre
-		panel = new JPanel();
+		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(1200, 600));
 		panel.setLayout(new BorderLayout());
 		panel.add(image, BorderLayout.CENTER);
 
 		// Panel 2 corps qui comporte les boutons de navigation, la partie texte
 		// et les boutons de commandes
-		panel2 = new JPanel();
+		JPanel panel2 = new JPanel();
 		// Sous panel navigation
-		sspanel1 = new JPanel();
+		JPanel sspanel1 = new JPanel();
 		sspanel1.setPreferredSize(new Dimension(300, 300));
 		sspanel1.setLayout(new GridLayout(3, 3));
 		sspanel1.add(bouton1);
@@ -330,13 +335,13 @@ public class UserInterface implements ActionListener
 //		sspanel1.add(liste);
 
 		// Sous panel texte
-		sspanel2 = new JPanel();
+		JPanel sspanel2 = new JPanel();
 		sspanel2.setLayout(new BorderLayout());
 		sspanel2.setPreferredSize(new Dimension(600, 300));
 		sspanel2.add(listScroller, BorderLayout.NORTH);
 		sspanel2.add(entryField, BorderLayout.SOUTH);
 		// Sous panel boutons
-		sspanel3 = new JPanel();
+		JPanel sspanel3 = new JPanel();
 		sspanel3.setPreferredSize(new Dimension(300, 300));
 		sspanel3.setLayout(new GridLayout(2, 2));
 		sspanel3.add(bouton10);
@@ -348,6 +353,23 @@ public class UserInterface implements ActionListener
 		panel2.add(sspanel1);
 		panel2.add(sspanel2);
 		panel2.add(sspanel3);
+		
+		
+		panels.put("panel1", panel);
+		panels.put("panel2", panel2);
+		panels.put("sspanel1", sspanel1);
+		panels.put("sspanel2", sspanel2);
+		panels.put("sspanel3", sspanel3);
+		
+		JPanel panel3 = new JPanel();
+		panels.put("panel3", panel3);
+		
+		JPanel panelDialogue = new JPanel();
+		JPanel panelDialogue2 = new JPanel();
+		
+		panels.put("panelDialogue", panelDialogue);
+		panels.put("panelDialogue2", panelDialogue2);
+		
 
 //		// Panel 3 box qui contient les 2 autres panels
 //		JPanel panel3 = new JPanel();
@@ -462,10 +484,10 @@ public class UserInterface implements ActionListener
 	 */
 	 public void createGameOver(String raison)
 	 {
-		 myFrame.remove(panel2);
-		 if(panelDialogue2 != null)
+		 myFrame.remove(panels.get("panel2"));
+		 if(panels.get("panelDialogue2") != null)
 			{
-				myFrame.remove(panelDialogue2);
+				myFrame.remove(panels.get("panelDialogue2"));
 			}
 		 
 		 switch(raison)
@@ -499,6 +521,7 @@ public class UserInterface implements ActionListener
 		log.setText("");
 		print("\n");
 		engine.printLocationInfo();
+		entryField.requestFocus();
 	}
 	
 	/**
@@ -532,41 +555,41 @@ public class UserInterface implements ActionListener
 		{
 			case 1 :
 			{
-				myFrame.remove(panel2);
-				if(panelDialogue2 != null)
+				myFrame.remove(panels.get("panel2"));
+				if(panels.get("panelDialogue2") != null)
 				{
-					myFrame.remove(panelDialogue2);
+					myFrame.remove(panels.get("panelDialogue2"));
 				}
 				
-				panelDialogue = new JPanel();
-				panelDialogue.setLayout(new BorderLayout());
-				panelDialogue.add(log, BorderLayout.CENTER);
-				myFrame.add(panelDialogue);
+				
+				panels.get("panelDialogue").setLayout(new BorderLayout());
+				panels.get("panelDialogue").add(log, BorderLayout.CENTER);
+				myFrame.add(panels.get("panelDialogue"));
 				log.setText("");
 				log.setFont(new Font("Verdana", Font.BOLD, 13));
 				print("\n");
 				
-				panelDialogue.add(buttonNext, BorderLayout.EAST);
-				panelDialogue.repaint();
+				panels.get("panelDialogue").add(buttons.get("boutonNext"), BorderLayout.EAST);
+				panels.get("panelDialogue").repaint();
 				break;
 			}
 			case 2:
 			{
-				myFrame.remove(panelDialogue);
-				panelDialogue2 = new JPanel();
-				panelDialogue2.setLayout(new BorderLayout());
-				panelDialogue2.add(log, BorderLayout.CENTER);
-				myFrame.add(panelDialogue2);
+				myFrame.remove(panels.get("panelDialogue"));
+				
+				panels.get("panelDialogue2").setLayout(new BorderLayout());
+				panels.get("panelDialogue2").add(log, BorderLayout.CENTER);
+				myFrame.add(panels.get("panelDialogue2"));
 				log.setText("");
 				log.setFont(new Font("Verdana", Font.BOLD, 13));
 				print("\n");
 				
 				JPanel help = new JPanel();
 				help.setLayout(new BorderLayout());
-				help.add(buttonHelp, BorderLayout.NORTH);
-				help.add(buttonNotHelp, BorderLayout.SOUTH);
-				panelDialogue2.add(help, BorderLayout.EAST);
-				panelDialogue2.repaint();
+				help.add(buttons.get("boutonHelp"), BorderLayout.NORTH);
+				help.add(buttons.get("boutonNotHelp"), BorderLayout.SOUTH);
+				panels.get("panelDialogue2").add(help, BorderLayout.EAST);
+				panels.get("panelDialogue2").repaint();
 				break;
 			}
 			default: {}
@@ -578,17 +601,17 @@ public class UserInterface implements ActionListener
 	
 	public void closeDialogue()
 	{
-		myFrame.remove(panelDialogue);
+		myFrame.remove(panels.get("panelDialogue"));
 		listScroller = new JScrollPane(log);
 		log.setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 13));
 		listScroller.setPreferredSize(new Dimension(600, 280));
 		listScroller.setMinimumSize(new Dimension(10, 10));
-		sspanel2.add(listScroller, BorderLayout.NORTH);
-		sspanel2.add(entryField, BorderLayout.SOUTH);
-		panel2.add(sspanel1);
-		panel2.add(sspanel2);
-		panel2.add(sspanel3);
-		myFrame.add(panel2);
+		panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+		panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
+		panels.get("panel2").add(panels.get("sspanel1"));
+		panels.get("panel2").add(panels.get("sspanel2"));
+		panels.get("panel2").add(panels.get("sspanel3"));
+		myFrame.add(panels.get("panel2"));
 		resetTextPanel();
 	}
 	
@@ -597,32 +620,30 @@ public class UserInterface implements ActionListener
 	 */
 	public void createInteractionBot()
 	{
-		JPanel panel3 = new JPanel();
-		panel3.setLayout(new BorderLayout());
-		panel3.add(buttonParler, BorderLayout.WEST);
-		panel3.add(buttonAttaque, BorderLayout.EAST);
+		panels.get("panel3").setLayout(new BorderLayout());
+		panels.get("panel3").add(buttons.get("boutonParler"), BorderLayout.WEST);
+		panels.get("panel3").add(buttons.get("boutonAttaque"), BorderLayout.EAST);
 		
 		//S'il y a un bot
 		if(engine.getPlayer().getRoom().getBot() != null)
 		{
-			sspanel2.setLayout(new BorderLayout());
-			sspanel2.removeAll();
-			sspanel2.add(panel3, BorderLayout.SOUTH);
-			panel3.setVisible(true);
-			sspanel2.add(listScroller, BorderLayout.NORTH);
-			sspanel2.repaint();
-			
+			panels.get("sspanel2").setLayout(new BorderLayout());
+				panels.get("sspanel2").removeAll();
+				panels.get("sspanel2").add(panels.get("panel3"), BorderLayout.SOUTH);
+				panels.get("panel3").setVisible(true);
+				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+				panels.get("sspanel2").repaint();
 		}
 		//S'il n'y a pas de bot
 		else
 		{
-			if(panel3 != null)
+			if(panels.get("panel3") != null)
 			{
-				sspanel2.setLayout(new BorderLayout());
-				sspanel2.removeAll();
-				sspanel2.add(entryField, BorderLayout.SOUTH);
-				sspanel2.add(listScroller, BorderLayout.NORTH);
-				sspanel2.repaint();
+				panels.get("sspanel2").setLayout(new BorderLayout());
+				panels.get("sspanel2").removeAll();
+				panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
+				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+				panels.get("sspanel2").repaint();
 			}
 		}
 	}
@@ -633,31 +654,31 @@ public class UserInterface implements ActionListener
 	public void colorButton()
 	{
 		if(engine.getPlayer().getRoom().getExit("nord") == null)
-			bouton2.setEnabled(false);
+			buttons.get("bouton2").setEnabled(false);
 		else
-			bouton2.setEnabled(true);
+			buttons.get("bouton2").setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("haut") == null)
-			bouton3.setEnabled(false);
+			buttons.get("bouton3").setEnabled(false);
 		else
-			bouton3.setEnabled(true);
+			buttons.get("bouton3").setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("ouest") == null)
-			bouton4.setEnabled(false);
+			buttons.get("bouton4").setEnabled(false);
 		else
-			bouton4.setEnabled(true);
+			buttons.get("bouton4").setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("est") == null)
-			bouton6.setEnabled(false);
+			buttons.get("bouton6").setEnabled(false);
 		else
-			bouton6.setEnabled(true);
+			buttons.get("bouton6").setEnabled(true);
 		
 		if(engine.getPlayer().getRoom().getExit("sud") == null)
-			bouton8.setEnabled(false);
+			buttons.get("bouton8").setEnabled(false);
 		else
-			bouton8.setEnabled(true);
+			buttons.get("bouton8").setEnabled(true);
 		
-		panel2.repaint();
+		panels.get("panel2").repaint();
 	}
 	
 	/**Créer la fenêtre des commandes disponibles
@@ -683,8 +704,7 @@ public class UserInterface implements ActionListener
         }
         
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
-        editorScrollPane.setVerticalScrollBarPolicy(
-                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         editorScrollPane.setPreferredSize(new Dimension(250, 145));
         editorScrollPane.setMinimumSize(new Dimension(10, 10));
         editorPane.setEditable(false);
@@ -715,8 +735,7 @@ public class UserInterface implements ActionListener
         }
         
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
-        editorScrollPane.setVerticalScrollBarPolicy(
-                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         editorScrollPane.setPreferredSize(new Dimension(250, 145));
         editorScrollPane.setMinimumSize(new Dimension(10, 10));
         editorPane.setEditable(false);

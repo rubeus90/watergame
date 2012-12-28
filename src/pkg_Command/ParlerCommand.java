@@ -7,10 +7,14 @@ import pkg_Dialogue.*;
 public class ParlerCommand extends Command
 {
 	private DialogueCreeper1 dialogueCreeper1;
+	private DialogueCreeper2 dialogueCreeper2;
+	private DialogueEnderman dialogueEnderman;
 	
 	public ParlerCommand()
 	{
 		dialogueCreeper1 = new DialogueCreeper1();
+		dialogueCreeper2 = new DialogueCreeper2();
+		dialogueEnderman = new DialogueEnderman();
 	}
 	
 	public void execute(Player player)
@@ -28,21 +32,7 @@ public class ParlerCommand extends Command
 					{
 						case "foret":
 						{
-							//Si le jeu est recommencé, on remet le compteur des étapes de dialogue à 1
-							if(player.getGameEngine().gameResetted() && dialogueCreeper1.getEtape() != 1)
-							{
-								dialogueCreeper1.setEtape(1);
-								dialogueCreeper1.afficheDialogue(player.getGameEngine());
-								
-								/*on remet la valeur de gameResetted à false, donc quand on fait suivant, on va tomber dans
-								 * la condition de else, comme ça la valeur de l'étape n'est pas réinitialisée à 1 à chaque fois
-								 */
-								player.getGameEngine().setResetGame(); 
-							}
-							else
-							{
-								dialogueCreeper1.afficheDialogue(player.getGameEngine());
-							}
+							dialogueCreeper1.afficheDialogue(player.getGameEngine());
 							
 							//Juste pour debug le jeu
 //							player.getGUI().println("" + dialogueCreeper1.getEtape());
@@ -52,7 +42,7 @@ public class ParlerCommand extends Command
 						}
 						case "grotte":
 						{
-							player.getGUI().println("A implementer");
+							dialogueCreeper2.afficheDialogue(player.getGameEngine());
 							break;
 						}
 						default:{}
@@ -62,6 +52,11 @@ public class ParlerCommand extends Command
 				case("Blaze"):
 				{
 					player.getGUI().println("A implementer");
+					break;
+				}
+				case("Enderman"):
+				{
+					dialogueEnderman.afficheDialogue(player.getGameEngine());
 					break;
 				}
 				default: {}

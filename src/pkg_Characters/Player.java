@@ -35,10 +35,11 @@ public class Player {
 	private int sante;
 	private ArrayList<Room> beamerRoom;
 
-	public Player(final String pNom, final String pGender) {
+	public Player(final String pNom, final String pGender, int pSante) 
+	{
 		aNom = pNom;
 		aGender = pGender;
-		sante = 80;
+		sante = pSante;
 		maxPoids = 100;
 
 		// listeItem = new HashMap<String, Item>();

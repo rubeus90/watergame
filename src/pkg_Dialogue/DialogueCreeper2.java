@@ -106,7 +106,7 @@ public class DialogueCreeper2 extends Dialogue
 				{
 					super.setEtape(0);
 					engine.getPlayer().getRoom().removeBot("Creeper");
-					engine.getArrayListRoom().get(4).addBot("Creeper", new Bots("Creeper", null, false));
+					engine.getArrayListRoom().get(4).addBot("Creeper", new Bots("Creeper", null, 80, false));
 					engine.getGUI().closeDialogue();
 					
 				}

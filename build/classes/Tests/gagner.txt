@@ -1,15 +1,10 @@
 take EnderPearl
-go nord
 go ouest
 go est
+go nord
 go est
-teleporter pic
+telepoter pic
 take corde
 go ouest
 go ouest
 go ouest
-parler
-parler
-parler
-parler
-parler

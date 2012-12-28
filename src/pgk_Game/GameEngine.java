@@ -54,6 +54,7 @@ public class GameEngine
 	private Scanner sr;
 	private Bots creeper;
 	private Bots blaze;
+	private Bots enderman;
 	private boolean gameResetted;
 	
 
@@ -75,7 +76,7 @@ public class GameEngine
 	 */
 	public void chargerPierre()
 	{
-		if(player.getRoom().getNomRoom() == "foret") //si l'utilisateur est dans la foret
+		if(player.getRoom().getNomRoom() == "plaine") //si l'utilisateur est dans la foret
 		{
 			if(player.getItemListe().getHashMap().containsKey("EnderPearl")) // si il possède la pierre
 			{
@@ -116,9 +117,9 @@ public class GameEngine
 		montagne = new Room("dans les montagnes", "images/montagne.png", "montagne");
 		plaine = new Room("à la plaine", "images/plaine.png", "plaine");
 		temple = new Room("dans le temple Dharma", "images/temple.png", "temple");
-		plage = new Room("à la plage", "images/plage.jpeg", "plage");
-		vallee = new Room("dans la vallée de Dana", "images/vallee.jpg", "vallee");
-		pic = new Room("en haut du pic", "images/pic.jpg", "pic");
+		plage = new Room("à la plage", "images/plage.png", "plage");
+		vallee = new Room("dans la vallée de Dana", "images/vallee.png", "vallee");
+		pic = new Room("en haut du pic", "images/pic.png", "pic");
 		eau = new Room("mort noyé", "images/Mort.png", "eau");
 
 		/*Créer une ArrayList qui contient toutes les salles du jeu, cette ArrayList est utilisée dans 
@@ -205,10 +206,12 @@ public class GameEngine
 		player.setCurrentRoom(temple);
 		
 		//Ajouter les bots dans les salles
-		creeper = new Bots("Creeper", null, false);
-		blaze = new Bots("Blaze", null, true);
+		creeper = new Bots("Creeper", null, 80, false);
+		blaze = new Bots("Blaze", null, 260, true);
+		enderman = new Bots("Enderman", null, 200, true);
 		foret.addBot("Creeper", creeper);
-		plage.addBot("Blaze", blaze);		
+		plage.addBot("Blaze", blaze);	
+		vallee.addBot("Enderman", enderman);
 		
 		//Ajouter le Beamer
 		beamer = new Beamer();
@@ -261,7 +264,7 @@ public class GameEngine
 		command.execute(player);
 		
 		if(player.getSante() > 0)
-		{			
+		{		
 			gui.createInteractionBot();
 			gui.colorButton();
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");

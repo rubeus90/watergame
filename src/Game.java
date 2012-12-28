@@ -17,7 +17,7 @@ public class Game extends JApplet {
 	 * Create the game and initialise its internal map.
 	 */
 	public static void main(String[] args) {
-		player = new Player("Julie", "f");
+		player = new Player("Julie", "f", 80);
 		engine = new GameEngine(player);
 		gui = new UserInterface(engine);
 		player.setGameEngine(engine);

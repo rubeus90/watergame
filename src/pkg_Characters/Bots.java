@@ -10,9 +10,9 @@ public class Bots extends Player
 	private boolean attaquable;
 	
 	
-	public Bots(final String pNom, final String pGender, final boolean attaquable)
+	public Bots(final String pNom, final String pGender, final int pSante, final boolean attaquable)
 	{
-		super(pNom, pGender);
+		super(pNom, pGender, pSante);
 		this.attaquable = attaquable; 
 	}
 	
