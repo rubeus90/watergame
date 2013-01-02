@@ -207,8 +207,8 @@ public class GameEngine
 		
 		//Ajouter les bots dans les salles
 		creeper = new Bots("Creeper", null, 80, false);
-		blaze = new Bots("Blaze", null, 260, true);
-		enderman = new Bots("Enderman", null, 200, true);
+		blaze = new Bots("Blaze", null, 50, true);
+		enderman = new Bots("Enderman", null, 20, true);
 		foret.addBot("Creeper", creeper);
 		plage.addBot("Blaze", blaze);	
 		vallee.addBot("Enderman", enderman);
@@ -392,7 +392,7 @@ public class GameEngine
 	public void printHelp() 
 	{
 		gui.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
-		gui.println("Cherche vite un abris ou de la nourriture.");
+		gui.println("Quand tu te sens fatiguée, tu peux prendre des potions ou des soins pour augmenter .");
 		gui.print("\n");
 		gui.println(parser.showCommands());
 		gui.print("\n");

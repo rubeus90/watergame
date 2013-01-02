@@ -2,6 +2,8 @@ package pkg_Command;
 
 import pkg_Characters.Bots;
 import pkg_Characters.Player;
+import pkg_Items.Item;
+import pkg_Room.Room;
 
 public class AttaqueCommand extends Command
 {
@@ -11,45 +13,82 @@ public class AttaqueCommand extends Command
 	public void execute(Player player)
 	{
 		Bots bot = player.getRoom().getBot();
+		
+		//Selon l'arme que le joueur porte, le dégât de la commande Attaque sera différente
+		int degat, perte;
+		if(player.getItemListe().containsKey("epee"))
+		{
+			degat = 80;
+			perte = 10;
+		}
+		else if(player.getItemListe().containsKey("hallebarde"))
+		{
+			degat = 180;
+			perte = 5;
+		}
+		else
+		{
+			degat = 40;
+			perte = 20;
+		}
+		
 		if(bot != null)
 		{
-			if(bot.attaquable())
+			if(bot.attaquable()) //c'est-à-dire si le bot n'est pas Creeper (qui s'explose quand on l'attaque)
 			{
-				if(player.getItemListe().containsKey("epee"))
+				//Tant que la santé du bot n'est pas nul, on peut l'attaquer. 
+				if(bot.getSante() - degat > 0) //le "- degat " est là pour éviter de retrouver le bot avec une santé négative
 				{
-					bot.diminueSante(80);
-					player.diminueSante(20);
+					bot.diminueSante(degat);
+					player.diminueSante(perte);
 					player.getGUI().resetTextPanel();
 					player.getGUI().println("La santé de " + bot.getNom() + ": " + bot.getSante());
-					player.getGUI().println("Ta santé est de : " + player.getSante());
-				}
-				else if(player.getItemListe().containsKey("hallebarde"))
-				{
-					bot.diminueSante(180);
-					player.diminueSante(20);
-					player.getGUI().resetTextPanel();
-					player.getGUI().println("La santé de " + bot.getNom() + ": " + bot.getSante());
-					player.getGUI().println("Ta santé est de : " + player.getSante());
+
+						
+					if((!player.getItemListe().containsKey("epee") && !player.getItemListe().containsKey("hallebarde")) || 
+							(!player.getItemListe().containsKey("hallebarde") && bot.getNom() == "Blaze"))
+					{
+						player.getGUI().println("\n" + "\n" + "Méfis-toi! Peut-être cet ennemis est trop fort pour toi. Il te faut d'autres armes plus puissantes. Si tu te sens pas capable de le vaincre mainteant, enfuis-toi avant qu'il ne te tue!!!!");
+					}
 				}
 				else
 				{
-					bot.diminueSante(40);
-					player.diminueSante(20);
-					player.getGUI().resetTextPanel();
-					player.getGUI().println("La santé de " + bot.getNom() + ": " + bot.getSante());
-					player.getGUI().println("Ta santé est de : " + player.getSante());
-					
-					if(player.getRoom().getBot().getNom() == "Enderman" || player.getRoom().getBot().getNom() == "Blaze") 
+					if(bot.getNom() == "Enderman")
 					{
-						player.getGUI().println("\n" + "\n" + "Peut-être cet ennemis est trop fort pour toi. Il te faut d'autres armes plus puissantes. Enfuis-toi avant qu'il ne te tue!!!!");
+						player.getRoom().removeBot(bot.getNom()); //supprimer ce bot mort de la salle
+						player.getRoom().getItemListe().putItem("papier", new Item("Un papier avec inscrit 'RedStone' ", 0));
+						player.getGUI().resetTextPanel();
+						player.getGUI().println("Tu as vaincu Enderman" + "\n" + "D'ailleurs il a fait tombé un papier, ça peut être intéressant de le prendre, on ne sait jamais");
 					}
-				}				
+					
+					else if(bot.getNom() == "Blaze")
+					{
+						player.getRoom().removeBot(bot.getNom()); //supprimer ce bot mort de la salle
+						
+						int hasBot = 0;
+						for(int i=0; i < player.getGameEngine().getArrayListRoom().size() ; i++)
+						{
+							Room room = player.getGameEngine().getArrayListRoom().get(i);
+							if(room.getBot() != null)
+								hasBot++;			
+						}
+						
+						if(hasBot == 0)
+							player.getGUI().createWinGame();
+						else
+						{
+							player.getGUI().resetTextPanel();
+							player.getGUI().println("Tu as vaincu Blaze");
+							
+						}
+					}
+				}
 			}
 			else
 			{
 				player.getGUI().createGameOver("creeper");
 			}
-		}
+		}		
 		else
 		{
 			player.getGUI().println("Il n'y a pas d'ennemis pour attaquer ici");

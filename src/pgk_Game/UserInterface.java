@@ -62,6 +62,7 @@ public class UserInterface implements ActionListener
 	private JTextArea log;
 	private JLabel image;
 	private Parser parser;
+	private Graphics g;
 
 	/**
 	 * Construct a UserInterface. As a parameter, a Game Engine (an object
@@ -390,11 +391,12 @@ public class UserInterface implements ActionListener
 		});
 
 		entryField.addActionListener(this);
-		// bouton1.addActionListener(this);
+		
+		bouton1.addActionListener(this);
 		bouton2.addActionListener(this);
 		bouton3.addActionListener(this);
 		bouton4.addActionListener(this);
-		// bouton5.addActionListener(this);
+		bouton5.addActionListener(this);
 		bouton6.addActionListener(this);
 		bouton7.addActionListener(this);
 		bouton8.addActionListener(this);
@@ -408,7 +410,6 @@ public class UserInterface implements ActionListener
 		buttonAttaque.addActionListener(this);
 		buttonHelp.addActionListener(this);
 		buttonNotHelp.addActionListener(this);
-		
 		buttonNext.addActionListener(this);
 
 		quitAction.addActionListener(this);
@@ -507,9 +508,34 @@ public class UserInterface implements ActionListener
 		  		showImage("images/gameover.jpg");
 		  		break;
 		  	}
+		  	case "creeper not help" :
+		  	{
+		  		showImage("images/gameover.jpg");
+		  		break;
+		  	}
+		  	case "enderman" :
+		  	{
+		  		showImage("images/gameover.jpg");
+		  		break;
+		  	}
+		  	case "blaze" :
+		  	{
+		  		showImage("images/gameover.jpg");
+		  		break;
+		  	}
 		  	default:
 		  		showImage("images/gameover.jpg");
 		 }
+	 }
+	 
+	 public void createWinGame()
+	 {
+		 myFrame.remove(panels.get("panel2"));
+		 if(panels.get("panelDialogue2") != null)
+			{
+				myFrame.remove(panels.get("panelDialogue2"));
+				showImage("images/victory.jpg");
+			}
 	 }
 	 
 

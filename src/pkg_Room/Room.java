@@ -300,4 +300,9 @@ public class Room {
 		}
 		return bot;
 	}
+	
+	public void setImage(String image)
+	{
+		imageName = image;
+	}
 }
