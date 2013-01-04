@@ -15,14 +15,18 @@ import java.awt.event.WindowEvent;
 import java.awt.image.ImageObserver;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Set;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -36,6 +40,7 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 
 import pkg_Command.Parser;
+import pkg_Items.Item;
 
 import java.awt.Graphics;
 
@@ -62,7 +67,7 @@ public class UserInterface implements ActionListener
 	private JTextArea log;
 	private JLabel image;
 	private Parser parser;
-	private Graphics g;
+	private DefaultListModel listRoom, listPlayer;
 
 	/**
 	 * Construct a UserInterface. As a parameter, a Game Engine (an object
@@ -185,7 +190,7 @@ public class UserInterface implements ActionListener
 
 	public void closeDialogue()
 	{
-		myFrame.remove(panels.get("panelDialogue"));
+		panels.get("panelLeft").remove(panels.get("panelDialogue"));
 		listScroller = new JScrollPane(log);
 		log.setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 13));
 		listScroller.setPreferredSize(new Dimension(600, 280));
@@ -195,7 +200,8 @@ public class UserInterface implements ActionListener
 		panels.get("panel2").add(panels.get("sspanel1"));
 		panels.get("panel2").add(panels.get("sspanel2"));
 		panels.get("panel2").add(panels.get("sspanel3"));
-		myFrame.add(panels.get("panel2"));
+		panels.get("panelLeft")
+		.add(panels.get("panel2"));
 		resetTextPanel();
 	}
 
@@ -306,11 +312,12 @@ public class UserInterface implements ActionListener
 	 */
 	 public void createGameOver(String raison)
 	 {
-		 myFrame.remove(panels.get("panel2"));
+		 panels.get("panelLeft").remove(panels.get("panel2"));
 		 if(panels.get("panelDialogue2") != null)
 			{
-				myFrame.remove(panels.get("panelDialogue2"));
+			 panels.get("panelLeft").remove(panels.get("panelDialogue2"));
 			}
+		 myFrame.remove(panels.get("panelRight"));
 		 
 		 switch(raison)
 		 {
@@ -445,9 +452,9 @@ public class UserInterface implements ActionListener
 		JButton bouton13 = new JButton("Inventaire");
 		
 		JButton buttonParler = new JButton("Parler");
-		buttonParler.setPreferredSize(new Dimension(300, 20));
+		buttonParler.setPreferredSize(new Dimension(300, 30));
 		JButton buttonAttaque = new JButton("Attaquer");
-		buttonAttaque.setPreferredSize(new Dimension(300, 20));
+		buttonAttaque.setPreferredSize(new Dimension(300, 30));
 		
 		JButton buttonNext = new JButton("Suivant");
 		buttonNext.setPreferredSize(new Dimension(100,300));
@@ -538,16 +545,43 @@ public class UserInterface implements ActionListener
 		panels.put("panelDialogue2", panelDialogue2);
 		
 
-//		// Panel 3 box qui contient les 2 autres panels
-//		JPanel panel3 = new JPanel();
-//		panel3.setLayout(new BoxLayout(panel3, BoxLayout.PAGE_AXIS));
-//		panel3.add(panel);
-//		panel3.add(panel2);
+		// PanelLeft box qui contient les 2 autres panels
+		JPanel panelLeft = new JPanel();
+		panels.put("panelLeft", panelLeft);
+		panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.PAGE_AXIS));
+		panelLeft.add(panel);
+		panelLeft.add(panel2);
+		
+		//PanelRight qui contient la liste des items dans la salle et l'inventaire du joueur
+		JPanel panelRight = new JPanel();
+		panels.put("panelRight", panelRight);
+		panelRight.setPreferredSize(new Dimension(400, 900));
+		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.PAGE_AXIS));
+		//Les objets de la salle
+		JPanel sspanelRoom = new JPanel();
+		sspanelRoom.setPreferredSize(new Dimension(400,450));
+		sspanelRoom.setBackground(Color.white);
+		sspanelRoom.setBorder(BorderFactory.createTitledBorder("Les objets présents dans cet endroit:"));
+		listRoom = new DefaultListModel();		
+		JList list = new JList(listRoom);		
+		sspanelRoom.add(list);				
+		//Les objets du joueur
+		JPanel sspanelJoueur = new JPanel();
+		sspanelJoueur.setPreferredSize(new Dimension(400,450));
+		sspanelJoueur.setBackground(Color.white);
+		sspanelJoueur.setBorder(BorderFactory.createTitledBorder("Les objets présents dans ton inventaire:"));
+		listPlayer = new DefaultListModel();		
+		JList list2 = new JList(listPlayer);		
+		sspanelJoueur.add(list2);				
+		
+		
+		panelRight.add(sspanelRoom);
+		panelRight.add(sspanelJoueur);
 
 		// Ajouter le panel box à notre fenêtre de jeu
 		myFrame.setLayout(new BorderLayout());
-		myFrame.add(panel, BorderLayout.NORTH);
-		myFrame.add(panel2, BorderLayout.SOUTH);
+		myFrame.add(panelLeft, BorderLayout.WEST);
+		myFrame.add(panelRight, BorderLayout.EAST);
 
 		/****************************** add some event listeners to some components *****************************/
 		myFrame.addWindowListener(new WindowAdapter() {
@@ -640,6 +674,7 @@ public class UserInterface implements ActionListener
 			panels.get("sspanel2").setLayout(new BorderLayout());
 				panels.get("sspanel2").removeAll();
 				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+				listScroller.setPreferredSize(new Dimension(600, 270));
 				panels.get("sspanel2").add(panels.get("panel3"), BorderLayout.SOUTH);
 				panels.get("sspanel2").updateUI();
 		}
@@ -650,6 +685,7 @@ public class UserInterface implements ActionListener
 			{
 				panels.get("sspanel2").setLayout(new BorderLayout());
 				panels.get("sspanel2").removeAll();
+				listScroller.setPreferredSize(new Dimension(600, 280));
 				panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
 				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
 				panels.get("sspanel2").updateUI();
@@ -741,16 +777,17 @@ public class UserInterface implements ActionListener
 		{
 			case 1 :
 			{
-				myFrame.remove(panels.get("panel2"));
+				panels.get("panelLeft").remove(panels.get("panel2"));
 				if(panels.get("panelDialogue2") != null)
 				{
-					myFrame.remove(panels.get("panelDialogue2"));
+					panels.get("panelLeft").remove(panels.get("panelDialogue2"));
 				}
 				
 				
 				panels.get("panelDialogue").setLayout(new BorderLayout());
 				panels.get("panelDialogue").add(log, BorderLayout.CENTER);
-				myFrame.add(panels.get("panelDialogue"));
+				panels.get("panelLeft").setLayout(new BoxLayout(panels.get("panelLeft"), BoxLayout.PAGE_AXIS));
+				panels.get("panelLeft").add(panels.get("panelDialogue"));
 				log.setText("");
 				log.setFont(new Font("Verdana", Font.BOLD, 13));
 				print("\n");
@@ -761,11 +798,12 @@ public class UserInterface implements ActionListener
 			}
 			case 2:
 			{
-				myFrame.remove(panels.get("panelDialogue"));
+				panels.get("panelLeft").remove(panels.get("panelDialogue"));
 				
 				panels.get("panelDialogue2").setLayout(new BorderLayout());
 				panels.get("panelDialogue2").add(log, BorderLayout.CENTER);
-				myFrame.add(panels.get("panelDialogue2"));
+				panels.get("panelLeft").setLayout(new BoxLayout(panels.get("panelLeft"), BoxLayout.PAGE_AXIS));
+				panels.get("panelLeft").add(panels.get("panelDialogue2"));
 				log.setText("");
 				log.setFont(new Font("Verdana", Font.BOLD, 13));
 				print("\n");
@@ -801,5 +839,28 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
+	public void showInventaireRoom()
+	{
+		listRoom.removeAllElements();
+		
+		Set<String> cles = engine.getPlayer().getRoom().getItemListe().getKeys();
+		for (String nom : cles) 
+		{
+			if(nom != "beamer")
+			{
+				listRoom.addElement(nom);
+			}
+		}
+	}
 	
+	public void showInventairePlayer()
+	{
+		listPlayer.removeAllElements();
+		
+		Set<String> cles = engine.getPlayer().getItemListe().getKeys();
+		for (String nom : cles) 
+		{
+			listPlayer.addElement(nom);
+		}
+	}
 }

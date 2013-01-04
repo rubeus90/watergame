@@ -4,6 +4,7 @@ package pgk_Game;
 //import java.io.BufferedReader;
 
 import java.util.Scanner;
+import java.util.Set;
 // import java.io.FileWriter;
 // import java.io.BufferedWriter;
 // import java.io.PrintWriter;
@@ -265,6 +266,8 @@ public class GameEngine
 			gui.createInteractionBot();
 			gui.colorButton();
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
+			gui.showInventaireRoom();
+			gui.showInventairePlayer();
 		}
 		else
 		{
@@ -431,8 +434,9 @@ public class GameEngine
 		gui.println("Tape help si tu as besoin d'aide");
 		gui.print("\n");
 		gui.println(player.getLongDescriptionPlayer() + "\n");
+		gui.println("Pour regarder autour de toi, tu peux utiliser le bouton Regarder");
 
-		printLocationInfo();
+//		printLocationInfo();
 		Room currentRoom = player.getRoom();
 		gui.showImage(currentRoom.getImageName());
 		gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
@@ -442,6 +446,8 @@ public class GameEngine
 	{
 		gui = userInterface;
 		printWelcome();
+		gui.showInventaireRoom();
+		gui.showInventairePlayer();
 	}
 	
 	/**

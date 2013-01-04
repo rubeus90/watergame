@@ -44,11 +44,17 @@ public class Player {
 
 		// listeItem = new HashMap<String, Item>();
 
-		if (aGender == "f") {
+		if (aGender == "féminin") 
+		{
 			aDescriptionPlayer = "Tu es une guerrière redoutable. Derrière tes airs de petite fille de campagne, tu as l'intélligence et la rapidité que les adversaires qui te sous-estiment vont vite regretter.";
 		}
-		if (aGender == "m") {
+		else if (aGender == "masculin") 
+		{
 			aDescriptionPlayer = "Tu es un guerrier qui est malgré ton apparence peu viril, dispose une force exceptionnelle et la capacité de t'adapter à la nature que tes adversaires devront avoir peur de toi.";
+		}
+		else
+		{
+			aDescriptionPlayer = "Tu es quelqu'un de bizarre qui ne veut pas choisir de sexe. Les développeurs de ce jeu ne jugent personne, mais ça fait bizarre quand même...";
 		}
 
 		salles = new Stack<Room>(); /*
