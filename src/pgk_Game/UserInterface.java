@@ -67,7 +67,8 @@ public class UserInterface implements ActionListener
 	private JTextArea log;
 	private JLabel image;
 	private Parser parser;
-	private DefaultListModel listRoom, listPlayer;
+	private DefaultListModel<String> listRoom, listPlayer;
+	private JList<String> list, list2;
 
 	/**
 	 * Construct a UserInterface. As a parameter, a Game Engine (an object
@@ -181,6 +182,19 @@ public class UserInterface implements ActionListener
 		{
 			createGameOver("creeper not help");
 		}
+		else if (e.getSource() == buttons.get("boutonTake")) 
+		{
+			String nomItem = list.getSelectedValue();
+			engine.interpretCommand("take " + nomItem);
+		}
+		
+
+		else if (e.getSource() == buttons.get("boutonDrop")) 
+		{
+			String nomItem = list2.getSelectedValue();
+			engine.interpretCommand("drop " + nomItem);
+		}
+
 
 		else
 			processCommand();
@@ -463,6 +477,11 @@ public class UserInterface implements ActionListener
 		JButton buttonNotHelp = new JButton("Je ne veux pas l'aider");
 		buttonNotHelp.setPreferredSize(new Dimension(300,150));
 		
+		JButton boutonTake = new JButton("Prendre");
+		boutonTake.setPreferredSize(new Dimension(400,30));
+		JButton boutonDrop = new JButton("Jeter");
+		boutonDrop.setPreferredSize(new Dimension(400,30));
+		
 		buttons.put("bouton1", bouton1);
 		buttons.put("bouton2", bouton2);
 		buttons.put("bouton3", bouton3);
@@ -481,6 +500,8 @@ public class UserInterface implements ActionListener
 		buttons.put("boutonAttaque", buttonAttaque);
 		buttons.put("boutonHelp", buttonHelp);
 		buttons.put("boutonNotHelp", buttonNotHelp);
+		buttons.put("boutonTake", boutonTake);
+		buttons.put("boutonDrop", boutonDrop);
 		
 		/********************************* Les panels *************************************/
 		// Panel 1 contient l'image en haut de la fenêtre
@@ -557,22 +578,32 @@ public class UserInterface implements ActionListener
 		panels.put("panelRight", panelRight);
 		panelRight.setPreferredSize(new Dimension(400, 900));
 		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.PAGE_AXIS));
+		
 		//Les objets de la salle
 		JPanel sspanelRoom = new JPanel();
+		sspanelRoom.setLayout(new BorderLayout());
 		sspanelRoom.setPreferredSize(new Dimension(400,450));
-		sspanelRoom.setBackground(Color.white);
+//		sspanelRoom.setBackground(Color.white);
 		sspanelRoom.setBorder(BorderFactory.createTitledBorder("Les objets présents dans cet endroit:"));
-		listRoom = new DefaultListModel();		
-		JList list = new JList(listRoom);		
-		sspanelRoom.add(list);				
+		
+		listRoom = new DefaultListModel<String>();		
+		list = new JList<String>(listRoom);	
+		
+		sspanelRoom.add(list, BorderLayout.NORTH);		
+		sspanelRoom.add(boutonTake, BorderLayout.SOUTH);
+		
 		//Les objets du joueur
 		JPanel sspanelJoueur = new JPanel();
+		sspanelJoueur.setLayout(new BorderLayout());
 		sspanelJoueur.setPreferredSize(new Dimension(400,450));
-		sspanelJoueur.setBackground(Color.white);
+//		sspanelJoueur.setBackground(Color.white);
 		sspanelJoueur.setBorder(BorderFactory.createTitledBorder("Les objets présents dans ton inventaire:"));
-		listPlayer = new DefaultListModel();		
-		JList list2 = new JList(listPlayer);		
-		sspanelJoueur.add(list2);				
+		
+		listPlayer = new DefaultListModel<String>();		
+		list2 = new JList<String>(listPlayer);	
+		
+		sspanelJoueur.add(list2, BorderLayout.NORTH);		
+		sspanelJoueur.add(boutonDrop, BorderLayout.SOUTH);
 		
 		
 		panelRight.add(sspanelRoom);
@@ -611,6 +642,9 @@ public class UserInterface implements ActionListener
 		buttonHelp.addActionListener(this);
 		buttonNotHelp.addActionListener(this);
 		buttonNext.addActionListener(this);
+		
+		boutonTake.addActionListener(this);
+		boutonDrop.addActionListener(this);
 
 		quitAction.addActionListener(this);
 		newAction.addActionListener(this);

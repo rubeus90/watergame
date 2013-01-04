@@ -99,6 +99,8 @@ public class GameEngine
 			gui.showImage(player.getRoom().getImageName());
 		}
 		gui.resetTextPanel();	
+		gui.showInventaireRoom();
+		gui.showInventairePlayer();
 	}
 		
 
@@ -214,6 +216,7 @@ public class GameEngine
 		//Ajouter le Beamer
 		beamer = new Beamer();
 		temple.addItem(beamer);
+	
 	}
 	
 
@@ -448,7 +451,7 @@ public class GameEngine
 		printWelcome();
 		gui.showInventaireRoom();
 		gui.showInventairePlayer();
-	}
+		}
 	
 	/**
 	 * Une méthode test qui permet de tester tous les commandes du jeu en
