@@ -23,11 +23,9 @@ public class DialogueCreeper1 extends Dialogue
 		
 		engine.getGUI().showDialogue(1);
 		
-		int etape = super.getEtape();
-				
 		if(!engine.getPlayer().getItemListe().containsKey("corde"))
 		{
-			switch(etape)
+			switch(super.getEtape())
 			{
 				case 1:
 				{
@@ -70,12 +68,12 @@ public class DialogueCreeper1 extends Dialogue
 		}
 		else
 		{
-			if(etape == 0)
+			if(super.getEtape() == 0)
 			{
-				etape = 1;
+				super.setEtape(1);
 			}
 			
-			switch(etape)
+			switch(super.getEtape())
 			{
 				case 1:
 				{

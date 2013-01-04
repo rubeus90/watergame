@@ -70,8 +70,8 @@ public class AttaqueCommand extends Command
 						{
 							Room room = player.getGameEngine().getArrayListRoom().get(i);
 							if(room.getBot() != null)
-								hasBot++;			
-						}
+								hasBot++;									
+						}	
 						
 						if(hasBot == 0)
 							player.getGUI().createWinGame();
@@ -79,6 +79,14 @@ public class AttaqueCommand extends Command
 						{
 							player.getGUI().resetTextPanel();
 							player.getGUI().println("Tu as vaincu Blaze");
+							
+							for(int i=0; i < player.getGameEngine().getArrayListRoom().size() ; i++)
+							{
+								Room room = player.getGameEngine().getArrayListRoom().get(i);
+								if(room.getBot() != null){
+									player.getGUI().println(room.getBot().getNom());	
+									player.getGUI().println(room.getNomRoom());}
+							}	
 							
 						}
 					}

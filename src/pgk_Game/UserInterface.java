@@ -472,7 +472,8 @@ public class UserInterface implements ActionListener
 	 * A command has been entered. Read the command and do whatever is necessary
 	 * to process it.
 	 */
-	public void processCommand() {
+	public void processCommand() 
+	{
 		String input = entryField.getText();
 		entryField.setText("");
 

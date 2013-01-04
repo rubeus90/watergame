@@ -305,4 +305,19 @@ public class Room {
 	{
 		imageName = image;
 	}
+	
+	public boolean containBot(String nomBot)
+	{
+		boolean contain = false;
+		
+		Set<String> noms = bots.keySet();
+		
+		for(String nom : noms)
+		{
+			if(nom == nomBot)
+				contain = true;
+		}
+		
+		return contain;
+	}
 }

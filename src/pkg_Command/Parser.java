@@ -37,7 +37,7 @@ public class Parser {
 	public Command getCommand(String inputLine) 
 	{
 		String word = null;
-		CommandWord word1;
+//		CommandWord word1;
 		String word2;
 
 		StringTokenizer tokenizer = new StringTokenizer(inputLine);
