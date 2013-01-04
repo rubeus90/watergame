@@ -174,7 +174,7 @@ public class UserInterface implements ActionListener
 		}
 		else if (e.getSource() == buttons.get("boutonNotHelp")) 
 		{
-			createGameOver("creeper");
+			createGameOver("creeper not help");
 		}
 
 		else
@@ -182,6 +182,172 @@ public class UserInterface implements ActionListener
 		
 		//e.getActionCommand(String)
 	}
+
+	public void closeDialogue()
+	{
+		myFrame.remove(panels.get("panelDialogue"));
+		listScroller = new JScrollPane(log);
+		log.setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 13));
+		listScroller.setPreferredSize(new Dimension(600, 280));
+		listScroller.setMinimumSize(new Dimension(10, 10));
+		panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+		panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
+		panels.get("panel2").add(panels.get("sspanel1"));
+		panels.get("panel2").add(panels.get("sspanel2"));
+		panels.get("panel2").add(panels.get("sspanel3"));
+		myFrame.add(panels.get("panel2"));
+		resetTextPanel();
+	}
+
+	/**Cette méthode permet de désactiver les boutons quand la sortie correspondante n'est pas disponible et
+	 * la réactive dans le cas contraire
+	 */
+	public void colorButton()
+	{
+		if(engine.getPlayer().getRoom().getExit("nord") == null)
+			buttons.get("bouton2").setEnabled(false);
+		else
+			buttons.get("bouton2").setEnabled(true);
+		
+		if(engine.getPlayer().getRoom().getExit("haut") == null)
+			buttons.get("bouton3").setEnabled(false);
+		else
+			buttons.get("bouton3").setEnabled(true);
+		
+		if(engine.getPlayer().getRoom().getExit("ouest") == null)
+			buttons.get("bouton4").setEnabled(false);
+		else
+			buttons.get("bouton4").setEnabled(true);
+		
+		if(engine.getPlayer().getRoom().getExit("est") == null)
+			buttons.get("bouton6").setEnabled(false);
+		else
+			buttons.get("bouton6").setEnabled(true);
+		
+		if(engine.getPlayer().getRoom().getExit("sud") == null)
+			buttons.get("bouton8").setEnabled(false);
+		else
+			buttons.get("bouton8").setEnabled(true);
+		
+		panels.get("panel2").repaint();
+	}
+
+	/**Créer la fenêtre Copyright
+	 * 
+	 */
+	public void createCopyright()
+	{
+		JFrame gpl = new JFrame("Copyright");
+		gpl.setSize(800, 1000);
+	    gpl.setVisible(true);
+	    
+	    JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        if (helpURL != null) {
+            try {
+                editorPane.setPage(helpURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + helpURL);
+            }
+        } else {
+            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+        }
+        
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        editorPane.setEditable(false);
+        
+        gpl.setContentPane(editorScrollPane);
+	}
+
+	/**Créer la fenêtre About Water Games
+	 * 
+	 */
+	public void createCredits()
+	{
+		JFrame credits = new JFrame("About Water Games");
+		credits.setSize(800, 1000);
+	    credits.setVisible(true);
+	    
+	    JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        if (helpURL != null) {
+            try {
+                editorPane.setPage(helpURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + helpURL);
+            }
+        } else {
+            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+        }
+        
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        editorPane.setEditable(false);
+        
+        credits.setContentPane(editorScrollPane);
+	}
+
+	// public void eat()
+	// {
+	// System.out.println("Tu as déjà mangé, tu n'as plus faim");
+	// }
+
+	/**Cette méthode crée la fenêtre quand le joueur a perdu. L'image montré est choisie en fonction de la raison
+	 * pour laquelle le joueur est mort
+	 * @param raison
+	 */
+	 public void createGameOver(String raison)
+	 {
+		 myFrame.remove(panels.get("panel2"));
+		 if(panels.get("panelDialogue2") != null)
+			{
+				myFrame.remove(panels.get("panelDialogue2"));
+			}
+		 
+		 switch(raison)
+		 {
+		  	case "eau" : 
+			{
+				  showImage("images/Mortnoye.png");
+				  break;
+			}
+		  	case "sante" :
+		  	{
+		  		showImage("images/gameover.jpg");
+		  		break;
+		  	}
+		  	case "creeper" :
+		  	{
+		  		showImage("images/Mortcreeper.png");
+		  		break;
+		  	}
+		  	case "creeper not help" :
+		  	{
+		  		showImage("images/Mortcreepersansaide.png");
+		  		break;
+		  	}
+		  	case "enderman" :
+		  	{
+		  		showImage("images/Mortenderman.png");
+		  		break;
+		  	}
+		  	case "blaze" :
+		  	{
+		  		showImage("images/Mort-bllaze.png");
+		  		break;
+		  	}
+		  	default:
+		  		showImage("images/gameover.jpg");
+		 }
+	 }
 
 	/**
 	 * Gérer User Interface La fenêtre du jeux comporte 2 panneaux, celui en
@@ -428,106 +594,69 @@ public class UserInterface implements ActionListener
 		entryField.requestFocus();
 	}
 
-	/**
-	 * Enable or disable input in the input field.
+	/**Créer la fenêtre des commandes disponibles
+	 * 
 	 */
-	public void enable(boolean on) {
-		entryField.setEditable(on);
-		if (!on)
-			entryField.getCaret().setBlinkRate(0);
-	}
-
-	public JTextArea getJTextArea()
+	public void createHelp()
 	{
-		return log;
+		JFrame help = new JFrame("Liste des commandes");
+		help.setSize(800, 1000);
+	    help.setVisible(true);
+	    
+	    JEditorPane editorPane = new JEditorPane();
+        editorPane.setEditable(false);
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        if (helpURL != null) {
+            try {
+                editorPane.setPage(helpURL);
+            } catch (IOException e) {
+                System.err.println("Attempted to read a bad URL: " + helpURL);
+            }
+        } else {
+            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+        }
+        
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+        editorPane.setEditable(false);
+        
+        help.setContentPane(editorScrollPane);
 	}
 
-	public void killFrame() {
-		myFrame.setVisible(false);
-		myFrame.dispose();
-	}
-
-	// public void eat()
-	// {
-	// System.out.println("Tu as déjà mangé, tu n'as plus faim");
-	// }
-
-	/**
-	 * Print out some text into the text area.
+	/**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
+	 * Les boutons sont retirées si aucun bot n'est présent dans l'endroit
 	 */
-	public void print(String text) {
-		log.append(text);
-		log.setCaretPosition(log.getDocument().getLength());
-	}
-
-	/**
-	 * Print out some text into the text area, followed by a line break.
-	 */
-	public void println(String text) {
-		log.append(text + "\n");
-		log.setCaretPosition(log.getDocument().getLength());
-	}
-
-	/**
-	 * A command has been entered. Read the command and do whatever is necessary
-	 * to process it.
-	 */
-	public void processCommand() 
+	public void createInteractionBot()
 	{
-		String input = entryField.getText();
-		entryField.setText("");
-
-		engine.interpretCommand(input);
+		panels.get("panel3").setLayout(new BorderLayout());
+		panels.get("panel3").add(buttons.get("boutonParler"), BorderLayout.WEST);
+		panels.get("panel3").add(buttons.get("boutonAttaque"), BorderLayout.EAST);
+		
+		//S'il y a un bot
+		if(engine.getPlayer().getRoom().getBot() != null)
+		{
+			panels.get("sspanel2").setLayout(new BorderLayout());
+				panels.get("sspanel2").removeAll();
+				panels.get("sspanel2").add(panels.get("panel3"), BorderLayout.SOUTH);
+				panels.get("panel3").setVisible(true);
+				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+				panels.get("sspanel2").repaint();
+		}
+		//S'il n'y a pas de bot
+		else
+		{
+			if(panels.get("panel3") != null)
+			{
+				panels.get("sspanel2").setLayout(new BorderLayout());
+				panels.get("sspanel2").removeAll();
+				panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
+				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
+				panels.get("sspanel2").repaint();
+			}
+		}
 	}
-
-	/**Cette méthode crée la fenêtre quand le joueur a perdu. L'image montré est choisie en fonction de la raison
-	 * pour laquelle le joueur est mort
-	 * @param raison
-	 */
-	 public void createGameOver(String raison)
-	 {
-		 myFrame.remove(panels.get("panel2"));
-		 if(panels.get("panelDialogue2") != null)
-			{
-				myFrame.remove(panels.get("panelDialogue2"));
-			}
-		 
-		 switch(raison)
-		 {
-		  	case "eau" : 
-			{
-				  showImage("images/Mort.png");
-				  break;
-			}
-		  	case "sante" :
-		  	{
-		  		showImage("images/gameover.jpg");
-		  		break;
-		  	}
-		  	case "creeper" :
-		  	{
-		  		showImage("images/gameover.jpg");
-		  		break;
-		  	}
-		  	case "creeper not help" :
-		  	{
-		  		showImage("images/gameover.jpg");
-		  		break;
-		  	}
-		  	case "enderman" :
-		  	{
-		  		showImage("images/gameover.jpg");
-		  		break;
-		  	}
-		  	case "blaze" :
-		  	{
-		  		showImage("images/gameover.jpg");
-		  		break;
-		  	}
-		  	default:
-		  		showImage("images/gameover.jpg");
-		 }
-	 }
 	 
 	 public void createWinGame()
 	 {
@@ -540,7 +669,59 @@ public class UserInterface implements ActionListener
 	 }
 	 
 
-	 /**Cette méthode permet d'actualiser le panneau de texte à chaque fois qu'une commande est rentré, ainsi
+	 /**
+	 * Enable or disable input in the input field.
+	 */
+	public void enable(boolean on) {
+		entryField.setEditable(on);
+		if (!on)
+			entryField.getCaret().setBlinkRate(0);
+	}
+	
+	public JFrame getFrame()
+	{
+		return myFrame;
+	}
+	
+	public JTextArea getJTextArea()
+	{
+		return log;
+	}
+	
+	public void killFrame() {
+		myFrame.setVisible(false);
+		myFrame.dispose();
+	}
+	
+	/**
+	 * Print out some text into the text area.
+	 */
+	public void print(String text) {
+		log.append(text);
+		log.setCaretPosition(log.getDocument().getLength());
+	}
+	
+	/**
+	 * Print out some text into the text area, followed by a line break.
+	 */
+	public void println(String text) {
+		log.append(text + "\n");
+		log.setCaretPosition(log.getDocument().getLength());
+	}
+	
+	/**
+	 * A command has been entered. Read the command and do whatever is necessary
+	 * to process it.
+	 */
+	public void processCommand() 
+	{
+		String input = entryField.getText();
+		entryField.setText("");
+
+		engine.interpretCommand(input);
+	}
+	
+	/**Cette méthode permet d'actualiser le panneau de texte à chaque fois qu'une commande est rentré, ainsi
 	  * on a pas le texte de tous les mouvements du joueur affiché
 	  */
 	public void resetTextPanel()
@@ -549,27 +730,6 @@ public class UserInterface implements ActionListener
 		print("\n");
 		engine.printLocationInfo();
 		entryField.requestFocus();
-	}
-	
-	/**
-	 * Afficher une image dans l'interface
-	 */
-	public void showImage(String imageName) 
-	{
-		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
-		if (imageURL == null)
-			System.out.println("Image non trouvé");
-		else 
-		{
-			ImageIcon icon = new ImageIcon(imageURL);
-			image.setIcon(icon);
-			myFrame.pack();
-		}
-	}
-	
-	public JFrame getFrame()
-	{
-		return myFrame;
 	}
 	
 	/**Cette méthode permet de passer du jeu en mode normal en mode dialogue
@@ -626,180 +786,20 @@ public class UserInterface implements ActionListener
 		
 	}
 	
-	public void closeDialogue()
-	{
-		myFrame.remove(panels.get("panelDialogue"));
-		listScroller = new JScrollPane(log);
-		log.setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 13));
-		listScroller.setPreferredSize(new Dimension(600, 280));
-		listScroller.setMinimumSize(new Dimension(10, 10));
-		panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
-		panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
-		panels.get("panel2").add(panels.get("sspanel1"));
-		panels.get("panel2").add(panels.get("sspanel2"));
-		panels.get("panel2").add(panels.get("sspanel3"));
-		myFrame.add(panels.get("panel2"));
-		resetTextPanel();
-	}
-	
-	/**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
-	 * Les boutons sont retirées si aucun bot n'est présent dans l'endroit
+	/**
+	 * Afficher une image dans l'interface
 	 */
-	public void createInteractionBot()
+	public void showImage(String imageName) 
 	{
-		panels.get("panel3").setLayout(new BorderLayout());
-		panels.get("panel3").add(buttons.get("boutonParler"), BorderLayout.WEST);
-		panels.get("panel3").add(buttons.get("boutonAttaque"), BorderLayout.EAST);
-		
-		//S'il y a un bot
-		if(engine.getPlayer().getRoom().getBot() != null)
+		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
+		if (imageURL == null)
+			System.out.println("Image non trouvé");
+		else 
 		{
-			panels.get("sspanel2").setLayout(new BorderLayout());
-				panels.get("sspanel2").removeAll();
-				panels.get("sspanel2").add(panels.get("panel3"), BorderLayout.SOUTH);
-				panels.get("panel3").setVisible(true);
-				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
-				panels.get("sspanel2").repaint();
+			ImageIcon icon = new ImageIcon(imageURL);
+			image.setIcon(icon);
+			myFrame.pack();
 		}
-		//S'il n'y a pas de bot
-		else
-		{
-			if(panels.get("panel3") != null)
-			{
-				panels.get("sspanel2").setLayout(new BorderLayout());
-				panels.get("sspanel2").removeAll();
-				panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
-				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
-				panels.get("sspanel2").repaint();
-			}
-		}
-	}
-	
-	/**Cette méthode permet de désactiver les boutons quand la sortie correspondante n'est pas disponible et
-	 * la réactive dans le cas contraire
-	 */
-	public void colorButton()
-	{
-		if(engine.getPlayer().getRoom().getExit("nord") == null)
-			buttons.get("bouton2").setEnabled(false);
-		else
-			buttons.get("bouton2").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("haut") == null)
-			buttons.get("bouton3").setEnabled(false);
-		else
-			buttons.get("bouton3").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("ouest") == null)
-			buttons.get("bouton4").setEnabled(false);
-		else
-			buttons.get("bouton4").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("est") == null)
-			buttons.get("bouton6").setEnabled(false);
-		else
-			buttons.get("bouton6").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("sud") == null)
-			buttons.get("bouton8").setEnabled(false);
-		else
-			buttons.get("bouton8").setEnabled(true);
-		
-		panels.get("panel2").repaint();
-	}
-	
-	/**Créer la fenêtre des commandes disponibles
-	 * 
-	 */
-	public void createHelp()
-	{
-		JFrame help = new JFrame("Liste des commandes");
-		help.setSize(800, 1000);
-	    help.setVisible(true);
-	    
-	    JEditorPane editorPane = new JEditorPane();
-        editorPane.setEditable(false);
-        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
-        if (helpURL != null) {
-            try {
-                editorPane.setPage(helpURL);
-            } catch (IOException e) {
-                System.err.println("Attempted to read a bad URL: " + helpURL);
-            }
-        } else {
-            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
-        }
-        
-        JScrollPane editorScrollPane = new JScrollPane(editorPane);
-        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-        editorScrollPane.setMinimumSize(new Dimension(10, 10));
-        editorPane.setEditable(false);
-        
-        help.setContentPane(editorScrollPane);
-	}
-	
-	/**Créer la fenêtre About Water Games
-	 * 
-	 */
-	public void createCredits()
-	{
-		JFrame credits = new JFrame("About Water Games");
-		credits.setSize(800, 1000);
-	    credits.setVisible(true);
-	    
-	    JEditorPane editorPane = new JEditorPane();
-        editorPane.setEditable(false);
-        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
-        if (helpURL != null) {
-            try {
-                editorPane.setPage(helpURL);
-            } catch (IOException e) {
-                System.err.println("Attempted to read a bad URL: " + helpURL);
-            }
-        } else {
-            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
-        }
-        
-        JScrollPane editorScrollPane = new JScrollPane(editorPane);
-        editorScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-        editorScrollPane.setMinimumSize(new Dimension(10, 10));
-        editorPane.setEditable(false);
-        
-        credits.setContentPane(editorScrollPane);
-	}
-	
-	/**Créer la fenêtre Copyright
-	 * 
-	 */
-	public void createCopyright()
-	{
-		JFrame gpl = new JFrame("Copyright");
-		gpl.setSize(800, 1000);
-	    gpl.setVisible(true);
-	    
-	    JEditorPane editorPane = new JEditorPane();
-        editorPane.setEditable(false);
-        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
-        if (helpURL != null) {
-            try {
-                editorPane.setPage(helpURL);
-            } catch (IOException e) {
-                System.err.println("Attempted to read a bad URL: " + helpURL);
-            }
-        } else {
-            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
-        }
-        
-        JScrollPane editorScrollPane = new JScrollPane(editorPane);
-        editorScrollPane.setVerticalScrollBarPolicy(
-                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-        editorScrollPane.setMinimumSize(new Dimension(10, 10));
-        editorPane.setEditable(false);
-        
-        gpl.setContentPane(editorScrollPane);
 	}
 	
 	

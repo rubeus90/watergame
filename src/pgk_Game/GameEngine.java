@@ -52,9 +52,6 @@ public class GameEngine
 	private Beamer beamer;
 	private ArrayList<Room> rooms;
 	private Scanner sr;
-	private Bots creeper;
-	private Bots blaze;
-	private Bots enderman;
 	private boolean gameResetted;
 	
 
@@ -181,16 +178,16 @@ public class GameEngine
 		vallee.setExit("est", montagne);
 		
 		/*La salle secrète*/
-		temple.setExit("est", secret);
+		temple.setExit("secret", secret);
 		
 		//Créer les objets dans les salles
-		foret.addItem("hache", new Item("Une petite hache toute pourrie", 40));
-		plaine.addItem("sabre", new Item("Un sabre lumineux", 30));
-		grotte.addItem("massue", new Item("Une grande massue", 45));
-		plage.addItem("filet", new Item("Un grand filet", 50));
-		temple.addItem("arc", new Item("Un arc en bois", 40));
-		temple.addItem("torche", new Item("Une petite torche", 10));
-		pic.addItem("corde", new Item("Une corde", 1));
+//		foret.addItem("hache", new Item("Une petite hache toute pourrie", 40));
+		plaine.addItem("massue", new Item("Une grande massue pas très bien foutue", 30));
+//		grotte.addItem("massue", new Item("Une grande massue", 45));
+//		plage.addItem("filet", new Item("Un grand filet", 50));
+//		temple.addItem("arc", new Item("Un arc en bois", 40));
+		temple.addItem("hache", new Item("Une petite hache toute pourrie", 40));
+		pic.addItem("corde", new Item("Une corde", 10));
 		
 		//Ajouter le teleporteur
 		pierre = new Pierre();
@@ -206,9 +203,9 @@ public class GameEngine
 		player.setCurrentRoom(temple);
 		
 		//Ajouter les bots dans les salles
-		creeper = new Bots("Creeper", null, 80, false);
-		blaze = new Bots("Blaze", null, 50, true);
-		enderman = new Bots("Enderman", null, 20, true);
+		Bots creeper = new Bots("Creeper", null, 80, false);
+		Bots blaze = new Bots("Blaze", null, 50, true);
+		Bots enderman = new Bots("Enderman", null, 20, true);
 		foret.addBot("Creeper", creeper);
 		plage.addBot("Blaze", blaze);	
 		vallee.addBot("Enderman", enderman);

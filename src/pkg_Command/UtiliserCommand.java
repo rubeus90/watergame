@@ -20,6 +20,8 @@ public class UtiliserCommand extends Command
 			}
 			
 			player.getGUI().resetTextPanel();
+			player.getGUI().println("Tu as été téléporter à l'endroit ou le Beamer était chargé. Pour le réutiliser de nouveau," +
+					" il faut que tu le recharge");
 			
 			//Enlever la salle de l'ArrayList, comme ça à chaque fois on veut utiliser le Beamer, il faut le recharger
 			player.getBeamerRoom().clear();

@@ -22,9 +22,8 @@ public class DialogueEnderman extends Dialogue
 		}
 		
 		engine.getGUI().showDialogue(1);
-		int etape = super.getEtape();
 		
-		switch(etape)
+		switch(super.getEtape())
 		{
 			case 1:
 			{		

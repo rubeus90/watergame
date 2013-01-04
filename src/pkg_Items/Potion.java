@@ -8,22 +8,22 @@ package pkg_Items;
  */
 public class Potion {
 	private String nomPotion;
-	private int forcePotion;
+//	private int forcePotion;
 
 	public Potion(final String pNomPotion) {
 		nomPotion = pNomPotion;
 	}
 
-	public Potion(final String pNomPotion, final int pForcePotion) {
-		nomPotion = pNomPotion;
-		forcePotion = pForcePotion;
-	}
+//	public Potion(final String pNomPotion, final int pForcePotion) {
+//		nomPotion = pNomPotion;
+//		forcePotion = pForcePotion;
+//	}
 
 	public String getNomPotion() {
 		return nomPotion;
 	}
 
-	public int getForcePotion() {
-		return forcePotion;
-	}
+//	public int getForcePotion() {
+//		return forcePotion;
+//	}
 }
