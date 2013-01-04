@@ -639,10 +639,9 @@ public class UserInterface implements ActionListener
 		{
 			panels.get("sspanel2").setLayout(new BorderLayout());
 				panels.get("sspanel2").removeAll();
-				panels.get("sspanel2").add(panels.get("panel3"), BorderLayout.SOUTH);
-				panels.get("panel3").setVisible(true);
 				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
-				panels.get("sspanel2").repaint();
+				panels.get("sspanel2").add(panels.get("panel3"), BorderLayout.SOUTH);
+				panels.get("sspanel2").updateUI();
 		}
 		//S'il n'y a pas de bot
 		else
@@ -653,7 +652,7 @@ public class UserInterface implements ActionListener
 				panels.get("sspanel2").removeAll();
 				panels.get("sspanel2").add(entryField, BorderLayout.SOUTH);
 				panels.get("sspanel2").add(listScroller, BorderLayout.NORTH);
-				panels.get("sspanel2").repaint();
+				panels.get("sspanel2").updateUI();
 			}
 		}
 	}

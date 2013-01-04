@@ -310,13 +310,8 @@ public class Room {
 	{
 		boolean contain = false;
 		
-		Set<String> noms = bots.keySet();
-		
-		for(String nom : noms)
-		{
-			if(nom == nomBot)
-				contain = true;
-		}
+		if(bots.containsKey(nomBot))
+			contain = true;
 		
 		return contain;
 	}
