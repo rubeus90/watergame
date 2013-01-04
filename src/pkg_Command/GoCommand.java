@@ -49,6 +49,8 @@ public class GoCommand extends Command
 				
 				player.getGUI().resetTextPanel();
 				
+				player.getGUI().showBoutonTeleporter();
+							
 			}
 			else
 			{

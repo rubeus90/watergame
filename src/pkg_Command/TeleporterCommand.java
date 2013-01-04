@@ -44,6 +44,8 @@ public class TeleporterCommand extends Command
 			}			
 			
 			player.getGameEngine().getPierre().setActivation(false);
+			
+			player.getGUI().showBoutonTeleporter();
 		}
 		else
 			player.getGUI().println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");

@@ -124,7 +124,7 @@ public class UserInterface implements ActionListener
 		}
 		 else if(e.getSource() == buttons.get("bouton9"))
 		 {
-			 createGameOver("sante");
+			 engine.interpretCommand("teleporter pic");
 		 }
 		else if (e.getSource() == buttons.get("bouton10")) 
 		{
@@ -895,6 +895,21 @@ public class UserInterface implements ActionListener
 		for (String nom : cles) 
 		{
 			listPlayer.addElement(nom);
+		}
+	}
+	
+	public void showBoutonTeleporter()
+	{
+		if(engine.getPlayer().getRoom().getNomRoom() == "montagne" && engine.getPierre().getValueActivation())
+		{
+			buttons.get("bouton9").setEnabled(true);
+			buttons.get("bouton9").setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 11));
+			buttons.get("bouton9").setText("Aller au pic");
+		}
+		else
+		{
+			buttons.get("bouton9").setEnabled(false);
+			buttons.get("bouton9").setText(null);
 		}
 	}
 }
