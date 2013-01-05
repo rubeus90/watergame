@@ -227,32 +227,32 @@ public class UserInterface implements ActionListener
 	 */
 	public void colorButton()
 	{
-		if(engine.getPlayer().getRoom().getExit("nord") == null)
-			buttons.get("bouton2").setEnabled(false);
-		else
-			buttons.get("bouton2").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("haut") == null)
-			buttons.get("bouton3").setEnabled(false);
-		else
-			buttons.get("bouton3").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("ouest") == null)
-			buttons.get("bouton4").setEnabled(false);
-		else
-			buttons.get("bouton4").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("est") == null)
-			buttons.get("bouton6").setEnabled(false);
-		else
-			buttons.get("bouton6").setEnabled(true);
-		
-		if(engine.getPlayer().getRoom().getExit("sud") == null)
-			buttons.get("bouton8").setEnabled(false);
-		else
-			buttons.get("bouton8").setEnabled(true);
-		
-		panels.get("panel2").repaint();
+			if(engine.getPlayer().getRoom().getExit("nord") == null)
+				buttons.get("bouton2").setEnabled(false);
+			else
+				buttons.get("bouton2").setEnabled(true);
+			
+			if(engine.getPlayer().getRoom().getExit("haut") == null)
+				buttons.get("bouton3").setEnabled(false);
+			else
+				buttons.get("bouton3").setEnabled(true);
+			
+			if(engine.getPlayer().getRoom().getExit("ouest") == null)
+				buttons.get("bouton4").setEnabled(false);
+			else
+				buttons.get("bouton4").setEnabled(true);
+			
+			if(engine.getPlayer().getRoom().getExit("est") == null)
+				buttons.get("bouton6").setEnabled(false);
+			else
+				buttons.get("bouton6").setEnabled(true);
+			
+			if(engine.getPlayer().getRoom().getExit("sud") == null)
+				buttons.get("bouton8").setEnabled(false);
+			else
+				buttons.get("bouton8").setEnabled(true);
+			
+			panels.get("panel2").repaint();
 	}
 
 	/**Créer la fenêtre Copyright

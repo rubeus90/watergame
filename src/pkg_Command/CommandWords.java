@@ -46,6 +46,7 @@ public class CommandWords {
         commands.put(validCommands.get(CommandWord.UTILISER), new UtiliserCommand());
         commands.put(validCommands.get(CommandWord.ATTAQUE), new AttaqueCommand());
         commands.put(validCommands.get(CommandWord.PARLER), new ParlerCommand());
+        commands.put(validCommands.get(CommandWord.ALEAS), new AleasCommand());
    
 
 		// validCommands.put("go", CommandWord.GO);

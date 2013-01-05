@@ -137,7 +137,6 @@ public class GameEngine
 		rooms.add(eau);
 		
 		secret = new TransporterRoom(" dans la salle secrète", "images/SalleSecrete.png", "secret", rooms);
-				
 		
 		// Créer les sorties pour les salles
 		foret.setExit("est", vallee);		
@@ -192,6 +191,7 @@ public class GameEngine
 //		temple.addItem("arc", new Item("Un arc en bois", 40));
 		temple.addItem("hache", new Item("Une petite hache toute pourrie", 40));
 		pic.addItem("corde", new Item("Une corde", 10));
+		secret.addItem("hallebarde", new Item("Une hallebarde très puissante", 60));
 		
 		//Ajouter le teleporteur
 		pierre = new Pierre();

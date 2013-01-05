@@ -16,19 +16,19 @@ public class TransporterRoom extends Room
 	{
 		super(description, image, nom);
 		random = new RoomRandomizer(rooms);
+		testMode = false;
 	}
 	
 	@Override
 	public Room getExit(String direction)
 	{
-		if(testMode = false)
+		if(testMode == false)
 		{
 			return random.getRandomRoom();
 		}
-		else
-		{
+		else 
 			return testModeRoom;
-		}
+		
 	}
 	
 	public void setTestMode(boolean mode)
