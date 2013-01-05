@@ -1,9 +1,9 @@
 import javax.swing.JApplet;
 import javax.swing.JOptionPane;
 
-import pgk_Game.GameEngine;
-import pgk_Game.UserInterface;
 import pkg_Characters.Player;
+import pkg_Game.GameEngine;
+import pkg_Game.UserInterface;
 
 public class Game extends JApplet 
 {

@@ -1,4 +1,5 @@
-package pgk_Game;
+package pkg_Game;
+
 
 
 import java.awt.BorderLayout;
@@ -14,6 +15,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.ImageObserver;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -69,6 +71,7 @@ public class UserInterface implements ActionListener
 	private Parser parser;
 	private DefaultListModel<String> listRoom, listPlayer;
 	private JList<String> list, list2;
+	private ArrayList<JButton> boutonsJeu;
 
 	/**
 	 * Construct a UserInterface. As a parameter, a Game Engine (an object
@@ -900,7 +903,7 @@ public class UserInterface implements ActionListener
 	
 	public void showBoutonTeleporter()
 	{
-		if(engine.getPlayer().getRoom().getNomRoom() == "montagne" && engine.getPierre().getValueActivation())
+		if(engine.getPierre().getValueActivation())
 		{
 			buttons.get("bouton9").setEnabled(true);
 			buttons.get("bouton9").setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 11));
@@ -911,5 +914,36 @@ public class UserInterface implements ActionListener
 			buttons.get("bouton9").setEnabled(false);
 			buttons.get("bouton9").setText(null);
 		}
+	}
+	
+	public void createMinijeu()
+	{
+		boutonsJeu = new ArrayList<JButton>();
+		for(int i = 0; i<9 ; i++)
+		{
+			boutonsJeu.add(new JButton());
+			boutonsJeu.get(i).addActionListener(this);
+		}
+		
+		JPanel panelJeu = new JPanel();
+		panels.put("panelJeu", panelJeu);
+		panelJeu.setPreferredSize(new Dimension(300,300));
+		panelJeu.setLayout(new GridLayout(3,3));
+		for(int i = 0; i<9 ; i++)
+		{
+			panelJeu.add(boutonsJeu.get(i));
+		}
+		
+		panels.get("panelDialogue").remove(buttons.get("boutonNext"));
+		log.setText("Tu as 5 secondes pour jouer! GO!");
+		log.setFont(new Font("Verdana", Font.BOLD, 15));
+		log.setPreferredSize(new Dimension(900,300));
+		panels.get("panelDialogue").add(panelJeu, BorderLayout.EAST);
+		
+	}
+	
+	public void closeMinijeu()
+	{
+		
 	}
 }

@@ -315,9 +315,4 @@ public class Room {
 		
 		return contain;
 	}
-	
-	public void setImageRoom(String image)
-	{
-		imageName = image;
-	}
 }

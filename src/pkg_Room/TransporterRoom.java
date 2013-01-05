@@ -7,9 +7,10 @@ import java.util.ArrayList;
  *
  */
 public class TransporterRoom extends Room
-
 {
 	private RoomRandomizer random;
+	private boolean testMode;
+	private Room testModeRoom;
 	
 	public TransporterRoom(final String description, final String image, final String nom, final ArrayList<Room> rooms)
 	{
@@ -20,6 +21,23 @@ public class TransporterRoom extends Room
 	@Override
 	public Room getExit(String direction)
 	{
-		return random.getRandomRoom();
+		if(testMode = false)
+		{
+			return random.getRandomRoom();
+		}
+		else
+		{
+			return testModeRoom;
+		}
+	}
+	
+	public void setTestMode(boolean mode)
+	{
+		testMode = mode;
+	}
+	
+	public void setTestModeRoom(Room room)
+	{
+		testModeRoom = room;
 	}
 }

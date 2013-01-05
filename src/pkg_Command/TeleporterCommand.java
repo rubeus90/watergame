@@ -17,35 +17,39 @@ public class TeleporterCommand extends Command
 			{
 				player.getGUI().println("Il faut préciser ou tu veux être téléporté!");
 			}
-
-			// Stocker la salle actuelle dans le stack (pour la méthode back)
-			player.getStackRoom().push(player.getRoom());
-
-			String direction = this.getSecondWord();
-
-			Room nextRoom = player.getRoom().getExit(direction);
-
-			if (nextRoom == null) 
+			else
 			{
-				player.getGUI().println("L'endroit que tu viens de demander n'existe pas, ou tu peux pas te téléporter là-bas!");
-			} 
-			else 
-			{
-				player.setRoom(nextRoom);
-				// player.setCurrentRoom(nextRoom);
-				player.getGameEngine().printLocationInfo();
-
-				if (player.getRoom().getImageName() != null) 
-				{
-					player.getGUI().showImage(player.getRoom().getImageName());
-				}
+				// Stocker la salle actuelle dans le stack (pour la méthode back)
+				player.getStackRoom().push(player.getRoom());
 				
-				player.getGUI().resetTextPanel();
-			}			
-			
-			player.getGameEngine().getPierre().setActivation(false);
-			
-			player.getGUI().showBoutonTeleporter();
+
+				String direction = this.getSecondWord();
+
+//				Room nextRoom = player.getRoom().getExit(direction);
+				Room nextRoom = player.getGameEngine().chooseRoom(this.getSecondWord());
+
+				if (nextRoom == null) 
+				{
+					player.getGUI().println("L'endroit que tu viens de demander n'existe pas, ou tu peux pas te téléporter là-bas!");
+				} 
+				else 
+				{
+					player.setRoom(nextRoom);
+					// player.setCurrentRoom(nextRoom);
+					player.getGameEngine().printLocationInfo();
+
+					if (player.getRoom().getImageName() != null) 
+					{
+						player.getGUI().showImage(player.getRoom().getImageName());
+					}
+					
+					player.getGUI().resetTextPanel();
+				}			
+				
+				player.getGameEngine().getPierre().setActivation(false);
+				
+				player.getGUI().showBoutonTeleporter();
+			}
 		}
 		else
 			player.getGUI().println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");

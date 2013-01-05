@@ -1,7 +1,5 @@
-package pgk_Game;
-//import java.util.Stack;
-//import java.io.FileReader;
-//import java.io.BufferedReader;
+package pkg_Game;
+
 
 import java.util.Scanner;
 import java.util.Set;
@@ -54,6 +52,8 @@ public class GameEngine
 	private ArrayList<Room> rooms;
 	private Scanner sr;
 	private boolean gameResetted;
+	private boolean testMode;
+	private TransporterRoom secret;
 	
 
 	/**
@@ -66,6 +66,7 @@ public class GameEngine
 		parser = new Parser();
 		commandWords = new CommandWords();
 		gameResetted = false;
+		testMode = false;
 	}
 
 	/** 
@@ -135,7 +136,7 @@ public class GameEngine
 		rooms.add(pic);
 		rooms.add(eau);
 		
-		TransporterRoom secret = new TransporterRoom(" dans la salle secrète", "images/SalleSecrete.png", "secret", rooms);
+		secret = new TransporterRoom(" dans la salle secrète", "images/SalleSecrete.png", "secret", rooms);
 				
 		
 		// Créer les sorties pour les salles
@@ -149,14 +150,14 @@ public class GameEngine
 		
 		montagne.setExit("ouest", vallee);
 		montagne.setExit("nord", eau);
-		/*Pour le teleporteur*/
-		montagne.setExit("foret", foret);
-		montagne.setExit("grotte", grotte);
-		montagne.setExit("plaine", plaine);
-		montagne.setExit("temple", temple);
-		montagne.setExit("plage", plage);
-		montagne.setExit("vallee", vallee);
-		montagne.setExit("pic", pic);
+//		/*Pour le teleporteur*/
+//		montagne.setExit("foret", foret);
+//		montagne.setExit("grotte", grotte);
+//		montagne.setExit("plaine", plaine);
+//		montagne.setExit("temple", temple);
+//		montagne.setExit("plage", plage);
+//		montagne.setExit("vallee", vallee);
+//		montagne.setExit("pic", pic);
 		
 		plaine.setExit("nord", foret);
 		plaine.setExit("est", temple);
@@ -511,6 +512,24 @@ public class GameEngine
 	public ArrayList<Room> getArrayListRoom()
 	{
 		return rooms;
+	}
+	
+	public TransporterRoom getTransporterRoom()
+	{
+		return secret;
+	}
+	
+	public Room chooseRoom(String nomRoom)
+	{
+		Room room = null;
+		for(int i=0; i< rooms.size(); i++)
+		{
+			if(nomRoom.equals(rooms.get(i).getNomRoom()))
+			{
+				room = rooms.get(i);				
+			}
+		}
+		return room;
 	}
 }
 
