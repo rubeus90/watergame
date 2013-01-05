@@ -1,18 +1,14 @@
 package pkg_Dialogue;
 
-
-import pkg_Characters.Bots;
 import pkg_Game.GameEngine;
-import pkg_Items.Item;
-import pkg_Room.Room;
 
-public class DialogueEnderman extends Dialogue
+public class DialogueBlaze extends Dialogue
 {
-	public DialogueEnderman()
+	public DialogueBlaze()
 	{
 		super();
 	}
-	
+
 	public void afficheDialogue(GameEngine engine)
 	{
 		if(engine.gameResetted())
@@ -27,25 +23,25 @@ public class DialogueEnderman extends Dialogue
 		{
 			case 1:
 			{		
-				engine.getGUI().println("Enderman : Mouhaha je suis Enderman, je viens du monde de l'Ender, et je vais être le vainqueur du Water Games!");
+				engine.getGUI().println("Blaze : Ha, encore une nouvelle victime qui se présente toute seule à moi! Tu n'as pas peur de mourir?");
 				super.suivant();
 				break;
 			}
 			case 2:
 			{
-				engine.getGUI().println("Enderman : Tu ne peux pas gagner contre moi!");
+				engine.getGUI().println("Je suis Blaze, l'ancien gagnant de la dernière édition des Water Games, tu ne pexu pas me battre!");
 				super.suivant();
 				break;
 			}
 			case 3:
 			{
-				engine.getGUI().println("Enderman : Tu attends quoi encore à te battre espèce de lâche?");
+				engine.getGUI().println("Haha tu crois que tu vas pouvoir gagner contre moi? Tu es en train de rêver là. Alors battons-nous!");
 				super.suivant();
 				break;
 			}
 			case 0:
 			{
-				engine.getGUI().println("");
+				engine.getGUI().println("Alors si tu n'as pas peur, t'attends quoi encore pour commencer à te battre?");
 				super.setEtape(4);
 				break;
 			}

@@ -1,10 +1,27 @@
 take EnderPearl
 go ouest
-go est
-go nord
-go est
-telepoter pic
+teleporter pic
 take corde
 go ouest
 go ouest
 go ouest
+parler
+parler
+parler
+parler
+parler
+go est
+attaque
+take papier
+go nord
+parler
+parler
+parler
+parler
+parler
+go sud
+go sud
+parler
+parler
+parler
+aleas plage

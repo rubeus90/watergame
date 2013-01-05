@@ -6,6 +6,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -58,6 +59,26 @@ import java.io.IOException;
  */
 public class UserInterface implements ActionListener 
 {
+	public class Bouton extends JButton
+	{
+		  private Image img;
+
+		  public Bouton()
+		  {
+		    super();
+		    try {
+		      img = ImageIO.read(new File("./src/images/Door.jpg"));
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }
+		  }
+
+		  public void paintComponent(Graphics g)
+		  {
+		    Graphics2D g2d = (Graphics2D)g;
+		    g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		  }
+	}
 	private GameEngine engine;
 	private JFrame myFrame;
 	private JTextField entryField;
@@ -71,6 +92,7 @@ public class UserInterface implements ActionListener
 	private Parser parser;
 	private DefaultListModel<String> listRoom, listPlayer;
 	private JList<String> list, list2;
+
 	private ArrayList<JButton> boutonsJeu;
 
 	/**
@@ -190,15 +212,18 @@ public class UserInterface implements ActionListener
 			String nomItem = list.getSelectedValue();
 			engine.interpretCommand("take " + nomItem);
 		}
-		
-
 		else if (e.getSource() == buttons.get("boutonDrop")) 
 		{
 			String nomItem = list2.getSelectedValue();
 			engine.interpretCommand("drop " + nomItem);
 		}
-
-
+		else if (e.getSource() == buttons.get("boutonDoor")) 
+		{
+			engine.interpretCommand("go secret");
+			closeDialogue();
+			createInteractionBot();
+			panels.get("panelDialogue").remove(buttons.get("boutonDoor"));
+		}
 		else
 			processCommand();
 		
@@ -217,9 +242,9 @@ public class UserInterface implements ActionListener
 		panels.get("panel2").add(panels.get("sspanel1"));
 		panels.get("panel2").add(panels.get("sspanel2"));
 		panels.get("panel2").add(panels.get("sspanel3"));
-		panels.get("panelLeft")
-		.add(panels.get("panel2"));
+		panels.get("panelLeft").add(panels.get("panel2"));
 		resetTextPanel();
+		panels.get("panelLeft").updateUI();
 	}
 
 	/**Cette méthode permet de désactiver les boutons quand la sortie correspondante n'est pas disponible et
@@ -254,6 +279,24 @@ public class UserInterface implements ActionListener
 			
 			panels.get("panel2").repaint();
 	}
+
+	public void createButtonDoor()
+	{
+		panels.get("panelDialogue").remove(buttons.get("boutonNext"));
+		panels.get("panelDialogue").setLayout(new BorderLayout());
+		
+		Bouton boutonDoor = new Bouton();
+		boutonDoor.setPreferredSize(new Dimension(200,300));
+		buttons.put("boutonDoor", boutonDoor);
+		boutonDoor.addActionListener(this);
+		
+		panels.get("panelDialogue").add(boutonDoor, BorderLayout.EAST);
+	}
+
+	// public void eat()
+	// {
+	// System.out.println("Tu as déjà mangé, tu n'as plus faim");
+	// }
 
 	/**Créer la fenêtre Copyright
 	 * 
@@ -318,11 +361,6 @@ public class UserInterface implements ActionListener
         credits.setContentPane(editorScrollPane);
 	}
 
-	// public void eat()
-	// {
-	// System.out.println("Tu as déjà mangé, tu n'as plus faim");
-	// }
-
 	/**Cette méthode crée la fenêtre quand le joueur a perdu. L'image montré est choisie en fonction de la raison
 	 * pour laquelle le joueur est mort
 	 * @param raison
@@ -340,7 +378,7 @@ public class UserInterface implements ActionListener
 		 {
 		  	case "eau" : 
 			{
-				  showImage("images/Mortnoye.png");
+				  showImage("images/mortNoye.png");
 				  break;
 			}
 		  	case "sante" :
@@ -350,22 +388,22 @@ public class UserInterface implements ActionListener
 		  	}
 		  	case "creeper" :
 		  	{
-		  		showImage("images/Mortcreeper.png");
+		  		showImage("images/mortCreeper.png");
 		  		break;
 		  	}
 		  	case "creeper not help" :
 		  	{
-		  		showImage("images/Mortcreepersansaide.png");
+		  		showImage("images/mortCreeperSansAide.png");
 		  		break;
 		  	}
 		  	case "enderman" :
 		  	{
-		  		showImage("images/Mortenderman.png");
+		  		showImage("images/mortEnderman.png");
 		  		break;
 		  	}
 		  	case "blaze" :
 		  	{
-		  		showImage("images/Mort-bllaze.png");
+		  		showImage("images/mortBlaze.png");
 		  		break;
 		  	}
 		  	default:
@@ -664,8 +702,8 @@ public class UserInterface implements ActionListener
 		myFrame.setVisible(true);
 		entryField.requestFocus();
 	}
-
-	/**Créer la fenêtre des commandes disponibles
+	 
+	 /**Créer la fenêtre des commandes disponibles
 	 * 
 	 */
 	public void createHelp()
@@ -695,8 +733,9 @@ public class UserInterface implements ActionListener
         
         help.setContentPane(editorScrollPane);
 	}
+	 
 
-	/**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
+	 /**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
 	 * Les boutons sont retirées si aucun bot n'est présent dans l'endroit
 	 */
 	public void createInteractionBot()
@@ -729,19 +768,15 @@ public class UserInterface implements ActionListener
 			}
 		}
 	}
-	 
-	 public void createWinGame()
+	
+	public void createWinGame()
 	 {
-		 myFrame.remove(panels.get("panel2"));
-		 if(panels.get("panelDialogue2") != null)
-			{
-				myFrame.remove(panels.get("panelDialogue2"));
-				showImage("images/victory.jpg");
-			}
+		 panels.get("panelLeft").remove(panels.get("panel2"));
+		 myFrame.remove(panels.get("panelRight"));
+		 showImage("images/victory.jpg");
 	 }
-	 
-
-	 /**
+	
+	/**
 	 * Enable or disable input in the input field.
 	 */
 	public void enable(boolean on) {
@@ -802,6 +837,21 @@ public class UserInterface implements ActionListener
 		print("\n");
 		engine.printLocationInfo();
 		entryField.requestFocus();
+	}
+	
+	public void showBoutonTeleporter()
+	{
+		if(engine.getPierre().getValueActivation())
+		{
+			buttons.get("bouton9").setEnabled(true);
+			buttons.get("bouton9").setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 11));
+			buttons.get("bouton9").setText("Aller au pic");
+		}
+		else
+		{
+			buttons.get("bouton9").setEnabled(false);
+			buttons.get("bouton9").setText(null);
+		}
 	}
 	
 	/**Cette méthode permet de passer du jeu en mode normal en mode dialogue
@@ -876,19 +926,36 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
-	public void showInventaireRoom()
-	{
-		listRoom.removeAllElements();
-		
-		Set<String> cles = engine.getPlayer().getRoom().getItemListe().getKeys();
-		for (String nom : cles) 
-		{
-			if(nom != "beamer")
-			{
-				listRoom.addElement(nom);
-			}
-		}
-	}
+//	public void createMinijeu()
+//	{
+//		boutonsJeu = new ArrayList<JButton>();
+//		for(int i = 0; i<9 ; i++)
+//		{
+//			boutonsJeu.add(new JButton());
+//			boutonsJeu.get(i).addActionListener(this);
+//		}
+//		
+//		JPanel panelJeu = new JPanel();
+//		panels.put("panelJeu", panelJeu);
+//		panelJeu.setPreferredSize(new Dimension(300,300));
+//		panelJeu.setLayout(new GridLayout(3,3));
+//		for(int i = 0; i<9 ; i++)
+//		{
+//			panelJeu.add(boutonsJeu.get(i));
+//		}
+//		
+//		panels.get("panelDialogue").remove(buttons.get("boutonNext"));
+//		log.setText("Tu as 5 secondes pour jouer! GO!");
+//		log.setFont(new Font("Verdana", Font.BOLD, 15));
+//		log.setPreferredSize(new Dimension(900,300));
+//		panels.get("panelDialogue").add(panelJeu, BorderLayout.EAST);
+//		
+//	}
+//	
+//	public void closeMinijeu()
+//	{
+//		
+//	}
 	
 	public void showInventairePlayer()
 	{
@@ -901,49 +968,18 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
-	public void showBoutonTeleporter()
-	{
-		if(engine.getPierre().getValueActivation())
-		{
-			buttons.get("bouton9").setEnabled(true);
-			buttons.get("bouton9").setFont(new Font("Verdana", Font.LAYOUT_LEFT_TO_RIGHT, 11));
-			buttons.get("bouton9").setText("Aller au pic");
-		}
-		else
-		{
-			buttons.get("bouton9").setEnabled(false);
-			buttons.get("bouton9").setText(null);
-		}
-	}
 	
-	public void createMinijeu()
+	public void showInventaireRoom()
 	{
-		boutonsJeu = new ArrayList<JButton>();
-		for(int i = 0; i<9 ; i++)
+		listRoom.removeAllElements();
+		
+		Set<String> cles = engine.getPlayer().getRoom().getItemListe().getKeys();
+		for (String nom : cles) 
 		{
-			boutonsJeu.add(new JButton());
-			boutonsJeu.get(i).addActionListener(this);
+			if(nom != "beamer")
+			{
+				listRoom.addElement(nom);
+			}
 		}
-		
-		JPanel panelJeu = new JPanel();
-		panels.put("panelJeu", panelJeu);
-		panelJeu.setPreferredSize(new Dimension(300,300));
-		panelJeu.setLayout(new GridLayout(3,3));
-		for(int i = 0; i<9 ; i++)
-		{
-			panelJeu.add(boutonsJeu.get(i));
-		}
-		
-		panels.get("panelDialogue").remove(buttons.get("boutonNext"));
-		log.setText("Tu as 5 secondes pour jouer! GO!");
-		log.setFont(new Font("Verdana", Font.BOLD, 15));
-		log.setPreferredSize(new Dimension(900,300));
-		panels.get("panelDialogue").add(panelJeu, BorderLayout.EAST);
-		
-	}
-	
-	public void closeMinijeu()
-	{
-		
 	}
 }

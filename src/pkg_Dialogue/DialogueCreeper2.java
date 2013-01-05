@@ -1,8 +1,8 @@
 package pkg_Dialogue;
 
 
-import pgk_Game.GameEngine;
 import pkg_Characters.Bots;
+import pkg_Game.GameEngine;
 import pkg_Items.Item;
 import pkg_Room.Room;
 

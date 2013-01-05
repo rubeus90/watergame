@@ -8,13 +8,19 @@ public class ParlerCommand extends Command
 {
 	private DialogueCreeper1 dialogueCreeper1;
 	private DialogueCreeper2 dialogueCreeper2;
+	private DialogueCreeper3 dialogueCreeper3;
+	private DialogueCreeper4 dialogueCreeper4;
 	private DialogueEnderman dialogueEnderman;
+	private DialogueBlaze dialogueBlaze;
 	
 	public ParlerCommand()
 	{
 		dialogueCreeper1 = new DialogueCreeper1();
 		dialogueCreeper2 = new DialogueCreeper2();
+		dialogueCreeper3 = new DialogueCreeper3();
+		dialogueCreeper4 = new DialogueCreeper4();
 		dialogueEnderman = new DialogueEnderman();
+		dialogueBlaze = new DialogueBlaze();
 	}
 	
 	public void execute(Player player)
@@ -45,13 +51,23 @@ public class ParlerCommand extends Command
 							dialogueCreeper2.afficheDialogue(player.getGameEngine());
 							break;
 						}
+						case "temple":
+						{
+							dialogueCreeper3.afficheDialogue(player.getGameEngine());
+							break;
+						}
+						case "secret":
+						{
+							dialogueCreeper4.afficheDialogue(player.getGameEngine());
+							break;
+						}
 						default:{}
 					}
 					break;
 				}
 				case("Blaze"):
 				{
-					player.getGUI().println("A implementer");
+					dialogueBlaze.afficheDialogue(player.getGameEngine());
 					break;
 				}
 				case("Enderman"):

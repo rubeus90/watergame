@@ -1,7 +1,7 @@
 package pkg_Dialogue;
 
 
-import pgk_Game.GameEngine;
+import pkg_Game.GameEngine;
 
 /**Cette classe gère l'aspect général des dialogues du jeu. Chaque dialogue est défini par le bot qui parle et la salle ou se passe
  * la conversation

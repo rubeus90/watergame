@@ -113,15 +113,15 @@ public class GameEngine
 		Room foret, grotte, montagne, plaine, temple, plage, vallee, pic, eau;
 
 		// Créer les salles du jeu
-		foret = new Room("dans la forêt", "images/foret.png", "foret");
-		grotte = new Room("dans la grotte", "images/grotte.jpg", "grotte");
+		foret = new Room("dans la forêt", "images/foretAvecCreeper.png", "foret");
+		grotte = new Room("dans la grotte", "images/grotte.png", "grotte");
 		montagne = new Room("dans les montagnes", "images/montagne.png", "montagne");
 		plaine = new Room("à la plaine", "images/plaine.png", "plaine");
 		temple = new Room("dans le temple Dharma", "images/temple.png", "temple");
-		plage = new Room("à la plage", "images/plage.png", "plage");
-		vallee = new Room("dans la vallée de Dana", "images/vallee.png", "vallee");
+		plage = new Room("à la plage", "images/plageAvecBlaze.png", "plage");
+		vallee = new Room("dans la vallée de Dana", "images/valleeAvecEnderman.png", "vallee");
 		pic = new Room("en haut du pic", "images/pic.png", "pic");
-		eau = new Room("mort noyé", "images/Mort.png", "eau");
+		eau = new Room("mort noyé", "images/mortNoye.png", "eau");
 
 		/*Créer une ArrayList qui contient toutes les salles du jeu, cette ArrayList est utilisée dans 
 		 * la classe TransporterRoom et RoomRandomizer*/
