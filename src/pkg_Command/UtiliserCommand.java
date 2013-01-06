@@ -2,16 +2,33 @@ package pkg_Command;
 
 import pkg_Characters.Player;
 
+/**
+ * Cette classe gère la commande "utiliser" du jeu, qui permet au joueur d'utiliser le Beamer pour se téléporter
+ * vers la salle ou le Beamer était chargé
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class UtiliserCommand extends Command
 {
+	/**
+	 * Constructeur qui permet de créer une commande Utiliser
+	 */
 	public UtiliserCommand()
 	{}
 	
+	/**
+	 * Quand le Beamer est chargé, permet au joueur de se téléporter vers la salle ou le Beamer était chargé.
+	 * 
+	 * Cette utilisation n'est valable qu'une seule fois par recharge, après la téléportation, le joueur doit
+	 * recharger le Beamer dans une salle pour pouvoir se téléporter encore une fois.
+	 */
 	public void execute(Player player)
 	{
-		if(!player.getBeamerRoom().isEmpty())
+		if(!player.getBeamerRoom().isEmpty()) //Si le Beamer est chargé
 		{
-			player.setRoom(player.getBeamerRoom().get(0));
+			player.setRoom(player.getBeamerRoom().get(0)); //imposer la salle du joueur, donc le téléporter
 			player.getGameEngine().printLocationInfo();
 
 			if (player.getRoom().getImageName() != null) 

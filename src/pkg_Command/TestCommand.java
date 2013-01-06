@@ -5,15 +5,27 @@ import java.util.Scanner;
 
 import pkg_Characters.Player;
 
-
-
+/**
+ * Cette classe gère la commande "test" du jeu, qui permet à partir d'un fichier de texte de lancer les commandes
+ * du jeu dans le but de tester le jeu plus rapidement
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class TestCommand extends Command
 {
 	private Scanner sr;
 	
+	/**
+	 * Constructeur qui permet de créer une commande Test
+	 */
 	public TestCommand()
 	{}
 	
+	/**
+	 * Permettre de lire les lignes d'un fichier de texte et d'exécuter ligne par ligne les commandes inscrites
+	 */
 	public void execute(Player player)
 	{
 		try 
@@ -22,6 +34,7 @@ public class TestCommand extends Command
 			{
 				String secondWord = this.getSecondWord();
 				
+				//On lance les fichiers de teste différents en fonction du second mot de la commande
 				switch(secondWord)
 				{
 					case "gagner":
@@ -45,7 +58,7 @@ public class TestCommand extends Command
 				}			
 				if(sr != null)
 				{
-					while (sr.hasNextLine()) 
+					while (sr.hasNextLine()) //tant que le fichier de texte n'est pas fini, on lit et exécuter la ligne suivante
 					{
 						player.getGameEngine().interpretCommand(sr.nextLine());
 					}

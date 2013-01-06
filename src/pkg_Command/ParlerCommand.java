@@ -1,9 +1,15 @@
 package pkg_Command;
 
-import pkg_Characters.Bots;
 import pkg_Characters.Player;
 import pkg_Dialogue.*;
 
+/**
+ * Cette classe gère la commande "parler" du jeu, qui permet au joueur d'intéragir avec un personnage non joueur
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class ParlerCommand extends Command
 {
 	private DialogueCreeper1 dialogueCreeper1;
@@ -13,6 +19,10 @@ public class ParlerCommand extends Command
 	private DialogueEnderman dialogueEnderman;
 	private DialogueBlaze dialogueBlaze;
 	
+	/**
+	 * Constructeur qui permet de créer une commande Parler
+	 * Instancier les différents dialogues avecs les ennemis
+	 */
 	public ParlerCommand()
 	{
 		dialogueCreeper1 = new DialogueCreeper1();
@@ -23,6 +33,9 @@ public class ParlerCommand extends Command
 		dialogueBlaze = new DialogueBlaze();
 	}
 	
+	/**
+	 * Affiche des dialogues avec les ennemis dans le jeu
+	 */
 	public void execute(Player player)
 	{
 		if(player.getRoom().getBot() != null)
@@ -30,20 +43,17 @@ public class ParlerCommand extends Command
 			String nomBot = player.getRoom().getBot().getNom();
 			String nomRoom = player.getRoom().getNomRoom();
 			
+			//Les dialogues sont différents pour chaque ennemi
 			switch(nomBot)
 			{
 				case("Creeper"):
 				{
+					//Le dialogue affiché dépend de la salle ou l'intéraction se passe
 					switch(nomRoom)
 					{
 						case "foret":
 						{
 							dialogueCreeper1.afficheDialogue(player.getGameEngine());
-							
-							//Juste pour debug le jeu
-//							player.getGUI().println("" + dialogueCreeper1.getEtape());
-//							player.getGUI().println("" + player.getGameEngine().gameResetted());
-							
 							break;
 						}
 						case "grotte":
@@ -79,7 +89,7 @@ public class ParlerCommand extends Command
 			}
 		}
 		else
-			player.getGUI().println("Il n'y pas d'ennemis ici pour parler avec toi imbécile!");
+			player.getGUI().println("Il n'y pas d'ennemis ici pour parler avec toi!");
 		
 		
 	}

@@ -10,19 +10,25 @@ public class Game extends JApplet
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Classe qui contient le main et qui génère tout le jeu
+	 * 
+	 * @author NGUYEN Hong Ngoc
+	 * @author PATOIS Thibault
+	 */
 	private static GameEngine engine;
 	private static UserInterface gui;
 	private static Player player;
 
 	/**
-	 * Create the game and initialise its internal map.
-	 */	
+	 * Créer le jeu et initialiser les attributs
+	 */
 	public Game()
 	{
-		JOptionPane menu = new JOptionPane();
-	    String nom = menu.showInputDialog(null, "Entre ton nom:", "Nom du personnage", JOptionPane.QUESTION_MESSAGE);		
+		String nom = JOptionPane.showInputDialog(null, "Entre ton nom:", "Nom du personnage", JOptionPane.QUESTION_MESSAGE);		
 		String[] gender = {"masculin", "féminin", "indéterminé"};
-		String sexe = (String)menu.showInputDialog(null, "Choisis ton sexe:", "Le sexe du personnage", JOptionPane.QUESTION_MESSAGE,
+		String sexe = (String)JOptionPane.showInputDialog(null, "Choisis ton sexe:", "Le sexe du personnage", JOptionPane.QUESTION_MESSAGE,
 	      null,
 	      gender,
 	      gender[1]);	
@@ -35,11 +41,17 @@ public class Game extends JApplet
 		engine.setGUI(gui);
 	}
 	
+	/**
+	 * Méthode main du jeu
+	 */
 	public static void main(String[] args) 
 	{
 		new Game();
 	}
 	
+	/**
+	 * Permet d'initialiser l'applet de jeu
+	 */
 	@Override 
 	public void init()
     {

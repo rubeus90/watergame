@@ -1,20 +1,11 @@
 package pkg_Game;
 
 
-import java.util.Scanner;
-import java.util.Set;
-// import java.io.FileWriter;
-// import java.io.BufferedWriter;
-// import java.io.PrintWriter;
-// import java.net.URL;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import pkg_Characters.Player;
 import pkg_Characters.Bots;
 import pkg_Command.Command;
-import pkg_Command.CommandWords;
 import pkg_Command.Parser;
 import pkg_Items.Beamer;
 import pkg_Items.Item;
@@ -24,67 +15,61 @@ import pkg_Room.Room;
 import pkg_Room.TransporterRoom;
 
 
-// import java.io.IOException;
-
 /**
  * Cette class est la Class principale du jeux "Water Games". "Water Games" est
  * un jeux très simple à prendre en main, c'est un jeux textuel.
  * 
- * Pour joueur à ce superbe jeux, créé un instance de cette classé et appelé la
- * méthode "play"
+ * Cette class créé les salles, les personnages non joueurs, les objets, les potions, le Parser 
+ * et démarre le jeux. Elles évalue aussi et exécute les commandes que la class Parser renvoi.
  * 
- * Cette class créé et initialise toutes les autres classes. Elle créé les
- * Salles, le Parser et démarre le jeux. Elles évalue aussi et exécute les
- * commandes que la class Parser renvoi.
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
  * 
  */
 
 public class GameEngine 
 {
 	private Parser parser;
-	// private Room currentRoom;
 	private UserInterface gui;
-	// private Stack<Room> salles;
 	private Player player;
-	private CommandWords commandWords;
 	private Pierre pierre;
 	private Beamer beamer;
 	private ArrayList<Room> rooms;
-	private Scanner sr;
 	private boolean gameResetted;
-	private boolean testMode;
 	private TransporterRoom secret;
 	
 
 	/**
-	 * Créé le jeux et initialiser la carte.
+	 * Instancier le joueur et crée le jeu
 	 */
 	public GameEngine(final Player pPlayer) 
 	{
 		player = pPlayer;		
 		createGame();
 		parser = new Parser();
-		commandWords = new CommandWords();
 		gameResetted = false;
-		testMode = false;
 	}
 
 	/** 
-	 * methode qui permet de charger la pierre magique si l utilisateur la possede et est dans la foret
-	 *  
+	 * Méthode qui permet de charger la pierre magique si l'utilisateur la possède et est à la plaine	 *  
 	 */
 	public void chargerPierre()
 	{
-		if(player.getRoom().getNomRoom() == "plaine") //si l'utilisateur est dans la foret
+		if(player.getRoom().getNomRoom() == "plaine") //si l'utilisateur est à la plaine
 		{
 			if(player.getItemListe().getHashMap().containsKey("EnderPearl")) // si il possède la pierre
 			{
-				gui.println("Ta da, un autel magique est apparu!!!! Cet autel transforme ta pierre en une pierre magique qui te permet depuis la montagne de te téléporter n'importe ou!!!!" + "\n" + "Il suffit d'utiliser la commande: teleporter + nom de la salle");
-				pierre.setActivation(true);
+				gui.println("Ta da, un autel magique est apparu!!!! Cet autel transforme ta pierre en une pierre magique" +
+						" qui te permet depuis la montagne de te téléporter n'importe ou!!!!" + "\n" + 
+						"Il suffit d'utiliser la commande: teleporter + nom de la salle");
+				pierre.setActivation(true); //charger la pierre
 			}
 		}
 	}
 	
+	/**
+	 * Méthode qui permet de recommencer le jeu: réinitialiser les listes d'objets ainsi que l'interface
+	 */
 	public void newGame()
 	{
 		endGame();
@@ -106,13 +91,14 @@ public class GameEngine
 		
 
 	/**
-	 * Créé toutes les pièces et les liens entre chacunes.
+	 * Créer tous les éléments du jeu : les salles, les objets, créer et placer les personnages non joueurs (les ennemis),
+	 * placer les salles du jeu
 	 */
 	private void createGame() 
 	{
 		Room foret, grotte, montagne, plaine, temple, plage, vallee, pic, eau;
 
-		// Créer les salles du jeu
+		//Créer les salles du jeu
 		foret = new Room("dans la forêt", "images/foretAvecCreeper.png", "foret");
 		grotte = new Room("dans la grotte", "images/grotte.png", "grotte");
 		montagne = new Room("dans les montagnes", "images/montagne.png", "montagne");
@@ -149,14 +135,6 @@ public class GameEngine
 		
 		montagne.setExit("ouest", vallee);
 		montagne.setExit("nord", eau);
-//		/*Pour le teleporteur*/
-//		montagne.setExit("foret", foret);
-//		montagne.setExit("grotte", grotte);
-//		montagne.setExit("plaine", plaine);
-//		montagne.setExit("temple", temple);
-//		montagne.setExit("plage", plage);
-//		montagne.setExit("vallee", vallee);
-//		montagne.setExit("pic", pic);
 		
 		plaine.setExit("nord", foret);
 		plaine.setExit("est", temple);
@@ -184,11 +162,7 @@ public class GameEngine
 		temple.setExit("secret", secret);
 		
 		//Créer les objets dans les salles
-//		foret.addItem("hache", new Item("Une petite hache toute pourrie", 40));
 		plaine.addItem("massue", new Item("Une grande massue pas très bien foutue", 30));
-//		grotte.addItem("massue", new Item("Une grande massue", 45));
-//		plage.addItem("filet", new Item("Un grand filet", 50));
-//		temple.addItem("arc", new Item("Un arc en bois", 40));
 		temple.addItem("hache", new Item("Une petite hache toute pourrie", 40));
 		pic.addItem("corde", new Item("Une corde", 10));
 		secret.addItem("hallebarde", new Item("Une hallebarde très puissante", 60));
@@ -219,31 +193,40 @@ public class GameEngine
 		temple.addItem(beamer);
 	
 	}
-	
-
-//	public void credits() {
-//		gui.println("Nous sommes NGUYEN Hong Ngoc aka Ngocky et PATOIS Thibault, deux étudiants très brillants en 3ème de l'ESIEE (LES E3S EN FORCE!!!!). Nous avons crée ce jeu dans le cadre de l'apprentissage de Java, mais nous avons mis là dedans tout notre amour (et n'oublie pas Thibault qui a mis tout son coeur dans les nombreuses versions de notre page web), donc j'espère que tu vas aimer notre jeu :D");
-//	}
-	
+		
 	/**
-	 * Terminer le jeu en fermant la fenetre de jeu
-	 * 
+	 * Terminer le jeu en fermant la fenêtre de jeu 
 	 */
 	public void endGame() 
 	{
 		gui.killFrame();
 	}
 
+	/**
+	 * Retourner la pierre magique EnderPearl qui permet de se téléporter n'importe ou sur la carte
+	 * 
+	 * @return la pierre magique EnderPearl
+	 */
 	public Pierre getPierre()
 	{
 		return pierre;
 	}
 
+	/**
+	 * Retourner l'interface graphique du jeu
+	 * 
+	 * @return l'interface graphique du jeu
+	 */
 	public UserInterface getGUI()
 	{
 		return gui;
 	}
 
+	/**
+	 * Retourner le joueur
+	 * 
+	 * @return le joueur
+	 */
 	public Player getPlayer()
 	{
 		return player;
@@ -261,133 +244,22 @@ public class GameEngine
 	 */
 	public void interpretCommand(String commandLine) 
 	{
-//		gui.println(commandLine);
 		Command command = parser.getCommand(commandLine);
 		command.execute(player);
 		
-		if(player.getSante() > 0)
+		if(player.getSante() > 0) // si la santé du joueur n'est pas descendue à 0
 		{		
 			gui.createInteractionBot();
 			gui.colorButton();
+			//Ajouter une ligne de "-" qui l'esthétisme du jeu
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
-			gui.showInventaireRoom();
-			gui.showInventairePlayer();
+			gui.showInventaireRoom(); //actualiser la fenêtre qui affiche la liste des objets dans la salle
+			gui.showInventairePlayer(); //actualiser la fenêtre qui affiche l'inventaire du joueur
 		}
-		else
+		else //si la santé est descendue à 0, le joueur a perdu
 		{
 			gui.createGameOver("sante");
 		}
-		
-//		String commandWord = command.getStringCommandWord();
-//		CommandWord truc = commandWords.getCommandWord(commandWord);
-//		
-//		
-//		switch(truc)
-//		{
-//			case UNKNOWN:/
-//			{
-//				gui.println("Je ne comprend pas ce que tu veux faire...");
-//				return;
-//			}
-//			
-//			case GO:/
-//			{
-//				player.diminueSante(10);
-//				player.setMaxPoids();
-//				player.goRoom(command);
-//				break;
-//			}
-//			case HELP:/
-//			{
-//				printHelp();
-//				break;
-//			}
-//			case LOOK:/
-//			{
-//				player.look();
-//				break;
-//			}
-//			case QUIT:/
-//			{
-//				if (command.hasSecondWord())
-//					gui.println("Quit quoi? Si tu veux quitter le jeux, écris juste quit");
-//				else
-//					endGame();
-//				break;
-//			}
-//			case BACK:/
-//			{
-//				player.diminueSante(10);
-//				player.back(command);
-//				break;
-//			}
-//			case TEST:/
-//			{
-//				test();
-//				break;
-//			}
-//			case CREDITS:/
-//			{
-//				credits();
-//				break;
-//			}
-//			case TAKE:/
-//			{
-//				if (!command.hasSecondWord()) {
-//					gui.println("Il faut préciser quel objet tu veux prendre!");
-//				} else {
-//					player.take(command);
-//					printInventaire();
-//				}
-//				break;
-//			}
-//			case DROP:/
-//			{
-//				if (!command.hasSecondWord()) {
-//					gui.println("Il faut préciser quel objet tu veux jeter!");
-//				} else {
-//					player.drop(command);
-//					printInventaire();
-//				}
-//				break;
-//			}
-//			case ITEMS:/
-//			{
-//				printInventaire();
-//				break;
-//			}
-//			case DRINK:/
-//			{
-//				if (!command.hasSecondWord()) 
-//				{
-//					gui.println("Tu veux boire quoi crétin?");
-//				} 
-//				else 
-//				{
-//					player.boire(command);
-//					gui.println("Ton niveau de santé est maintenant de " + player.getSante());
-//				}
-//				break;
-//			}
-//			case TELEPORTER:/
-//			{
-//				if(beamer.getValueActivation())
-//				{
-//					player.teleporter(command);
-//					beamer.setActivation(false);
-//				}
-//				else
-//					gui.println("Mais c'est possible ça? Mon petit doigt me dit qu'il faut une pierre magique couplé avec la force surnaturelle de l'autel magique!");
-//				break;
-//			}
-//			default: 
-//			{
-//				gui.processCommand();
-//				break;
-//			}
-//		}
-		
-		
 	}
 
 	/**
@@ -402,6 +274,9 @@ public class GameEngine
 		gui.print("\n");
 	}
 
+	/**
+	 * Afficher les objets et le poids total des objets dans l'inventaire du joueur
+	 */
 	public void printInventaire() 
 	{
 		gui.println(player.getInventaire());
@@ -410,20 +285,16 @@ public class GameEngine
 	}
 
 	/**
-	 * Retourne les informations des sorties possibles
-	 * 
-	 * @return Les sorties possibles
+	 * Afficher une description complète de la salle ou se trouve le joueur
 	 */
-
 	public void printLocationInfo() 
 	{
 		Room currentRoom = player.getRoom();
 		gui.println(currentRoom.getLongDescription());
-		// printInventaire();
 		gui.println("\n" + "Ta santé: " + player.getSante());
 		
-		chargerPierre(); //appelle la fonction charge pierre
-		
+		chargerPierre(); /*appelle la fonction charge pierre, donc à chaque nouvelle salle, on vérifie si on peut charger la pierre 
+						*magique*/		
 	}
 	
 	/**
@@ -440,12 +311,16 @@ public class GameEngine
 		gui.println(player.getLongDescriptionPlayer() + "\n");
 		gui.println("Pour regarder autour de toi, tu peux utiliser le bouton Regarder");
 
-//		printLocationInfo();
 		Room currentRoom = player.getRoom();
 		gui.showImage(currentRoom.getImageName());
 		gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 	}
 	
+	/**
+	 * Imposer l'interface graphique du jeu
+	 * 
+	 * @param userInterface
+	 */
 	public void setGUI(UserInterface userInterface) 
 	{
 		gui = userInterface;
@@ -455,70 +330,48 @@ public class GameEngine
 		}
 	
 	/**
-	 * Une méthode test qui permet de tester tous les commandes du jeu en
-	 * exécutant toutes les lignes d'un fichier de texte qui contient tous ces
-	 * commandes. Cette méthode évite aux programmeurs de devoir tester à la
-	 * main chaque commande du jeu.
+	 * Retourner si le jeu a été recommencé par le menu "Nouvelle partie"	
+	 * @return
 	 */
-//	public void test(Command command) 
-//	{
-//		try 
-//		{
-//			if(command.hasSecondWord())
-//			{
-//				String secondWord = command.getSecondWord();
-//			
-//				switch(secondWord)
-//				{
-//					case "gagner":
-//					{
-//						sr = new Scanner(new File("./src/Tests/gagner.txt"));
-//						break;
-//					}
-//					case "commands":
-//					{
-//						sr = new Scanner(new File("./src/Tests/testCommand.txt"));
-//						break;
-//					}
-//								
-//				}			
-//			
-//				while (sr.hasNextLine()) 
-//				{
-//					interpretCommand(sr.nextLine());
-//				}
-//			}
-//			else
-//				gui.println("Je sais pas quoi tester....");
-//		}
-//					
-//
-//		catch (FileNotFoundException ex) 
-//		{
-//			gui.println("Fichier non trouvé");
-//		}
-//	}
-	
 	public boolean gameResetted()
 	{
 		return gameResetted;
 	}
 	
+	/**
+	 * Imposer que le jeu n'est plus à l'état recommencé
+	 */
 	public void setResetGame()
 	{
 		gameResetted = false;
 	}
 	
+	/**
+	 * Retourner l'ArrayList qui contient toutes les salles du jeu (hormis la salle secrète)
+	 * 
+	 * @return toutes les salles du jeu hormis la salle secrète
+	 */
 	public ArrayList<Room> getArrayListRoom()
 	{
 		return rooms;
 	}
 	
+	/**
+	 * Retourner la salle secrète
+	 * 
+	 * @return la salle secrète
+	 */
 	public TransporterRoom getTransporterRoom()
 	{
 		return secret;
 	}
 	
+	/**
+	 * Retourner la salle avec le nom qui correspond au String passé en paramètre
+	 * 
+	 * @param nomRoom
+	 * @return salle avec le nom demandé
+	 */
 	public Room chooseRoom(String nomRoom)
 	{
 		Room room = null;

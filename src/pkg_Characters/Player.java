@@ -2,12 +2,9 @@ package pkg_Characters;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Stack;
-import java.util.List;
 import java.util.Set;
 
-import pkg_Command.Command;
 import pkg_Game.GameEngine;
 import pkg_Game.UserInterface;
 import pkg_Items.Item;
@@ -19,15 +16,14 @@ import pkg_Room.Room;
  * Cette classe gère tous les aspects du joueur : son nom, la position actuelle,
  * les objets qu'il porte, etc...
  * 
- * @author Thibault & Ngocky
- * @version 1.0
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
  */
 public class Player {
 	private String aNom;
 	private String aGender;
 	private Room aCurrentRoom;
 	private String aDescriptionPlayer;
-	// private HashMap<String, Item> listeItem;
 	private GameEngine engine;
 	private UserInterface gui;
 	private Stack<Room> salles;
@@ -36,14 +32,19 @@ public class Player {
 	private int sante;
 	private ArrayList<Room> beamerRoom;
 
+	/**
+	 * Constructeur de la classe. Un joueur est donc défini par son nom, son sexe et sa santé
+	 * 
+	 * @param pNom
+	 * @param pGender
+	 * @param pSante
+	 */
 	public Player(final String pNom, final String pGender, int pSante) 
 	{
 		aNom = pNom;
 		aGender = pGender;
 		sante = pSante;
 		maxPoids = 100;
-
-		// listeItem = new HashMap<String, Item>();
 
 		if (aGender == "féminin") 
 		{
@@ -70,64 +71,20 @@ public class Player {
 		beamerRoom = new ArrayList<Room>();
 	}
 
+	/**
+	 * Permettre d'augmenter la santé du joueur
+	 * 
+	 * @param nbr
+	 */
 	public void augmenteSante(final int nbr) {
 		sante += nbr;
 	}
 	
 	/**
-	 * Implémenter la commande Back pour retourner dans la salle précédente. On
-	 * stocke les salles visitée précédemment dans une Stack, à chaque fois on
-	 * veut revenir sur notre pas, on utilise la commande "pop" qui prendre la
-	 * denière valeur de la Stack (donc la dernière salle visitée) et qui retire
-	 * cette salle de la Stack. Quand la Stack est vide, on est revenu au début
-	 * du jeu.
+	 * Pemettre de diminuer la santé du joueur
+	 * 
+	 * @param nbr
 	 */
-//	public void back(Command command) {
-//		if (command.hasSecondWord()) {
-//			gui.println("Tu ne peux pas revenir ou tu veux, c'est pas la fête ici!");
-//		} else {
-//			if (salles.empty() == true)
-//				gui.println("Tu es revenu au début du jeu!");
-//			else {
-//				aCurrentRoom = salles.pop();
-//				engine.printLocationInfo();
-//
-//				if (aCurrentRoom.getImageName() != null)
-//					gui.showImage(aCurrentRoom.getImageName());
-//
-//			}
-//		}
-//
-//	}
-	
-//	public void boire(Command command) {
-//		String mot = command.getSecondWord();
-//
-//		if (mot.equals("potion")) {
-//			if (aCurrentRoom.containPotion("Potion")) {
-//				augmenteSante(10);
-//				int index = aCurrentRoom.indexPotion("Potion");
-//				aCurrentRoom.getArrayList().remove(index);
-//			} else {
-//				gui.println("Il n'y a pas (ou plus) de cette potion dans cette salle");
-//			}
-//
-//		}
-//
-//		else if (mot.equals("soin")) {
-//			if (aCurrentRoom.containPotion("Soin")) {
-//				augmenteSante(20);
-//				int index = aCurrentRoom.indexPotion("Soin");
-//				aCurrentRoom.getArrayList().remove(index);
-//			} else {
-//				gui.println("Il n'y a pas (ou plus) de ce soin dans cette salle");
-//			}
-//		}
-//
-//		else
-//			gui.println("Il n'y a pas cette potion!");
-//	}
-
 	public void diminueSante(final int nbr) {
 		if (sante > 0) {
 			sante -= nbr;
@@ -135,48 +92,39 @@ public class Player {
 	}
 
 	/**
-	 * Retirer un objet de l'inventaire du joueur. L'objet retiré est défini par
-	 * le 2ème mot de la commande Par exemple: drop arc
+	 * Retourner la description du joueur
 	 * 
-	 * @param command
+	 * @return la description du joueur
 	 */
-//	public void drop(Command command) {
-//		String mot = command.getSecondWord();
-//
-//		if (!items.containsKey(mot))
-//			gui.println("Tu n'as pas de " + mot);
-//		else {
-//			Item item = items.getValue(mot);
-//			items.removeItem(mot);
-//			aCurrentRoom.addItem(mot, item);
-//		}
-//	}
-
 	public String getDescriptionPlayer() {
 		return aDescriptionPlayer;
 	}
 
-	//
-	// public void setName(final String pNom)
-	// {
-	// aNom = pNom;
-	// }
-	//
-	// public void setGender(final String pGender)
-	// {
-	// aGender = pGender;
-	// }
-
+	/**
+	 * Retourner le GameEngine du jeu
+	 * 
+	 * @return le GameEgine du jeu
+	 */
 	public GameEngine getGameEngine()
 	{
 		return engine;
 	}
-
+	
+	/**
+	 * Retourner l'interface du jeu
+	 * 
+	 * @return l'interface du jeu
+	 */
 	public UserInterface getGUI()
 	{
 		return gui;
 	}
 
+	/**
+	 * Retourner un String qui décrit l'inventaire du joueur
+	 * 
+	 * @return un String qui décrit l'inventaire du joueur
+	 */
 	public String getInventaire() 
 	{
 		String inventaire = "Dans ton inventaire: " + "\n";
@@ -197,11 +145,21 @@ public class Player {
 		return inventaire;
 	}
 
+	/**
+	 * Retourner l'ItemListe du joueur, qui comporte le HashMap des objets dans l'inventaire du joueur
+	 * 
+	 * @return l'ItemListe du joueur
+	 */
 	public ItemListe getItemListe()
 	{
 		return items;
 	}
 
+	/**
+	 * Retourner une description complète du joueur
+	 * 
+	 * @return la description complète du joueur
+	 */
 	public String getLongDescriptionPlayer() 
 	{
 		String description = "Tu t'appelles " + aNom + "." + "\n" + aDescriptionPlayer + "\n";
@@ -209,17 +167,21 @@ public class Player {
 		return description;
 	}
 
+	/**
+	 * Retourner le poids maximal des objets que le joueur peut porter
+	 * 
+	 * @return le poids maximal de l'inventaire
+	 */
 	public int getMaxPoids()
 	{
 		return maxPoids;
 	}
 
-	// public void printInventaire()
-	// {
-	// gui.println(getInventaire() + "\n" + "Le poids total de ton inventaire: "
-	// + getPoidsInventaire());
-	// }
-
+	/**
+	 * Retourner le poids total de l'inventaire du joueur
+	 * 
+	 * @return le poids total de l'inventaire
+	 */
 	public int getPoidsInventaire() {
 		Set<String> keys = items.getKeys();
 		int poids = 0;
@@ -230,115 +192,59 @@ public class Player {
 		return poids;
 	}
 	
+	/**
+	 * Retourner l'endroit actuel du joueur
+	 * 
+	 * @return la salle actuelle du joueur
+	 */
 	public Room getRoom() 
 	{
 		return aCurrentRoom;
 	}
 
-	// /**Renvoi ,pour le moment, un message au joueur l'indiquant qu'il a déjà
-	// mangé.
-	// *
-	// */
-	// public void eat()
-	// {
-	// gui.println("Tu as déjà mangé, tu n'as plus faim");
-	// }
-
+	/**
+	 * Retourner la niveau de santé du joueur
+	 * 
+	 * @return la santé du joueur
+	 */
 	public int getSante() {
 		return sante;
 	}
 
 	/**
-	 * Procédure pour passer d'une salle à une autre. Si il n'y a pas de sortie,
-	 * entré un nouvelle direction. Sinon affiché un message d'erreur.
+	 * Retourner la pile de salle qui stocke les anciennes salles visitées par le joueur
+	 * 	
+	 * @return la pile des anciennes salles visitées
 	 */
-//	public void goRoom(Command command) 
-//	{
-//		if (!command.hasSecondWord()) {
-//			gui.println("Aller ou exactement, soit un peu plus précis!");
-//		}
-//
-//		// Stocker la salle actuelle dans le stack (pour la méthode back)
-//		salles.push(aCurrentRoom);
-//
-//		String direction = command.getSecondWord();
-//
-//		Room nextRoom = aCurrentRoom.getExit(direction);
-//
-//		if (nextRoom == null) {
-//			gui.println("Tu ne peux pas aller par là, soit il n'y a rien ici, soit le chemin que tu viens de prendre est sens unique");
-//		} else {
-//			aCurrentRoom = nextRoom;
-//			// player.setCurrentRoom(nextRoom);
-//			engine.printLocationInfo();
-//
-//			if (aCurrentRoom.getImageName() != null) {
-//				gui.showImage(aCurrentRoom.getImageName());
-//			
-//			}
-//		}
-//	}
-
-	/**
-	 * Ajouter un objet dans l'inventaire du joueur. L'objet pris est défini par
-	 * le 2ème mot de la commande Par exemple: take arc
-	 * 
-	 * @param command
-	 */
-//	public void take(Command command) 
-//	{
-//		String mot = command.getSecondWord();
-//		
-//		if (!aCurrentRoom.getItemListe().containsKey(mot))
-//		{
-//			gui.println("Mais il n'y a pas de " + mot + " ici");
-//		}
-//		else 
-//		{		
-//		
-//			Item item = aCurrentRoom.getItemListe().getValue(mot);
-//			int poidsFuture = this.getPoidsInventaire() + item.getWeightItem();
-//
-//			if (poidsFuture > maxPoids)
-//				gui.println("Ton sac est déjà trop lourd, tu ne peux pas prendre plus d'objet. Jette un autre objet sinon!");
-//			else 
-//			{
-//				// Item item = aCurrentRoom.getItemListe().getValue(mot);
-//				items.putItem(mot, item);
-//				aCurrentRoom.deleteItem(mot);
-//				gui.println("Tu as pris un(e) " + mot);
-//				
-//			}
-//		}
-//	}
-	
-//	public void teleporter(Command command)
-//	{		
-//		this.goRoom(command);
-//	}
-	
 	public Stack<Room> getStackRoom()
 	{
 		return salles;
 	}
 	
 	/**
-	 * Redonner les informations de la salle et les sorties disponibles
+	 * Imposer une salle comme la salle ou le joueur se trouve et ajouter cette salle dans la pile des salles visitées
+	 * 
+	 * @param pRoom
 	 */
-//	public void look() {
-//		gui.println(aCurrentRoom.getLongDescription());
-//	}
-
 	public void setCurrentRoom(final Room pRoom) {
 		aCurrentRoom = pRoom;
 		salles.push(aCurrentRoom);
 
 	}
 
+	/**
+	 * Imposer le GameEngine
+	 * 
+	 * @param gameEngine
+	 */
 	public void setGameEngine(final GameEngine gameEngine) {
 		engine = gameEngine;
 	}
 
+	/**
+	 * Imposer le poids maximal de l'inventaire du joueur en fonction de sa santé. Plus sa santé diminue, moins il peut porter
+	 * les objets
+	 */
 	public void setMaxPoids() {
 		if (sante >= 0 && sante < 20)
 			maxPoids = 0;
@@ -352,26 +258,50 @@ public class Player {
 			maxPoids = 160;
 	}
 
+	/**
+	 * Imposer une salle comme la salle ou le joueur se trouve mais sans ajouter cette salle dans la pile des salles visitées
+	 * 
+	 * @param pRoom
+	 */
 	public void setRoom(Room pRoom)
 	{
 		aCurrentRoom = pRoom;
 	}
 
+	/**
+	 * Imposer le niveau de santé du joueur
+	 * 
+	 * @param pSante
+	 */
 	public void setSante(int pSante)
 	{
 		sante = pSante;
 	}
 	
+	/**
+	 * Imposer l'UserInterface, l'interface graphique du jeu
+	 * 
+	 * @param userinterface
+	 */
 	public void setUserInterface(final UserInterface userinterface) 
 	{
 		gui = userinterface;
 	}
 	
+	/**
+	 * Retourner le beamerRoom, qui est une ArrayList qui a pour but de stocker la salle ou on charge le Beamer
+	 * @return l'ArrayList qui stocke la salle ou le Beamer est chargé
+	 */
 	public ArrayList<Room> getBeamerRoom()
 	{
 		return beamerRoom;
 	}
 		
+	/**
+	 * Retourner le nom du joueur
+	 * 
+	 * @return le nom du joueur
+	 */
 	public String getNom()
 	{
 		return aNom;

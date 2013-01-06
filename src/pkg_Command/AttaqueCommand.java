@@ -5,11 +5,27 @@ import pkg_Characters.Player;
 import pkg_Items.Item;
 import pkg_Room.Room;
 
+/**
+ * Cette classe s'occupe de la commande "attaque" du jeu
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class AttaqueCommand extends Command
 {
+	/**
+	 * Constructeur qui permet de créer une commande Attaque
+	 */
 	public AttaqueCommand()
 	{}
 		
+	/**
+	 * Quand on tape la commande attaque, la santé du joueur et la santé de l'ennemi diminue en fonction de l'arme que le 
+	 * joueur possède.
+	 * Dans le cas que l'ennemi soit Creeper, qui doit être un allié, le joueur perd tout de suite s'il l'attaque.
+	 * Quand tous les ennemis sont tués, on affiche la fenêtre de victoire du jeu.
+	 */
 	public void execute(Player player)
 	{
 		Bots bot = player.getRoom().getBot();
@@ -23,9 +39,7 @@ public class AttaqueCommand extends Command
 		}
 		else
 		{
-			//Selon l'arme que le joueur porte, le dégât de la commande Attaque sera différente
-			
-			
+			//Selon l'arme que le joueur porte, le dégât de la commande Attaque sera différente			
 			if(player.getItemListe().containsKey("epee"))
 			{
 				degat = 80;
@@ -82,7 +96,7 @@ public class AttaqueCommand extends Command
 							player.getGUI().println("Tu as vaincu Blaze");						
 						}
 						
-						//S'il n'y pas plus de bot dans toutes les salles, alors le joueur a gagné
+						//S'il n'y pas plus de bot dans toutes les salles, alors le joueur a gagné, on affiche la fenêtre Victory
 						int hasBot = 0;
 						for(int i=0; i < player.getGameEngine().getArrayListRoom().size() ; i++)
 						{
@@ -96,12 +110,12 @@ public class AttaqueCommand extends Command
 				}
 				else
 				{
-					player.getGUI().createGameOver("creeper");
+					player.getGUI().createGameOver("creeper"); //si le bot est Creeper, alors le joueur perd
 				}
 			}		
 			else
 			{
-				player.getGUI().println("Il n'y a pas d'ennemis pour attaquer ici");
+				player.getGUI().println("Il n'y a pas d'ennemis pour attaquer ici"); 
 			}
 		
 		
