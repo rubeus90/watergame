@@ -6,7 +6,7 @@ import java.util.Scanner;
 import pkg_Characters.Player;
 
 /**
- * Cette classe gère la commande "test" du jeu, qui permet à partir d'un fichier de texte de lancer les commandes
+ * Cette classe gere la commande "test" du jeu, qui permet a partir d'un fichier de texte de lancer les commandes
  * du jeu dans le but de tester le jeu plus rapidement
  * 
  * @author NGUYEN Hong Ngoc
@@ -18,13 +18,13 @@ public class TestCommand extends Command
 	private Scanner sr;
 	
 	/**
-	 * Constructeur qui permet de créer une commande Test
+	 * Constructeur qui permet de creer une commande Test
 	 */
 	public TestCommand()
 	{}
 	
 	/**
-	 * Permettre de lire les lignes d'un fichier de texte et d'exécuter ligne par ligne les commandes inscrites
+	 * Permettre de lire les lignes d'un fichier de texte et d'executer ligne par ligne les commandes inscrites
 	 */
 	public void execute(Player player)
 	{

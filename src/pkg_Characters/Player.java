@@ -13,7 +13,7 @@ import pkg_Room.Room;
 
 
 /**
- * Cette classe gère tous les aspects du joueur : son nom, la position actuelle,
+ * Cette classe gere tous les aspects du joueur : son nom, la position actuelle,
  * les objets qu'il porte, etc...
  * 
  * @author NGUYEN Hong Ngoc
@@ -33,7 +33,7 @@ public class Player {
 	private ArrayList<Room> beamerRoom;
 
 	/**
-	 * Constructeur de la classe. Un joueur est donc défini par son nom, son sexe et sa santé
+	 * Constructeur de la classe. Un joueur est donc defini par son nom, son sexe et sa sante
 	 * 
 	 * @param pNom
 	 * @param pGender
@@ -72,7 +72,7 @@ public class Player {
 	}
 
 	/**
-	 * Permettre d'augmenter la santé du joueur
+	 * Permettre d'augmenter la sante du joueur
 	 * 
 	 * @param nbr
 	 */
@@ -81,7 +81,7 @@ public class Player {
 	}
 	
 	/**
-	 * Pemettre de diminuer la santé du joueur
+	 * Pemettre de diminuer la sante du joueur
 	 * 
 	 * @param nbr
 	 */
@@ -121,9 +121,9 @@ public class Player {
 	}
 
 	/**
-	 * Retourner un String qui décrit l'inventaire du joueur
+	 * Retourner un String qui decrit l'inventaire du joueur
 	 * 
-	 * @return un String qui décrit l'inventaire du joueur
+	 * @return un String qui decrit l'inventaire du joueur
 	 */
 	public String getInventaire() 
 	{
@@ -156,7 +156,7 @@ public class Player {
 	}
 
 	/**
-	 * Retourner une description complète du joueur
+	 * Retourner une description complete du joueur
 	 * 
 	 * @return la description complète du joueur
 	 */
@@ -203,7 +203,7 @@ public class Player {
 	}
 
 	/**
-	 * Retourner la niveau de santé du joueur
+	 * Retourner la niveau de sante du joueur
 	 * 
 	 * @return la santé du joueur
 	 */
@@ -212,9 +212,9 @@ public class Player {
 	}
 
 	/**
-	 * Retourner la pile de salle qui stocke les anciennes salles visitées par le joueur
+	 * Retourner la pile de salle qui stocke les anciennes salles visitees par le joueur
 	 * 	
-	 * @return la pile des anciennes salles visitées
+	 * @return la pile des anciennes salles visitees
 	 */
 	public Stack<Room> getStackRoom()
 	{
@@ -222,7 +222,7 @@ public class Player {
 	}
 	
 	/**
-	 * Imposer une salle comme la salle ou le joueur se trouve et ajouter cette salle dans la pile des salles visitées
+	 * Imposer une salle comme la salle ou le joueur se trouve et ajouter cette salle dans la pile des salles visitees
 	 * 
 	 * @param pRoom
 	 */
@@ -242,7 +242,7 @@ public class Player {
 	}
 
 	/**
-	 * Imposer le poids maximal de l'inventaire du joueur en fonction de sa santé. Plus sa santé diminue, moins il peut porter
+	 * Imposer le poids maximal de l'inventaire du joueur en fonction de sa sante. Plus sa sante diminue, moins il peut porter
 	 * les objets
 	 */
 	public void setMaxPoids() {
@@ -259,7 +259,7 @@ public class Player {
 	}
 
 	/**
-	 * Imposer une salle comme la salle ou le joueur se trouve mais sans ajouter cette salle dans la pile des salles visitées
+	 * Imposer une salle comme la salle ou le joueur se trouve mais sans ajouter cette salle dans la pile des salles visitees
 	 * 
 	 * @param pRoom
 	 */
@@ -269,7 +269,7 @@ public class Player {
 	}
 
 	/**
-	 * Imposer le niveau de santé du joueur
+	 * Imposer le niveau de sante du joueur
 	 * 
 	 * @param pSante
 	 */
@@ -290,7 +290,7 @@ public class Player {
 	
 	/**
 	 * Retourner le beamerRoom, qui est une ArrayList qui a pour but de stocker la salle ou on charge le Beamer
-	 * @return l'ArrayList qui stocke la salle ou le Beamer est chargé
+	 * @return l'ArrayList qui stocke la salle ou le Beamer est charge
 	 */
 	public ArrayList<Room> getBeamerRoom()
 	{

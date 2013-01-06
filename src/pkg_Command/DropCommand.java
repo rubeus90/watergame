@@ -4,7 +4,7 @@ import pkg_Items.Item;
 
 
 /**
- * Cette classe gère la commande "drop" du jeu, qui permet au joueur de jeter un objet dans son inventaire
+ * Cette classe gere la commande "drop" du jeu, qui permet au joueur de jeter un objet dans son inventaire
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -13,15 +13,15 @@ import pkg_Items.Item;
 public class DropCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Drop
+	 * Constructeur qui permet de creer une commande Drop
 	 */
 	public DropCommand()
 	{}
 	
 	/**
-	 * Permettre de jeter l'objet demandé par le joueur. L'objet demandé est défini par le second mot de la commande.
+	 * Permettre de jeter l'objet demande par le joueur. L'objet demande est defini par le second mot de la commande.
 	 * 
-	 * Quand un objet est jeté, il est retiré de l'inventaire du joueur, et ajouté dans la liste des objets dans une salle
+	 * Quand un objet est jete, il est retire de l'inventaire du joueur, et ajoute dans la liste des objets dans une salle
 	 */
 	public void execute(Player player)
 	{

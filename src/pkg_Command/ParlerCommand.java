@@ -4,7 +4,7 @@ import pkg_Characters.Player;
 import pkg_Dialogue.*;
 
 /**
- * Cette classe gère la commande "parler" du jeu, qui permet au joueur d'intéragir avec un personnage non joueur
+ * Cette classe gere la commande "parler" du jeu, qui permet au joueur d'interagir avec un personnage non joueur
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -20,8 +20,8 @@ public class ParlerCommand extends Command
 	private DialogueBlaze dialogueBlaze;
 	
 	/**
-	 * Constructeur qui permet de créer une commande Parler
-	 * Instancier les différents dialogues avecs les ennemis
+	 * Constructeur qui permet de creer une commande Parler
+	 * Instancier les differents dialogues avecs les ennemis
 	 */
 	public ParlerCommand()
 	{

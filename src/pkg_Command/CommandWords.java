@@ -4,8 +4,8 @@ import java.util.Set;
 
 
 /**
- * Cette class énumé toutes les commandes que le jeux connait. Elle permet de
- * reconnaître les commandes quand elles sont saisies.
+ * Cette class enume toutes les commandes que le jeux connait. Elle permet de
+ * reconnaitre les commandes quand elles sont saisies.
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -18,8 +18,8 @@ public class CommandWords
 	private HashMap<String, Command> commands;
 
 	/**
-	 * Instancier 2 HashMap, la première qui relie le String des commandes et les commandes correspondantes.
-	 * La deuxième HashMap relie le String de la commande à la classe de commmande associée
+	 * Instancier 2 HashMap, la premiere qui relie le String des commandes et les commandes correspondantes.
+	 * La deuxieme HashMap relie le String de la commande a la classe de commmande associee
 	 */
 	public CommandWords() 
 	{
@@ -65,7 +65,7 @@ public class CommandWords
 
 	
 	/**
-	 * Vérifie si la commande rentré par l'utilisateur est une commande valide.
+	 * Verifie si la commande rentree par l'utilisateur est une commande valide.
 	 * 
 	 * @return vraie si la commande saisie est une commande valide, faux si ce
 	 *         n'est pas le cas.
@@ -81,8 +81,8 @@ public class CommandWords
 	}
 
 	/**
-	 * Retourner la commande correspondante au mot rentré par le joueur.
-	 * Retourner une commande inconnue quand le mot rentré n'est pas une commande valable
+	 * Retourner la commande correspondante au mot rentre par le joueur.
+	 * Retourner une commande inconnue quand le mot rentre n'est pas une commande valable
 	 * 
 	 * @param word
 	 * @return la commande correspondante avec le mot saisi

@@ -2,7 +2,7 @@ package pkg_Command;
 import pkg_Characters.Player;
 
 /**
- * Cette classe gère la commande "quit" du jeu, qui permet à l'utilisateur de quiter le jeu.
+ * Cette classe gere la commande "quit" du jeu, qui permet à l'utilisateur de quiter le jeu.
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -11,13 +11,13 @@ import pkg_Characters.Player;
 public class QuitCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Quit
+	 * Constructeur qui permet de creer une commande Quit
 	 */
 	public QuitCommand()
 	{}
 	
 	/**
-	 * Terminer le jeu et fermer la fenêtre de jeu
+	 * Terminer le jeu et fermer la fenetre de jeu
 	 */
 	public void execute(Player player)
 	{

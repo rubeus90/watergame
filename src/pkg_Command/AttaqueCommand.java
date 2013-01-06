@@ -15,16 +15,16 @@ import pkg_Room.Room;
 public class AttaqueCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Attaque
+	 * Constructeur qui permet de creer une commande Attaque
 	 */
 	public AttaqueCommand()
 	{}
 		
 	/**
-	 * Quand on tape la commande attaque, la santé du joueur et la santé de l'ennemi diminue en fonction de l'arme que le 
-	 * joueur possède.
-	 * Dans le cas que l'ennemi soit Creeper, qui doit être un allié, le joueur perd tout de suite s'il l'attaque.
-	 * Quand tous les ennemis sont tués, on affiche la fenêtre de victoire du jeu.
+	 * Quand on tape la commande attaque, la sante du joueur et la sante de l'ennemi diminue en fonction de l'arme que le 
+	 * joueur possede.
+	 * Dans le cas que l'ennemi soit Creeper, qui doit etre un allié, le joueur perd tout de suite s'il l'attaque.
+	 * Quand tous les ennemis sont tues, on affiche la fenetre de victoire du jeu.
 	 */
 	public void execute(Player player)
 	{

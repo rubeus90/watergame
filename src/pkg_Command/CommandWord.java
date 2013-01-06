@@ -1,7 +1,7 @@
 package pkg_Command;
 
 /**
- * Cette classe est une énumération des commandes du jeu
+ * Cette classe est une enumeration des commandes du jeu
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault

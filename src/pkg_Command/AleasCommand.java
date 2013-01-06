@@ -20,10 +20,10 @@ public class AleasCommand extends Command
 	{}
 	
 	/**
-	 * Quand on tape la commande "aleas + nom d'une salle", la TransporterRoom (la salle secrète dans le jeu) va toujour 
-	 * emmener vers la salle avec le nom demandé
+	 * Quand on tape la commande "aleas + nom d'une salle", la TransporterRoom (la salle secrete dans le jeu) va toujour 
+	 * emmener vers la salle avec le nom demande
 	 * 
-	 * Quand on tape la commande "aleas" sans un deuxième mot, le mode aléatoire du TransporterRoom est réactivé
+	 * Quand on tape la commande "aleas" sans un deuxieme mot, le mode aleatoire du TransporterRoom est reactive
 	 */
 	public void execute(Player player)
 	{

@@ -3,7 +3,7 @@ import pkg_Characters.Player;
 import pkg_Items.Item;
 
 /**
- * Cette classe gère la commande "take" du jeu, qui permet au joueur de prendre un objet dans la salle et 
+ * Cette classe gere la commande "take" du jeu, qui permet au joueur de prendre un objet dans la salle et 
  * l'ajouter dans son inventaire
  * 
  * @author NGUYEN Hong Ngoc
@@ -13,15 +13,15 @@ import pkg_Items.Item;
 public class TakeCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Take
+	 * Constructeur qui permet de creer une commande Take
 	 */
 	public TakeCommand()
 	{}
 	
 	/**
-	 * Permettre de prendre un objet demandé par l'utlisateur. L'objet demandé est défini par la second mot de la commande
+	 * Permettre de prendre un objet demande par l'utlisateur. L'objet demande est défini par la second mot de la commande
 	 * 
-	 * Quand un objet est pris par le joueur, il est ajouté dans l'inventaire du joueur et retiré de la liste des
+	 * Quand un objet est pris par le joueur, il est ajoute dans l'inventaire du joueur et retire de la liste des
 	 * objets disponibles dans la salle
 	 */
 	public void execute(Player player)

@@ -3,7 +3,7 @@ import pkg_Characters.Player;
 import pkg_Room.Room;
 
 /**
- * Cette classe gère la commande "teleporter" du jeu, qui permet au joueur de se téléporter depuis n'importe quelle salle
+ * Cette classe gere la commande "teleporter" du jeu, qui permet au joueur de se teleporter depuis n'importe quelle salle
  * du jeu vers n'importe quelle salle
  * 
  * @author NGUYEN Hong Ngoc
@@ -13,15 +13,15 @@ import pkg_Room.Room;
 public class TeleporterCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Teleporter
+	 * Constructeur qui permet de creer une commande Teleporter
 	 */
 	public TeleporterCommand()
 	{}
 	
 	/**
-	 * Permettre au joueur de se téléporter vers n'importe quelle salle du jeu.
+	 * Permettre au joueur de se teleporter vers n'importe quelle salle du jeu.
 	 * 
-	 * A partir d'une salle quelconque, on utlise la commande "teleporter + nom de la salle" pour se téléporter vers cette salle
+	 * A partir d'une salle quelconque, on utlise la commande "teleporter + nom de la salle" pour se teleporter vers cette salle
 	 */
 	public void execute(Player player)
 	{

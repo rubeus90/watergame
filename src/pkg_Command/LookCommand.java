@@ -2,7 +2,7 @@ package pkg_Command;
 import pkg_Characters.Player;
 
 /**
- * Cette classe gère la commande "look" du jeu, qui affiche les informations de la salle ou le joueur se retrouve
+ * Cette classe gere la commande "look" du jeu, qui affiche les informations de la salle ou le joueur se retrouve
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -11,13 +11,13 @@ import pkg_Characters.Player;
 public class LookCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Look
+	 * Constructeur qui permet de creer une commande Look
 	 */
 	public LookCommand()
 	{}
 	
 	/**
-	 * Afficher les informations complètes de la salle ou le joueur se retrouve
+	 * Afficher les informations completes de la salle ou le joueur se retrouve
 	 */
 	public void execute(Player player)
 	{

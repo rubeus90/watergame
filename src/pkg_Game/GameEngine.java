@@ -17,10 +17,10 @@ import pkg_Room.TransporterRoom;
 
 /**
  * Cette class est la Class principale du jeux "Water Games". "Water Games" est
- * un jeux très simple à prendre en main, c'est un jeux textuel.
+ * un jeux tres simple à prendre en main, c'est un jeux textuel.
  * 
- * Cette class créé les salles, les personnages non joueurs, les objets, les potions, le Parser 
- * et démarre le jeux. Elles évalue aussi et exécute les commandes que la class Parser renvoi.
+ * Cette class cree les salles, les personnages non joueurs, les objets, les potions, le Parser 
+ * et demarre le jeux. Elles evalue aussi et execute les commandes que la class Parser renvoi.
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -40,7 +40,7 @@ public class GameEngine
 	
 
 	/**
-	 * Instancier le joueur et crée le jeu
+	 * Instancier le joueur et cree le jeu
 	 */
 	public GameEngine(final Player pPlayer) 
 	{
@@ -51,7 +51,7 @@ public class GameEngine
 	}
 
 	/** 
-	 * Méthode qui permet de charger la pierre magique si l'utilisateur la possède et est à la plaine	 *  
+	 * Methode qui permet de charger la pierre magique si l'utilisateur la possede et est a la plaine	  
 	 */
 	public void chargerPierre()
 	{
@@ -68,7 +68,7 @@ public class GameEngine
 	}
 	
 	/**
-	 * Méthode qui permet de recommencer le jeu: réinitialiser les listes d'objets ainsi que l'interface
+	 * Methode qui permet de recommencer le jeu: reinitialiser les listes d'objets ainsi que l'interface
 	 */
 	public void newGame()
 	{
@@ -91,7 +91,7 @@ public class GameEngine
 		
 
 	/**
-	 * Créer tous les éléments du jeu : les salles, les objets, créer et placer les personnages non joueurs (les ennemis),
+	 * Creer tous les elements du jeu : les salles, les objets, creer et placer les personnages non joueurs (les ennemis),
 	 * placer les salles du jeu
 	 */
 	private void createGame() 
@@ -195,7 +195,7 @@ public class GameEngine
 	}
 		
 	/**
-	 * Terminer le jeu en fermant la fenêtre de jeu 
+	 * Terminer le jeu en fermant la fenetre de jeu 
 	 */
 	public void endGame() 
 	{
@@ -203,7 +203,7 @@ public class GameEngine
 	}
 
 	/**
-	 * Retourner la pierre magique EnderPearl qui permet de se téléporter n'importe ou sur la carte
+	 * Retourner la pierre magique EnderPearl qui permet de se teleporter n'importe ou sur la carte
 	 * 
 	 * @return la pierre magique EnderPearl
 	 */
@@ -234,7 +234,7 @@ public class GameEngine
 	
 	
 	/**
-	 * Quand une commande est enregistrée, excécuter l'action associée à cette
+	 * Quand une commande est enregistree, executer l'action associée à cette
 	 * commande. Si la commande n'est pas dans la liste des commandes
 	 * disponibles, afficher une message d'erreur.
 	 * 
@@ -285,7 +285,7 @@ public class GameEngine
 	}
 
 	/**
-	 * Afficher une description complète de la salle ou se trouve le joueur
+	 * Afficher une description complete de la salle ou se trouve le joueur
 	 */
 	public void printLocationInfo() 
 	{
@@ -298,7 +298,7 @@ public class GameEngine
 	}
 	
 	/**
-	 * Message d'acccueil à l'ouverture du jeux !
+	 * Message d'acccueil a l'ouverture du jeux 
 	 */
 	private void printWelcome() 
 	
@@ -330,7 +330,7 @@ public class GameEngine
 		}
 	
 	/**
-	 * Retourner si le jeu a été recommencé par le menu "Nouvelle partie"	
+	 * Retourner si le jeu a ete recommence par le menu "Nouvelle partie"	
 	 * @return
 	 */
 	public boolean gameResetted()
@@ -339,7 +339,7 @@ public class GameEngine
 	}
 	
 	/**
-	 * Imposer que le jeu n'est plus à l'état recommencé
+	 * Imposer que le jeu n'est plus à l'etat recommence
 	 */
 	public void setResetGame()
 	{
@@ -347,7 +347,7 @@ public class GameEngine
 	}
 	
 	/**
-	 * Retourner l'ArrayList qui contient toutes les salles du jeu (hormis la salle secrète)
+	 * Retourner l'ArrayList qui contient toutes les salles du jeu (hormis la salle secrete)
 	 * 
 	 * @return toutes les salles du jeu hormis la salle secrète
 	 */
@@ -357,9 +357,9 @@ public class GameEngine
 	}
 	
 	/**
-	 * Retourner la salle secrète
+	 * Retourner la salle secrete
 	 * 
-	 * @return la salle secrète
+	 * @return la salle secrete
 	 */
 	public TransporterRoom getTransporterRoom()
 	{
@@ -367,10 +367,10 @@ public class GameEngine
 	}
 	
 	/**
-	 * Retourner la salle avec le nom qui correspond au String passé en paramètre
+	 * Retourner la salle avec le nom qui correspond au String passe en parametre
 	 * 
 	 * @param nomRoom
-	 * @return salle avec le nom demandé
+	 * @return salle avec le nom demande
 	 */
 	public Room chooseRoom(String nomRoom)
 	{

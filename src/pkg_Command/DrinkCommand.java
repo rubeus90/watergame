@@ -2,7 +2,7 @@ package pkg_Command;
 import pkg_Characters.Player;
 
 /**
- * Cette classe gère la commande "drink" du jeu, qui permet au joueur de boire une potion ou un soin
+ * Cette classe gere la commande "drink" du jeu, qui permet au joueur de boire une potion ou un soin
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -11,16 +11,16 @@ import pkg_Characters.Player;
 public class DrinkCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Drink
+	 * Constructeur qui permet de creer une commande Drink
 	 */
 	public DrinkCommand()
 	{}
 	
 	/**
-	 * Permettre au joueur de boire une potion ou un soin. Les potions et les soins ne sont pas des objets déplaceables
+	 * Permettre au joueur de boire une potion ou un soin. Les potions et les soins ne sont pas des objets deplaceables
 	 * mais ils sont fixes dans des salles. 
-	 * Quand le joueur boire une potion ou un soin, la potion en question est retirée de la salle, et la santé
-	 * du joueur augmente. L'augmentation dépend de la potion bue (une potion ou un soin)
+	 * Quand le joueur boire une potion ou un soin, la potion en question est retiree de la salle, et la sante
+	 * du joueur augmente. L'augmentation depend de la potion bue (une potion ou un soin)
 	 */
 	public void execute(Player player)
 	{

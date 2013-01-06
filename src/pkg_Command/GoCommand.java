@@ -4,7 +4,7 @@ import pkg_Room.Room;
 import pkg_Dialogue.*;
 
 /**
- * Cette classe gère la commande "go" du jeu, qui permet au joueur de se déplacer entre les endroits différents
+ * Cette classe gere la commande "go" du jeu, qui permet au joueur de se deplacer entre les endroits differents
  * du jeu
  * 
  * @author NGUYEN Hong Ngoc
@@ -14,15 +14,15 @@ import pkg_Dialogue.*;
 public class GoCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Go
+	 * Constructeur qui permet de creer une commande Go
 	 */
 	public GoCommand()
     {}
 
 	/**
-	 * Permettre de déplacer le joueur entre les salles du jeu.
-	 * La direction du déplacement est défini par le second mot de la commande.
-	 * Certaines salles du jeu est en fait l'océan, si le joueur se déplace vers ces endroits, il est mort noyé et a perdu le jeu
+	 * Permettre de deplacer le joueur entre les salles du jeu.
+	 * La direction du deplacement est defini par le second mot de la commande.
+	 * Certaines salles du jeu est en fait l'ocean, si le joueur se deplace vers ces endroits, il est mort noye et a perdu le jeu
 	 */
     public void execute(Player player)
     {

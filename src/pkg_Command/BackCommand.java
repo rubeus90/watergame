@@ -2,7 +2,7 @@ package pkg_Command;
 import pkg_Characters.Player;
 
 /**
- * Cette classe gère la commande "back" du jeu
+ * Cette classe gere la commande "back" du jeu
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -11,16 +11,16 @@ import pkg_Characters.Player;
 public class BackCommand extends Command
 {
 	/**
-	 * Constructeur qui permet de créer une commande Back
+	 * Constructeur qui permet de creer une commande Back
 	 */
 	public BackCommand()
 	{}
 	
 	/**
-	 * Implémenter la commande Back pour retourner dans la salle précédente. On stocke les salles visitée 
-	 * précédemment dans une Stack, à chaque fois on veut revenir sur notre pas, on utilise la commande "pop" 
-	 * qui prendre la denière valeur de la Stack (donc la dernière salle visitée) et qui retire cette salle de la Stack. 
-	 * Quand la Stack est vide, on est revenu au début du jeu.
+	 * Implementer la commande Back pour retourner dans la salle precedente. On stocke les salles visitee 
+	 * precedemment dans une Stack, a chaque fois on veut revenir sur notre pas, on utilise la commande "pop" 
+	 * qui prendre la deniere valeur de la Stack (donc la derniere salle visitee) et qui retire cette salle de la Stack. 
+	 * Quand la Stack est vide, on est revenu au debut du jeu.
 	 */
 	public void execute(Player player)
 	{

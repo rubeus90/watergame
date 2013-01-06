@@ -1,6 +1,6 @@
 package pkg_Characters;
 
-/**Cette classe gère les personnages non joueurs du jeu.
+/**Cette classe gere les personnages non joueurs du jeu.
  * 
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
@@ -11,8 +11,8 @@ public class Bots extends Player
 	private boolean attaquable;	
 	
 	/**
-	 * Constructeur du personnage non joueur. Un personnage non joueur est défini par son nom, (le sexe n'est pas utilisé), sa santé et
-	 * par le paramètre qui défini si on peut l'attaquer ou pas 
+	 * Constructeur du personnage non joueur. Un personnage non joueur est defini par son nom, (le sexe n'est pas utilise), sa sante et
+	 * par le parametre qui defini si on peut l'attaquer ou pas 
 	 * 
 	 * @param pNom
 	 * @param pGender
@@ -26,7 +26,7 @@ public class Bots extends Player
 	}
 	
 	/**
-	 * Retourner la valeur du boolean qui définit si le bot est attaquable ou non
+	 * Retourner la valeur du boolean qui definit si le bot est attaquable ou non
 	 * 
 	 * @return si le bot est attaquable ou non
 	 */
