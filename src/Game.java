@@ -16,8 +16,8 @@ public class Game extends JApplet
 
 	/**
 	 * Create the game and initialise its internal map.
-	 */
-	public static void main(String[] args) 
+	 */	
+	public Game()
 	{
 		JOptionPane menu = new JOptionPane();
 	    String nom = menu.showInputDialog(null, "Entre ton nom:", "Nom du personnage", JOptionPane.QUESTION_MESSAGE);		
@@ -34,4 +34,15 @@ public class Game extends JApplet
 		player.setUserInterface(gui);
 		engine.setGUI(gui);
 	}
+	
+	public static void main(String[] args) 
+	{
+		new Game();
+	}
+	
+	@Override 
+	public void init()
+    {
+        super.init();
+    }
 }

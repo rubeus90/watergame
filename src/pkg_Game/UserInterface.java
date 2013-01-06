@@ -59,26 +59,6 @@ import java.io.IOException;
  */
 public class UserInterface implements ActionListener 
 {
-	public class Bouton extends JButton
-	{
-		  private Image img;
-
-		  public Bouton()
-		  {
-		    super();
-		    try {
-		      img = ImageIO.read(new File("./src/images/Door.jpg"));
-		    } catch (IOException e) {
-		      e.printStackTrace();
-		    }
-		  }
-
-		  public void paintComponent(Graphics g)
-		  {
-		    Graphics2D g2d = (Graphics2D)g;
-		    g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
-		  }
-	}
 	private GameEngine engine;
 	private JFrame myFrame;
 	private JTextField entryField;
@@ -309,7 +289,7 @@ public class UserInterface implements ActionListener
 	    
 	    JEditorPane editorPane = new JEditorPane();
         editorPane.setEditable(false);
-        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("gpl-3.0-standalone.html");
         if (helpURL != null) {
             try {
                 editorPane.setPage(helpURL);
@@ -981,5 +961,28 @@ public class UserInterface implements ActionListener
 				listRoom.addElement(nom);
 			}
 		}
+	}
+	
+	
+	
+	public class Bouton extends JButton
+	{
+		  private Image img;
+
+		  public Bouton()
+		  {
+		    super();
+		    try {
+		      img = ImageIO.read(new File("./src/images/Door.jpg"));
+		    } catch (IOException e) {
+		      e.printStackTrace();
+		    }
+		  }
+
+		  public void paintComponent(Graphics g)
+		  {
+		    Graphics2D g2d = (Graphics2D)g;
+		    g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), this);
+		  }
 	}
 }

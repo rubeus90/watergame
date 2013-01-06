@@ -107,6 +107,9 @@ public class DialogueCreeper1 extends Dialogue
 //					super.setEtape(0);
 					engine.getPlayer().getRoom().removeBot("Creeper");
 					engine.getArrayListRoom().get(4).addBot("Creeper", new Bots("Creeper", null, 80, false));
+					engine.getArrayListRoom().get(4).setImage("images/grotteAvecCreeper.png");
+					engine.getPlayer().getRoom().setImage("images/foret.png");
+					engine.getGUI().showImage(engine.getPlayer().getRoom().getImageName());
 					engine.getGUI().closeDialogue();
 					
 				}

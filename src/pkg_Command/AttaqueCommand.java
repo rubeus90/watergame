@@ -66,6 +66,8 @@ public class AttaqueCommand extends Command
 						if(bot.getNom() == "Enderman")
 						{
 							player.getRoom().removeBot(bot.getNom()); //supprimer ce bot mort de la salle
+							player.getRoom().setImage("images/vallee.png");
+							player.getGUI().showImage(player.getRoom().getImageName());
 							player.getRoom().getItemListe().putItem("papier", new Item("Un papier avec inscrit 'RedStone' ", 0));
 							player.getGUI().resetTextPanel();
 							player.getGUI().println("Tu as vaincu Enderman" + "\n" + "D'ailleurs il a fait tombé un papier, ça peut être intéressant de le prendre, on ne sait jamais");
@@ -73,33 +75,23 @@ public class AttaqueCommand extends Command
 						
 						else if(bot.getNom() == "Blaze")
 						{
-							player.getRoom().removeBot(bot.getNom()); //supprimer ce bot mort de la salle
-							
-							int hasBot = 0;
-							for(int i=0; i < player.getGameEngine().getArrayListRoom().size() ; i++)
-							{
-								Room room = player.getGameEngine().getArrayListRoom().get(i);
-								if(room.getBot() != null)
-									hasBot++;									
-							}	
-							
-							if(hasBot == 0)
-								player.getGUI().createWinGame();
-							else
-							{
-								player.getGUI().resetTextPanel();
-								player.getGUI().println("Tu as vaincu Blaze");
-								
-								for(int i=0; i < player.getGameEngine().getArrayListRoom().size() ; i++)
-								{
-									Room room = player.getGameEngine().getArrayListRoom().get(i);
-									if(room.getBot() != null){
-										player.getGUI().println(room.getBot().getNom());	
-										player.getGUI().println(room.getNomRoom());}
-								}	
-								
-							}
+							player.getRoom().removeBot(bot.getNom()); //supprimer ce bot mort de la salle		
+							player.getRoom().setImage("images/plage.png");
+							player.getGUI().showImage(player.getRoom().getImageName());
+							player.getGUI().resetTextPanel();
+							player.getGUI().println("Tu as vaincu Blaze");						
 						}
+						
+						//S'il n'y pas plus de bot dans toutes les salles, alors le joueur a gagné
+						int hasBot = 0;
+						for(int i=0; i < player.getGameEngine().getArrayListRoom().size() ; i++)
+						{
+							Room room = player.getGameEngine().getArrayListRoom().get(i);
+							if(room.getBot() != null)
+								hasBot++;									
+						}								
+						if(hasBot == 0)
+							player.getGUI().createWinGame();
 					}
 				}
 				else
