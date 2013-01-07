@@ -6,7 +6,8 @@ import java.util.Set;
  * Cette classe sert à gérer les listes d'objets pour éviter la duplication des
  * listes d'objets (les HahsMap) dans Player et dans Room
  * 
- * @author rubeus
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
  * 
  */
 public class ItemListe 
@@ -35,7 +36,9 @@ public class ItemListe
 	 * Ajouter un objet dans le HashMap
 	 * 
 	 * @param nomItem
+	 * 			Nom de l'objet
 	 * @param item
+	 * 			L'objet
 	 */
 	public void putItem(String nomItem, Item item) 
 	{
@@ -46,6 +49,7 @@ public class ItemListe
 	 * Supprimer un objet du HashMap
 	 * 
 	 * @param nomItem
+	 * 			Nom de l'objet
 	 */
 	public void removeItem(String nomItem) 
 	{
@@ -63,15 +67,24 @@ public class ItemListe
 	}
 
 	/**
-	 * Retourner 
+	 * Retourner l'objet qui correspond au nom donne en parametre
+	 * 
 	 * @param key
-	 * @return
+	 * 			Nom de l'objet
+	 * @return l'objet qui correspond au nom demande
 	 */
 	public Item getValue(String key) 
 	{
 		return items.get(key);
 	}
 
+	/**
+	 * Verifier si l'objet correspondant au nom donne en parametre est present dans le HashMap. Retourner true si oui, false sinon
+	 * 
+	 * @param mot
+	 * 			Nom de l'objet
+	 * @return true si l'objet est dans le HashMap, false sinon
+	 */
 	public boolean containsKey(String mot) 
 	{
 		return items.containsKey(mot);

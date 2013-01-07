@@ -18,6 +18,7 @@ public enum CommandWord {
 	 * Imposer la String de commande
 	 * 
 	 * @param commandString
+	 * 			Le String de commande 
 	 */
 	CommandWord(String commandString) 
 	{

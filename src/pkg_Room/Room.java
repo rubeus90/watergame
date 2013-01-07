@@ -26,17 +26,11 @@ import pkg_Items.Potion;
  * voisine existe dans la direction voulu.
  * 
  */
-public class Room {
+public class Room 
+{
 	public String description;
-	// public Room northExit;
-	// public Room southExit;
-	// public Room eastExit;
-	// public Room westExit;
 	private HashMap<String, Room> exits;
-	// private HashMap<String, Item> items;
 	private ArrayList<Potion> potion;
-
-	// private HashMap<String, Room> room;
 	private String imageName;
 	private ItemListe items;
 	private String nomRoom;
@@ -44,78 +38,107 @@ public class Room {
 	private HashMap<String, Bots> bots;
 
 	/**
-	 * Constructeur qui permet d'initialiser la description d'une salle. "
-	 * Exemple d'utilisation : "Une forêt" , "une belle cuisine"
+	 * Constructeur qui permet d'initialiser la description, l'image et le nom d'une salle.
 	 * 
 	 * @param description
 	 *            La description de la salle.
+	 * @param image
+	 * 			L'image d'une salle
+	 * @param pNomRoom
+	 * 			Le nom de la salle
 	 */
-	public Room(String description, String image, String pNomRoom) {
+	public Room(String description, String image, String pNomRoom) 
+	{
 		this.description = description;
 		exits = new HashMap<String, Room>();
-		// items = new HashMap<String, Item>();
 		imageName = image;
 		items = new ItemListe();
 		potion = new ArrayList<Potion>();
 		nomRoom = pNomRoom;
 		
-		bots = new HashMap<String, Bots>();
+		bots = new HashMap<String, Bots>(); //un HashMap pour contenir les personnages non joueurs qui est dans la salle
 	}
 
-	// /**HashMap pour contenir les rooms, chaque room est lié à son nom
-	// *
-	// */
-	// public void setRoom(String nameRoom, Room currentRoom)
-	// {
-	// room.put(nameRoom, currentRoom);
-	// }
-
+	/**
+	 * Ajouter un personnage non joueur dans la salle (donc dans le HashMap)
+	 * 
+	 * @param nomBot
+	 * 		Nom du personnage non joueur
+	 * @param bot
+	 * 		Le personnage non joueur
+	 */
 	public void addBot(String nomBot, Bots bot)
 	{
 		bots.put(nomBot, bot);
 	}
 	
+	/**
+	 * Supprimer un personnage non joueur de la salle (donc du HashMap)
+	 * 
+	 * @param nomBot
+	 * 			Nom du personnage non joueur
+	 */
 	public void removeBot(String nomBot)
 	{
 		bots.remove(nomBot);
 	}
 
+	/**
+	 * Ajouter la pierre magique dans la salle (donc dans le HashMap du ItemListe)
+	 * 
+	 * @param pierre
+	 * 			La pierre magique EnderPearl
+	 */
 	public void addItem(Pierre pierre)
 	{
 		items.putItem("EnderPearl", pierre);
 	}
 
 	/**
-	 * Ajouter un objet dans un HashMap
+	 * Ajouter un objet dans la salle (donc dans le HashMap du ItemListe)
 	 */
 	public void addItem(String nomItem, Item item) {
 		items.putItem(nomItem, item);
 	}
 	
+	/**
+	 * Ajouter un Beamer dans la salle (donc dans le HashMap du ItemListe)
+	 * 
+	 * @param beamer
+	 * 			Le Beamer
+	 */
 	public void addItem(Beamer beamer)
 	{
 		items.putItem("beamer", beamer);
 	}
 
-	public void addPotion(final Potion pPotion) {
+	/**
+	 * Ajouter un potion dans la salle
+	 * 
+	 * @param pPotion
+	 * 			La potion (potion ou soin)
+	 */
+	public void addPotion(final Potion pPotion) 
+	{
 		potion.add(pPotion);
 	}
 
 	/**
 	 * Cette méthode est pour vérifier si une potion appartient à l'ArrayList
-	 * des potions. Manques de meilleure idée, la méthode ici fait simplement
-	 * une boucle de comparaison entre le nom de potion passé en paramètre et
-	 * tous les noms de potion dans l'ArrayList.
-	 * 
-	 * C'est une méthode a priori moche donc à refaire si on a assez de temps.
+	 * des potions. 
+	 * On compare le nom de potion passé en paramètre et tous les noms de potion dans l'ArrayList. 
+	 * Si on trouve le meme nom, la potion est donc presente dans l'ArrayList
 	 * 
 	 * @param nomPotion
-	 * @return
+	 * 			Nom de la potion
+	 * @return true si la potion est presente, false sinon
 	 */
-	public boolean containPotion(String nomPotion) {
+	public boolean containPotion(String nomPotion) 
+	{
 		boolean contain = false;
 
-		for (int i = 0; i < potion.size(); i++) {
+		for (int i = 0; i < potion.size(); i++) 
+		{
 			if (potion.get(i).getNomPotion() == nomPotion)
 				contain = true;
 		}
@@ -124,13 +147,20 @@ public class Room {
 	}
 
 	/**
-	 * Retirer un objet du HashMap
+	 * Retirer un objet de la salle (donc du HashMap du ItemListe)
 	 */
-	public void deleteItem(String nomItem) {
+	public void deleteItem(String nomItem) 
+	{
 		items.removeItem(nomItem);
 	}
 	
-	public ArrayList<Potion> getArrayList() {
+	/**
+	 * Retourner l'ArrayList des potions de la salle
+	 * 
+	 * @return l'ArrayList des potions de la salle
+	 */
+	public ArrayList<Potion> getArrayList() 
+	{
 		return potion;
 	}
 
@@ -139,29 +169,23 @@ public class Room {
 	 * 
 	 * @return la description de la salle
 	 */
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return description;
 	}
 	
 	/**
-	 * Défini les sorties possibles de la salle courante. Soit la direction mène
+	 * Définir les sorties possibles de la salle courante. Soit la direction mène
 	 * à une salle, soit mène nulle part ( = NULL ).
 	 * 
 	 * @param direction
-	 *            Une direction, par exemple north,east ...
+	 *            Une direction, par exemple nord, sud ...
 	 */
-	public Room getExit(String direction) {
+	public Room getExit(String direction) 
+	{
 		return exits.get(direction);
 	}
 
-	/*
-	 * Exo 7.9 : keySet() : retourner dans un Set les clés de la HashMap des
-	 * sorties
-	 * 
-	 * Methode getExitString() : On crée un Set des clés de la HashMap des
-	 * sorties. Pour chaque clé, on ajoute à la variable locale exitString (un
-	 * String) le nom de la sortie, et on retourne la valeur de exitString
-	 */
 	/**
 	 * Fonction qui permet d'énumerer les sorties possibles.
 	 * 
@@ -177,16 +201,28 @@ public class Room {
 		return exitString;
 	}
 
-	public String getImageName() {
+	/**
+	 * Retourner le nom de l'image de la salle
+	 * 
+	 * @return le nom de l'image de la salle
+	 */
+	public String getImageName() 
+	{
 		return imageName;
 	}
 
-	public ItemListe getItemListe() {
+	/**
+	 * Retourner l'ItemListe (qui contient une HashMap des objets de la salle)
+	 * 
+	 * @return l'ItemListe
+	 */
+	public ItemListe getItemListe() 
+	{
 		return items;
 	}
 
 	/**
-	 * Retourner le nom, la description et le poids de tous les objets dans la
+	 * Retourner le nom, la description et le poids de tous les objets et les potions dans la
 	 * salle
 	 * 
 	 * @return Nom, description et poids des objets
@@ -217,7 +253,7 @@ public class Room {
 		/********** L'ArrayList des potions **********/
 		itemString += "\n";
 		for (int i = 0; i < potion.size(); i++) {
-			itemString += "\n" + potion.get(i).getNomPotion();
+			itemString += "\n" + "Un(e) " + potion.get(i).getNomPotion();
 		}
 		/****************************************************************/
 
@@ -235,21 +271,27 @@ public class Room {
 		return "Tu es " + description + "\n" + getExitString() + "\n" + "\n"+ getItemString() + "\n" + "\n" + getBotString();
 	}
 
+	/**
+	 * Retourner le nom de la salle
+	 * 
+	 * @return le nom de la salle
+	 */
 	public String getNomRoom()
 	{
 		return nomRoom;
 	}
 
 	/**
-	 * Méthode aussi moche que la précédente pour retourner l'index de la potion
-	 * voulue
+	 * Retourner l'indexe de la potion correspondante au nom passe en parametre dans l'ArrayListe des potions
 	 * 
 	 * @param nomPotion
 	 * @return
 	 */
-	public int indexPotion(String nomPotion) {
+	public int indexPotion(String nomPotion) 
+	{
 		int k = 0;
-		for (int i = 0; i < potion.size(); i++) {
+		for (int i = 0; i < potion.size(); i++) 
+		{
 			if (potion.get(i).getNomPotion() == nomPotion)
 				k = i;
 		}
@@ -257,7 +299,14 @@ public class Room {
 		return k;
 	}
 
-	public void removePotion(final Potion pPotion) {
+	/**
+	 * Retourner le nom d'une potion (Potion ou Soin)
+	 * 
+	 * @param pPotion
+	 * 			Nom de la potion
+	 */
+	public void removePotion(final Potion pPotion) 
+	{
 		potion.remove(pPotion);
 	}
 	
@@ -266,14 +315,20 @@ public class Room {
 	 * à une salle, soit mène nulle part ( = NULL ).
 	 * 
 	 * @param direction
-	 *            Une direction, par exemple north,east ...
+	 *            Une direction, par exemple nord, sud ...
 	 * @param voisin
-	 *            Salle voisine ??
+	 *            Salle voisine 
 	 */
-	public void setExit(String direction, Room voisin) {
+	public void setExit(String direction, Room voisin) 
+	{
 		exits.put(direction, voisin);
 	}
 	
+	/**
+	 * Retourner un String qui enumere tous les personnages non joueurs qui sont presents dans la salle
+	 * 
+	 * @return un String qui affiche le nom de tous les ennemis dans la salle
+	 */
 	public String getBotString()
 	{
 		String nomBots = "";
@@ -287,6 +342,11 @@ public class Room {
 			return "Il n'y a pas d'ennemi ici!";
 	}
 	
+	/**
+	 * Retourner l'ennemi present dans la salle
+	 * 
+	 * @return l'ennemi dans la salle
+	 */
 	public Bots getBot()
 	{
 		Bots bot = null;
@@ -301,11 +361,23 @@ public class Room {
 		return bot;
 	}
 	
+	/**
+	 * Imposer l'image de la salle
+	 * @param image
+	 */
 	public void setImage(String image)
 	{
 		imageName = image;
 	}
 	
+	/**
+	 * Verifier si dans une salle, le bot correspondant au nom passe en parametre est bien present.
+	 * Retourner vrai si oui, false sinon
+	 * 
+	 * @param nomBot
+	 * 			Nom de l'ennemi
+	 * @return true si le bot est present dans la salle, false sinon
+	 */
 	public boolean containBot(String nomBot)
 	{
 		boolean contain = false;

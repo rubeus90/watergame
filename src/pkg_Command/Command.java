@@ -52,6 +52,7 @@ public abstract class Command
 	 * Imposer le second mot de la commande
 	 * 
 	 * @param secondWord
+	 * 			Le deuxieme mot de la commande
 	 */
 	public void setSecondWord(String secondWord)
     {
@@ -62,6 +63,7 @@ public abstract class Command
 	 * Methode abstraite qui sera implementee dans les sous classes, qui permet d'executer les commandes
 	 * 
 	 * @param player
+	 * 			Le joueur du jeu
 	 */
 	public abstract void execute(Player player);
 }

@@ -11,7 +11,10 @@ public class Item
 	/**
 	 * Créé les objets du jeu
 	 * 
-	 * @param la description et le poids de l'objet
+	 * @param pDescription
+	 * 			La description de l'objet
+	 * @param pPoids
+	 * 			Le poids de l'objet
 	 */
 	public Item(String pDescription, int pPoids) 
 	{

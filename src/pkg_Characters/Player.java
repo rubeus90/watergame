@@ -19,7 +19,8 @@ import pkg_Room.Room;
  * @author NGUYEN Hong Ngoc
  * @author PATOIS Thibault
  */
-public class Player {
+public class Player 
+{
 	private String aNom;
 	private String aGender;
 	private Room aCurrentRoom;
@@ -36,8 +37,11 @@ public class Player {
 	 * Constructeur de la classe. Un joueur est donc defini par son nom, son sexe et sa sante
 	 * 
 	 * @param pNom
+	 * 			Nom du joueur
 	 * @param pGender
+	 * 			Le sexe du joueur
 	 * @param pSante
+	 * 			La sante du joueur
 	 */
 	public Player(final String pNom, final String pGender, int pSante) 
 	{
@@ -75,6 +79,7 @@ public class Player {
 	 * Permettre d'augmenter la sante du joueur
 	 * 
 	 * @param nbr
+	 * 			La valeur que l'on ajoute a la sante du joueur
 	 */
 	public void augmenteSante(final int nbr) {
 		sante += nbr;
@@ -84,6 +89,7 @@ public class Player {
 	 * Pemettre de diminuer la sante du joueur
 	 * 
 	 * @param nbr
+	 * 			La valeur que l'on enleve a la sante du joueur
 	 */
 	public void diminueSante(final int nbr) {
 		if (sante > 0) {
@@ -225,8 +231,10 @@ public class Player {
 	 * Imposer une salle comme la salle ou le joueur se trouve et ajouter cette salle dans la pile des salles visitees
 	 * 
 	 * @param pRoom
+	 * 			La salle voulue
 	 */
-	public void setCurrentRoom(final Room pRoom) {
+	public void setCurrentRoom(final Room pRoom) 
+	{
 		aCurrentRoom = pRoom;
 		salles.push(aCurrentRoom);
 
@@ -236,8 +244,10 @@ public class Player {
 	 * Imposer le GameEngine
 	 * 
 	 * @param gameEngine
+	 * 			Le GameEngine du jeu
 	 */
-	public void setGameEngine(final GameEngine gameEngine) {
+	public void setGameEngine(final GameEngine gameEngine) 
+	{
 		engine = gameEngine;
 	}
 
@@ -245,7 +255,8 @@ public class Player {
 	 * Imposer le poids maximal de l'inventaire du joueur en fonction de sa sante. Plus sa sante diminue, moins il peut porter
 	 * les objets
 	 */
-	public void setMaxPoids() {
+	public void setMaxPoids() 
+	{
 		if (sante >= 0 && sante < 20)
 			maxPoids = 0;
 		if (sante >= 20 && sante < 60)
@@ -262,6 +273,7 @@ public class Player {
 	 * Imposer une salle comme la salle ou le joueur se trouve mais sans ajouter cette salle dans la pile des salles visitees
 	 * 
 	 * @param pRoom
+	 * 			La salle voulue
 	 */
 	public void setRoom(Room pRoom)
 	{
@@ -272,6 +284,7 @@ public class Player {
 	 * Imposer le niveau de sante du joueur
 	 * 
 	 * @param pSante
+	 * 			La sante du joueur
 	 */
 	public void setSante(int pSante)
 	{
@@ -282,6 +295,7 @@ public class Player {
 	 * Imposer l'UserInterface, l'interface graphique du jeu
 	 * 
 	 * @param userinterface
+	 * 			L'interface graphique du jeu
 	 */
 	public void setUserInterface(final UserInterface userinterface) 
 	{
@@ -290,6 +304,7 @@ public class Player {
 	
 	/**
 	 * Retourner le beamerRoom, qui est une ArrayList qui a pour but de stocker la salle ou on charge le Beamer
+	 * 
 	 * @return l'ArrayList qui stocke la salle ou le Beamer est charge
 	 */
 	public ArrayList<Room> getBeamerRoom()

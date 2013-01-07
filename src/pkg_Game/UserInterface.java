@@ -283,8 +283,8 @@ public class UserInterface implements ActionListener
         gpl.setContentPane(editorScrollPane);
 	}
 
-	/**Creer la fenetre About Water Games
-	 * 
+	/**
+	 * Creer la fenetre About Water Games	 * 
 	 */
 	public void createCredits()
 	{
@@ -318,6 +318,7 @@ public class UserInterface implements ActionListener
 	 * pour laquelle le joueur est mort
 	 * 
 	 * @param raison
+	 * 			Raison pour laquelle le joueur est mort
 	 */
 	 public void createGameOver(String raison)
 	 {

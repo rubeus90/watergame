@@ -322,6 +322,7 @@ public class GameEngine
 	 * Imposer l'interface graphique du jeu
 	 * 
 	 * @param userInterface
+	 * 			L'interface graphique du jeu
 	 */
 	public void setGUI(UserInterface userInterface) 
 	{
@@ -333,7 +334,8 @@ public class GameEngine
 	
 	/**
 	 * Retourner si le jeu a ete recommence par le menu "Nouvelle partie"	
-	 * @return
+	 * 
+	 * @return true si le jeu est recommence, false sinon
 	 */
 	public boolean gameResetted()
 	{
@@ -372,6 +374,7 @@ public class GameEngine
 	 * Retourner la salle avec le nom qui correspond au String passe en parametre
 	 * 
 	 * @param nomRoom
+	 * 			Nom de la salle
 	 * @return salle avec le nom demande
 	 */
 	public Room chooseRoom(String nomRoom)

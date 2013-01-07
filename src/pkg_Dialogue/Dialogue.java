@@ -26,6 +26,7 @@ public abstract class Dialogue
 	 * Une methode abstraite qui permet d'implementer les dialogues
 	 * 
 	 * @param engine
+	 * 			Le GameEngine du jeu
 	 */
 	public abstract void afficheDialogue(GameEngine engine)
 	;
@@ -52,6 +53,7 @@ public abstract class Dialogue
 	 * Imposer l'etape du dialogue
 	 * 
 	 * @param pEtape
+	 * 			L'etape du dialogue
 	 */
 	public void setEtape(int pEtape)
 	{
