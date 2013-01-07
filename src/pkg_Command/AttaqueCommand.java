@@ -61,7 +61,7 @@ public class AttaqueCommand extends Command
 				if(bot.attaquable()) //c'est-à-dire si le bot n'est pas Creeper (qui s'explose quand on l'attaque)
 				{
 					//Tant que la santé du bot n'est pas nul, on peut l'attaquer. 
-					if(bot.getSante() - degat >= 0) //le "- degat " est là pour éviter de retrouver le bot avec une santé négative
+					if(bot.getSante() - degat > 0) //le "- degat " est là pour éviter de retrouver le bot avec une santé négative
 					{
 						bot.diminueSante(degat);
 						player.diminueSante(perte);
@@ -110,7 +110,7 @@ public class AttaqueCommand extends Command
 				}				
 				else
 				{
-					player.getGUI().createGameOver("creeper"); //si le bot est Creeper, alors le joueur perd
+					player.getGUI().createGameOver("Creeper"); //si le bot est Creeper, alors le joueur perd
 				}
 			}		
 			else

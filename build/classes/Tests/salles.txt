@@ -1,0 +1,12 @@
+take EnderPearl
+go ouest
+go nord
+teleporter pic
+go ouest
+go ouest
+go nord
+go sud
+go sud
+go secret
+aleas plage
+go nord

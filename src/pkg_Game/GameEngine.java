@@ -162,10 +162,10 @@ public class GameEngine
 		temple.setExit("secret", secret);
 		
 		//Créer les objets dans les salles
-		plaine.addItem("massue", new Item("Une grande massue pas très bien foutue", 30));
-		temple.addItem("hache", new Item("Une petite hache toute pourrie", 40));
-		pic.addItem("corde", new Item("Une corde", 10));
-		secret.addItem("hallebarde", new Item("Une hallebarde très puissante", 60));
+		plaine.addItem("massue", new Item("Une grande massue pas très bien foutue", 40));
+		temple.addItem("hache", new Item("Une petite hache toute pourrie", 60));
+		pic.addItem("corde", new Item("Une corde", 30));
+		secret.addItem("hallebarde", new Item("Une hallebarde très puissante", 40));
 		
 		//Ajouter le teleporteur
 		pierre = new Pierre();
@@ -256,7 +256,7 @@ public class GameEngine
 			gui.showInventaireRoom(); //actualiser la fenêtre qui affiche la liste des objets dans la salle
 			gui.showInventairePlayer(); //actualiser la fenêtre qui affiche l'inventaire du joueur
 		}
-		else if (player.getSante() <= 0 && commandLine.equals("attaque"))
+		else if (player.getSante() <= 0 && commandLine.equals("attaque") && player.getRoom().getBot() != null)
 		{
 			gui.createGameOver(player.getRoom().getBot().getNom());
 		}

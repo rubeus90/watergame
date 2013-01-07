@@ -1,7 +1,12 @@
+aleas plage
+drink potion
+drink soin
 take EnderPearl
 go ouest
+drink soin
 teleporter pic
 take corde
+drop EnderPearl
 go ouest
 go ouest
 go ouest
@@ -10,7 +15,10 @@ parler
 parler
 parler
 parler
+drink potion
 go est
+attaque
+attaque
 attaque
 take papier
 go nord
@@ -24,12 +32,16 @@ go sud
 parler
 parler
 parler
-aleas plage
 go secret
 parler
 parler
 parler
 parler
 parler
+take hallebarde
 go nord
+attaque
+attaque
+attaque
+attaque
 attaque

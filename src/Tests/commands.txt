@@ -1,12 +1,29 @@
+look
+unknown
+help
+aleas plaine
+drink potion
+drink soin
 take EnderPearl
+take beamer
+charger
+take hache
+items
+drop hache
 go ouest
-go nord
 teleporter pic
+take corde
 go ouest
 go ouest
-go nord
-go sud
-go sud
-go secret
-aleas plage
-go nord
+go ouest
+parler
+parler
+parler
+parler
+parler
+go est
+attaque
+attaque
+attaque
+utiliser
+back

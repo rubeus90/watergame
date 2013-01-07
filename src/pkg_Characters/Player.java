@@ -258,15 +258,15 @@ public class Player
 	public void setMaxPoids() 
 	{
 		if (sante >= 0 && sante < 20)
-			maxPoids = 0;
+			maxPoids = 10;
 		if (sante >= 20 && sante < 60)
-			maxPoids = 70;
+			maxPoids = 60;
 		if (sante >= 60 && sante < 80)
-			maxPoids = 100;
+			maxPoids = 80;
 		if (sante >= 80 && sante < 100)
-			maxPoids = 140;
+			maxPoids = 100;
 		if (sante >= 100)
-			maxPoids = 160;
+			maxPoids = 120;
 	}
 
 	/**

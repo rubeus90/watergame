@@ -28,6 +28,9 @@ public class UtiliserCommand extends Command
 	{
 		if(!player.getBeamerRoom().isEmpty()) //Si le Beamer est chargé
 		{
+			// Stocker la salle actuelle dans le stack (pour la méthode back)
+			player.getStackRoom().push(player.getRoom());
+			
 			player.setRoom(player.getBeamerRoom().get(0)); //imposer la salle du joueur, donc le téléporter
 			player.getGameEngine().printLocationInfo();
 

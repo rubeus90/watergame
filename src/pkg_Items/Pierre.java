@@ -20,7 +20,7 @@ public class Pierre extends Item
 	 */
 	public Pierre()
 	{
-		super("La pierre EnderPearl", 0);
+		super("La pierre EnderPearl", 30);
 		activated = false;
 	}
 	

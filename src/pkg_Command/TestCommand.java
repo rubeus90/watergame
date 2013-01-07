@@ -52,6 +52,11 @@ public class TestCommand extends Command
 						sr = new Scanner(new File("./src/Tests/perdre.txt"));
 						break;
 					}
+					case "salles":
+					{
+						sr = new Scanner(new File("./src/Tests/salles.txt"));
+						break;
+					}
 					default:
 						sr = null;
 									

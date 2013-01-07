@@ -55,9 +55,42 @@
 
 		<div id="corps">
 			<div class="categorie">
-				<div class="titrecategorie">Generalite</div>
-				<p>La plupart des commandes peuvent etre utilise par les boutons, mais sachez que certaines commandes speciales ne peuvent être actionnee par les boutons. Vous devez vous meme entrer les commandes</p>
-				<p>Pour se faire, voici les differentes commandes disponibles dans notre jeu</p>
+				<p class="titrecategorie">Obtenir des informations sur la salle</p>
+				<span>Pour obtenir des informations sur la salle ( liste des objets, listes des potions, les ennemis etc ) vous pouvez soit utiliser le bouton "regarder" soit utiliser la commandde <span class="commande">look</span>. Pour utiliser la commande <span class="commande">look</span> vous devez taper : <br />
+				"look"</span>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Se deplacer</p>
+				<span>Pour se deplacer dans le jeu, vous pouvez soit : utiliser les boutons sur le cote droit en bas de l'interface ( Ouest - Est - Nord - Sud ) ou bien utiliser la command <span class="commande">go</span>.<br />
+				Pour utiliser la commande <span class="commande">go</span> vous devez taper :<br />
+				"go +  direction" <br />
+				Les diretions sont comme pour les boutons : nord, sud, ouest, est, toujours en minuscule.</span>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Revenir en arriere</p>
+				<span>Vous pouvez revenir en arriere dans le jeu. Pour cela vous pouvez soit utiliser le bouton "BACK" soit utiliser la commande <span class="commande">back</span>.<br />
+				Pur utiliser la commande <span class="commande">back</span> vous devez taper :<br />
+				"back"</span>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Utiliser un objet</p>
+				<span>Dans le jeu vous pouvez ramasser un certain nombre d'objet. Le nombre d'objet que vous pouvez porter depend de votre sante. Plus votre sante est elevee plus vous pouvez porter d'objet.<br />
+				Les objets presents dans une salle sont affiches en haut a gauche du jeu. Pour interagir avec les objets vous avez plusieurs possibilitees.Soit vous utiliser l'interface graphique, soit vous utiliser les commandes utilisateurs.<br /></span>
+				<ul>
+					<li>Si vous voulez utiliser l'interface graphique, il suffit de cliquer sur l'objet qui vous interesse. Une fois selectionne, vous devez appuyer sur le bouton "prendre" pour prendre l'objet<br />
+					L'objet apparait alors dans votre inventaire en bas.<br />
+					Pour jeter un objet, vous devez également selectionne l'objet dans votre inventaire. Une fois selectionne appuyez sur le bouton "jeter".L'objet apparait alors dans les objets de la salle.
+					</li>
+					<br />
+					<li>Si vous voulez utiliser les commandes utilisateurs, vous devez utiliser les commandes <span class="commande">take</span> et <span class="commande">drop</span>. Vous devez alors taper :<br  />
+					"take + nom de l'objet", pour en prendre un objet.<br />
+					"drop + nom de l'obet", pour jeter un objet.<br />
+					Les noms des objets presents dans une salle sont disponible en haut a droite du jeu.
+					</li>
+				</ul>
 			</div>
 
 			<div class="categorie">
@@ -70,23 +103,6 @@
 						<li>"drink soin" si il y a un soin dans la salle</li>
 					</ul>
 				</p>
-			</div>
-
-			<div class="categorie">
-				<p class="titrecategorie">Utiliser un objet</p>
-				<span>Pour utiliser un objet particulier, comme la EnderPearl, vous devez utiliser la commande <span class="commande">utiliser</span> ou la commande <span class="commande">charger</span></span><br />
-				<ul>
-					<li>Pour utiliser la commande <span class="commande">charger</span> vous devez simplement taper :<br />
-						"charger + nom de l'objet"<br />
-						Par exemple : <br />
-						"charger EnderPearl"<br />
-					</li>
-					<li>Pour utiliser la commande <span class="commande">utiliser</span> vous devez simplement taper :<br />
-						"utiliser + nom de l'objet"<br />
-						Par exemple : <br />
-						"utiliser EnderPearl"<br />
-					</li>
-				</ul>
 			</div>
 
 			<div class="categorie">
