@@ -341,7 +341,7 @@ public class UserInterface implements ActionListener
 		  		showImage("images/mortSante.png");
 		  		break;
 		  	}
-		  	case "creeper" :
+		  	case "Creeper" :
 		  	{
 		  		showImage("images/mortCreeper.png");
 		  		break;
@@ -351,12 +351,12 @@ public class UserInterface implements ActionListener
 		  		showImage("images/mortCreeperSansAide.png");
 		  		break;
 		  	}
-		  	case "enderman" :
+		  	case "Enderman" :
 		  	{
 		  		showImage("images/mortEnderman.png");
 		  		break;
 		  	}
-		  	case "blaze" :
+		  	case "Blaze" :
 		  	{
 		  		showImage("images/mortBlaze.png");
 		  		break;

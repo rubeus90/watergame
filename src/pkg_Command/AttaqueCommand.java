@@ -40,20 +40,20 @@ public class AttaqueCommand extends Command
 		else
 		{
 			//Selon l'arme que le joueur porte, le dégât de la commande Attaque sera différente			
-			if(player.getItemListe().containsKey("epee"))
+			if(player.getItemListe().containsKey("epee") && !player.getItemListe().containsKey("hallebarde"))
 			{
-				degat = 80;
-				perte = 10;
+				degat = 100;
+				perte = 15;
 			}
 			else if(player.getItemListe().containsKey("hallebarde"))
 			{
-				degat = 180;
-				perte = 5;
+				degat = 100;
+				perte = 7;
 			}
 			else
 			{
-				degat = 40;
-				perte = 20;
+				degat = 100;
+				perte = 25;
 			}
 		
 			if(bot != null)
@@ -61,14 +61,14 @@ public class AttaqueCommand extends Command
 				if(bot.attaquable()) //c'est-à-dire si le bot n'est pas Creeper (qui s'explose quand on l'attaque)
 				{
 					//Tant que la santé du bot n'est pas nul, on peut l'attaquer. 
-					if(bot.getSante() - degat > 0) //le "- degat " est là pour éviter de retrouver le bot avec une santé négative
+					if(bot.getSante() - degat >= 0) //le "- degat " est là pour éviter de retrouver le bot avec une santé négative
 					{
 						bot.diminueSante(degat);
 						player.diminueSante(perte);
 						player.getGUI().resetTextPanel();
 						player.getGUI().println("La santé de " + bot.getNom() + ": " + bot.getSante());
 
-							
+						//Prevenir le joueur s'il attaque un bot trop puissant sans avoir l'arme requise
 						if((!player.getItemListe().containsKey("epee") && !player.getItemListe().containsKey("hallebarde")) || 
 								(!player.getItemListe().containsKey("hallebarde") && bot.getNom() == "Blaze"))
 						{
@@ -107,7 +107,7 @@ public class AttaqueCommand extends Command
 						if(hasBot == 0)
 							player.getGUI().createWinGame();
 					}
-				}
+				}				
 				else
 				{
 					player.getGUI().createGameOver("creeper"); //si le bot est Creeper, alors le joueur perd

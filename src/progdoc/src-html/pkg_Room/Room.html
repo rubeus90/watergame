@@ -34,296 +34,368 @@
 <span class="sourceLineNo">026</span> * voisine existe dans la direction voulu.<a name="line.26"></a>
 <span class="sourceLineNo">027</span> * <a name="line.27"></a>
 <span class="sourceLineNo">028</span> */<a name="line.28"></a>
-<span class="sourceLineNo">029</span>public class Room {<a name="line.29"></a>
-<span class="sourceLineNo">030</span>        public String description;<a name="line.30"></a>
-<span class="sourceLineNo">031</span>        // public Room northExit;<a name="line.31"></a>
-<span class="sourceLineNo">032</span>        // public Room southExit;<a name="line.32"></a>
-<span class="sourceLineNo">033</span>        // public Room eastExit;<a name="line.33"></a>
-<span class="sourceLineNo">034</span>        // public Room westExit;<a name="line.34"></a>
-<span class="sourceLineNo">035</span>        private HashMap&lt;String, Room&gt; exits;<a name="line.35"></a>
-<span class="sourceLineNo">036</span>        // private HashMap&lt;String, Item&gt; items;<a name="line.36"></a>
-<span class="sourceLineNo">037</span>        private ArrayList&lt;Potion&gt; potion;<a name="line.37"></a>
-<span class="sourceLineNo">038</span><a name="line.38"></a>
-<span class="sourceLineNo">039</span>        // private HashMap&lt;String, Room&gt; room;<a name="line.39"></a>
-<span class="sourceLineNo">040</span>        private String imageName;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>        private ItemListe items;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>        private String nomRoom;<a name="line.42"></a>
-<span class="sourceLineNo">043</span>        <a name="line.43"></a>
-<span class="sourceLineNo">044</span>        private HashMap&lt;String, Bots&gt; bots;<a name="line.44"></a>
-<span class="sourceLineNo">045</span><a name="line.45"></a>
-<span class="sourceLineNo">046</span>        /**<a name="line.46"></a>
-<span class="sourceLineNo">047</span>         * Constructeur qui permet d'initialiser la description d'une salle. "<a name="line.47"></a>
-<span class="sourceLineNo">048</span>         * Exemple d'utilisation : "Une forêt" , "une belle cuisine"<a name="line.48"></a>
-<span class="sourceLineNo">049</span>         * <a name="line.49"></a>
-<span class="sourceLineNo">050</span>         * @param description<a name="line.50"></a>
-<span class="sourceLineNo">051</span>         *            La description de la salle.<a name="line.51"></a>
-<span class="sourceLineNo">052</span>         */<a name="line.52"></a>
-<span class="sourceLineNo">053</span>        public Room(String description, String image, String pNomRoom) {<a name="line.53"></a>
-<span class="sourceLineNo">054</span>                this.description = description;<a name="line.54"></a>
-<span class="sourceLineNo">055</span>                exits = new HashMap&lt;String, Room&gt;();<a name="line.55"></a>
-<span class="sourceLineNo">056</span>                // items = new HashMap&lt;String, Item&gt;();<a name="line.56"></a>
-<span class="sourceLineNo">057</span>                imageName = image;<a name="line.57"></a>
-<span class="sourceLineNo">058</span>                items = new ItemListe();<a name="line.58"></a>
-<span class="sourceLineNo">059</span>                potion = new ArrayList&lt;Potion&gt;();<a name="line.59"></a>
-<span class="sourceLineNo">060</span>                nomRoom = pNomRoom;<a name="line.60"></a>
-<span class="sourceLineNo">061</span>                <a name="line.61"></a>
-<span class="sourceLineNo">062</span>                bots = new HashMap&lt;String, Bots&gt;();<a name="line.62"></a>
-<span class="sourceLineNo">063</span>        }<a name="line.63"></a>
-<span class="sourceLineNo">064</span><a name="line.64"></a>
-<span class="sourceLineNo">065</span>        // /**HashMap pour contenir les rooms, chaque room est lié à son nom<a name="line.65"></a>
-<span class="sourceLineNo">066</span>        // *<a name="line.66"></a>
-<span class="sourceLineNo">067</span>        // */<a name="line.67"></a>
-<span class="sourceLineNo">068</span>        // public void setRoom(String nameRoom, Room currentRoom)<a name="line.68"></a>
-<span class="sourceLineNo">069</span>        // {<a name="line.69"></a>
-<span class="sourceLineNo">070</span>        // room.put(nameRoom, currentRoom);<a name="line.70"></a>
-<span class="sourceLineNo">071</span>        // }<a name="line.71"></a>
-<span class="sourceLineNo">072</span><a name="line.72"></a>
-<span class="sourceLineNo">073</span>        public void addBot(String nomBot, Bots bot)<a name="line.73"></a>
-<span class="sourceLineNo">074</span>        {<a name="line.74"></a>
-<span class="sourceLineNo">075</span>                bots.put(nomBot, bot);<a name="line.75"></a>
-<span class="sourceLineNo">076</span>        }<a name="line.76"></a>
-<span class="sourceLineNo">077</span>        <a name="line.77"></a>
-<span class="sourceLineNo">078</span>        public void removeBot(String nomBot)<a name="line.78"></a>
-<span class="sourceLineNo">079</span>        {<a name="line.79"></a>
-<span class="sourceLineNo">080</span>                bots.remove(nomBot);<a name="line.80"></a>
-<span class="sourceLineNo">081</span>        }<a name="line.81"></a>
-<span class="sourceLineNo">082</span><a name="line.82"></a>
-<span class="sourceLineNo">083</span>        public void addItem(Pierre pierre)<a name="line.83"></a>
-<span class="sourceLineNo">084</span>        {<a name="line.84"></a>
-<span class="sourceLineNo">085</span>                items.putItem("EnderPearl", pierre);<a name="line.85"></a>
-<span class="sourceLineNo">086</span>        }<a name="line.86"></a>
-<span class="sourceLineNo">087</span><a name="line.87"></a>
-<span class="sourceLineNo">088</span>        /**<a name="line.88"></a>
-<span class="sourceLineNo">089</span>         * Ajouter un objet dans un HashMap<a name="line.89"></a>
-<span class="sourceLineNo">090</span>         */<a name="line.90"></a>
-<span class="sourceLineNo">091</span>        public void addItem(String nomItem, Item item) {<a name="line.91"></a>
-<span class="sourceLineNo">092</span>                items.putItem(nomItem, item);<a name="line.92"></a>
-<span class="sourceLineNo">093</span>        }<a name="line.93"></a>
-<span class="sourceLineNo">094</span>        <a name="line.94"></a>
-<span class="sourceLineNo">095</span>        public void addItem(Beamer beamer)<a name="line.95"></a>
-<span class="sourceLineNo">096</span>        {<a name="line.96"></a>
-<span class="sourceLineNo">097</span>                items.putItem("beamer", beamer);<a name="line.97"></a>
-<span class="sourceLineNo">098</span>        }<a name="line.98"></a>
-<span class="sourceLineNo">099</span><a name="line.99"></a>
-<span class="sourceLineNo">100</span>        public void addPotion(final Potion pPotion) {<a name="line.100"></a>
-<span class="sourceLineNo">101</span>                potion.add(pPotion);<a name="line.101"></a>
+<span class="sourceLineNo">029</span>public class Room <a name="line.29"></a>
+<span class="sourceLineNo">030</span>{<a name="line.30"></a>
+<span class="sourceLineNo">031</span>        public String description;<a name="line.31"></a>
+<span class="sourceLineNo">032</span>        private HashMap&lt;String, Room&gt; exits;<a name="line.32"></a>
+<span class="sourceLineNo">033</span>        private ArrayList&lt;Potion&gt; potion;<a name="line.33"></a>
+<span class="sourceLineNo">034</span>        private String imageName;<a name="line.34"></a>
+<span class="sourceLineNo">035</span>        private ItemListe items;<a name="line.35"></a>
+<span class="sourceLineNo">036</span>        private String nomRoom;<a name="line.36"></a>
+<span class="sourceLineNo">037</span>        <a name="line.37"></a>
+<span class="sourceLineNo">038</span>        private HashMap&lt;String, Bots&gt; bots;<a name="line.38"></a>
+<span class="sourceLineNo">039</span><a name="line.39"></a>
+<span class="sourceLineNo">040</span>        /**<a name="line.40"></a>
+<span class="sourceLineNo">041</span>         * Constructeur qui permet d'initialiser la description, l'image et le nom d'une salle.<a name="line.41"></a>
+<span class="sourceLineNo">042</span>         * <a name="line.42"></a>
+<span class="sourceLineNo">043</span>         * @param description<a name="line.43"></a>
+<span class="sourceLineNo">044</span>         *            La description de la salle.<a name="line.44"></a>
+<span class="sourceLineNo">045</span>         * @param image<a name="line.45"></a>
+<span class="sourceLineNo">046</span>         *                      L'image d'une salle<a name="line.46"></a>
+<span class="sourceLineNo">047</span>         * @param pNomRoom<a name="line.47"></a>
+<span class="sourceLineNo">048</span>         *                      Le nom de la salle<a name="line.48"></a>
+<span class="sourceLineNo">049</span>         */<a name="line.49"></a>
+<span class="sourceLineNo">050</span>        public Room(String description, String image, String pNomRoom) <a name="line.50"></a>
+<span class="sourceLineNo">051</span>        {<a name="line.51"></a>
+<span class="sourceLineNo">052</span>                this.description = description;<a name="line.52"></a>
+<span class="sourceLineNo">053</span>                exits = new HashMap&lt;String, Room&gt;();<a name="line.53"></a>
+<span class="sourceLineNo">054</span>                imageName = image;<a name="line.54"></a>
+<span class="sourceLineNo">055</span>                items = new ItemListe();<a name="line.55"></a>
+<span class="sourceLineNo">056</span>                potion = new ArrayList&lt;Potion&gt;();<a name="line.56"></a>
+<span class="sourceLineNo">057</span>                nomRoom = pNomRoom;<a name="line.57"></a>
+<span class="sourceLineNo">058</span>                <a name="line.58"></a>
+<span class="sourceLineNo">059</span>                bots = new HashMap&lt;String, Bots&gt;(); //un HashMap pour contenir les personnages non joueurs qui est dans la salle<a name="line.59"></a>
+<span class="sourceLineNo">060</span>        }<a name="line.60"></a>
+<span class="sourceLineNo">061</span><a name="line.61"></a>
+<span class="sourceLineNo">062</span>        /**<a name="line.62"></a>
+<span class="sourceLineNo">063</span>         * Ajouter un personnage non joueur dans la salle (donc dans le HashMap)<a name="line.63"></a>
+<span class="sourceLineNo">064</span>         * <a name="line.64"></a>
+<span class="sourceLineNo">065</span>         * @param nomBot<a name="line.65"></a>
+<span class="sourceLineNo">066</span>         *              Nom du personnage non joueur<a name="line.66"></a>
+<span class="sourceLineNo">067</span>         * @param bot<a name="line.67"></a>
+<span class="sourceLineNo">068</span>         *              Le personnage non joueur<a name="line.68"></a>
+<span class="sourceLineNo">069</span>         */<a name="line.69"></a>
+<span class="sourceLineNo">070</span>        public void addBot(String nomBot, Bots bot)<a name="line.70"></a>
+<span class="sourceLineNo">071</span>        {<a name="line.71"></a>
+<span class="sourceLineNo">072</span>                bots.put(nomBot, bot);<a name="line.72"></a>
+<span class="sourceLineNo">073</span>        }<a name="line.73"></a>
+<span class="sourceLineNo">074</span>        <a name="line.74"></a>
+<span class="sourceLineNo">075</span>        /**<a name="line.75"></a>
+<span class="sourceLineNo">076</span>         * Supprimer un personnage non joueur de la salle (donc du HashMap)<a name="line.76"></a>
+<span class="sourceLineNo">077</span>         * <a name="line.77"></a>
+<span class="sourceLineNo">078</span>         * @param nomBot<a name="line.78"></a>
+<span class="sourceLineNo">079</span>         *                      Nom du personnage non joueur<a name="line.79"></a>
+<span class="sourceLineNo">080</span>         */<a name="line.80"></a>
+<span class="sourceLineNo">081</span>        public void removeBot(String nomBot)<a name="line.81"></a>
+<span class="sourceLineNo">082</span>        {<a name="line.82"></a>
+<span class="sourceLineNo">083</span>                bots.remove(nomBot);<a name="line.83"></a>
+<span class="sourceLineNo">084</span>        }<a name="line.84"></a>
+<span class="sourceLineNo">085</span><a name="line.85"></a>
+<span class="sourceLineNo">086</span>        /**<a name="line.86"></a>
+<span class="sourceLineNo">087</span>         * Ajouter la pierre magique dans la salle (donc dans le HashMap du ItemListe)<a name="line.87"></a>
+<span class="sourceLineNo">088</span>         * <a name="line.88"></a>
+<span class="sourceLineNo">089</span>         * @param pierre<a name="line.89"></a>
+<span class="sourceLineNo">090</span>         *                      La pierre magique EnderPearl<a name="line.90"></a>
+<span class="sourceLineNo">091</span>         */<a name="line.91"></a>
+<span class="sourceLineNo">092</span>        public void addItem(Pierre pierre)<a name="line.92"></a>
+<span class="sourceLineNo">093</span>        {<a name="line.93"></a>
+<span class="sourceLineNo">094</span>                items.putItem("EnderPearl", pierre);<a name="line.94"></a>
+<span class="sourceLineNo">095</span>        }<a name="line.95"></a>
+<span class="sourceLineNo">096</span><a name="line.96"></a>
+<span class="sourceLineNo">097</span>        /**<a name="line.97"></a>
+<span class="sourceLineNo">098</span>         * Ajouter un objet dans la salle (donc dans le HashMap du ItemListe)<a name="line.98"></a>
+<span class="sourceLineNo">099</span>         */<a name="line.99"></a>
+<span class="sourceLineNo">100</span>        public void addItem(String nomItem, Item item) {<a name="line.100"></a>
+<span class="sourceLineNo">101</span>                items.putItem(nomItem, item);<a name="line.101"></a>
 <span class="sourceLineNo">102</span>        }<a name="line.102"></a>
-<span class="sourceLineNo">103</span><a name="line.103"></a>
+<span class="sourceLineNo">103</span>        <a name="line.103"></a>
 <span class="sourceLineNo">104</span>        /**<a name="line.104"></a>
-<span class="sourceLineNo">105</span>         * Cette méthode est pour vérifier si une potion appartient à l'ArrayList<a name="line.105"></a>
-<span class="sourceLineNo">106</span>         * des potions. Manques de meilleure idée, la méthode ici fait simplement<a name="line.106"></a>
-<span class="sourceLineNo">107</span>         * une boucle de comparaison entre le nom de potion passé en paramètre et<a name="line.107"></a>
-<span class="sourceLineNo">108</span>         * tous les noms de potion dans l'ArrayList.<a name="line.108"></a>
-<span class="sourceLineNo">109</span>         * <a name="line.109"></a>
-<span class="sourceLineNo">110</span>         * C'est une méthode a priori moche donc à refaire si on a assez de temps.<a name="line.110"></a>
-<span class="sourceLineNo">111</span>         * <a name="line.111"></a>
-<span class="sourceLineNo">112</span>         * @param nomPotion<a name="line.112"></a>
-<span class="sourceLineNo">113</span>         * @return<a name="line.113"></a>
-<span class="sourceLineNo">114</span>         */<a name="line.114"></a>
-<span class="sourceLineNo">115</span>        public boolean containPotion(String nomPotion) {<a name="line.115"></a>
-<span class="sourceLineNo">116</span>                boolean contain = false;<a name="line.116"></a>
-<span class="sourceLineNo">117</span><a name="line.117"></a>
-<span class="sourceLineNo">118</span>                for (int i = 0; i &lt; potion.size(); i++) {<a name="line.118"></a>
-<span class="sourceLineNo">119</span>                        if (potion.get(i).getNomPotion() == nomPotion)<a name="line.119"></a>
-<span class="sourceLineNo">120</span>                                contain = true;<a name="line.120"></a>
-<span class="sourceLineNo">121</span>                }<a name="line.121"></a>
-<span class="sourceLineNo">122</span><a name="line.122"></a>
-<span class="sourceLineNo">123</span>                return contain;<a name="line.123"></a>
+<span class="sourceLineNo">105</span>         * Ajouter un Beamer dans la salle (donc dans le HashMap du ItemListe)<a name="line.105"></a>
+<span class="sourceLineNo">106</span>         * <a name="line.106"></a>
+<span class="sourceLineNo">107</span>         * @param beamer<a name="line.107"></a>
+<span class="sourceLineNo">108</span>         *                      Le Beamer<a name="line.108"></a>
+<span class="sourceLineNo">109</span>         */<a name="line.109"></a>
+<span class="sourceLineNo">110</span>        public void addItem(Beamer beamer)<a name="line.110"></a>
+<span class="sourceLineNo">111</span>        {<a name="line.111"></a>
+<span class="sourceLineNo">112</span>                items.putItem("beamer", beamer);<a name="line.112"></a>
+<span class="sourceLineNo">113</span>        }<a name="line.113"></a>
+<span class="sourceLineNo">114</span><a name="line.114"></a>
+<span class="sourceLineNo">115</span>        /**<a name="line.115"></a>
+<span class="sourceLineNo">116</span>         * Ajouter un potion dans la salle<a name="line.116"></a>
+<span class="sourceLineNo">117</span>         * <a name="line.117"></a>
+<span class="sourceLineNo">118</span>         * @param pPotion<a name="line.118"></a>
+<span class="sourceLineNo">119</span>         *                      La potion (potion ou soin)<a name="line.119"></a>
+<span class="sourceLineNo">120</span>         */<a name="line.120"></a>
+<span class="sourceLineNo">121</span>        public void addPotion(final Potion pPotion) <a name="line.121"></a>
+<span class="sourceLineNo">122</span>        {<a name="line.122"></a>
+<span class="sourceLineNo">123</span>                potion.add(pPotion);<a name="line.123"></a>
 <span class="sourceLineNo">124</span>        }<a name="line.124"></a>
 <span class="sourceLineNo">125</span><a name="line.125"></a>
 <span class="sourceLineNo">126</span>        /**<a name="line.126"></a>
-<span class="sourceLineNo">127</span>         * Retirer un objet du HashMap<a name="line.127"></a>
-<span class="sourceLineNo">128</span>         */<a name="line.128"></a>
-<span class="sourceLineNo">129</span>        public void deleteItem(String nomItem) {<a name="line.129"></a>
-<span class="sourceLineNo">130</span>                items.removeItem(nomItem);<a name="line.130"></a>
-<span class="sourceLineNo">131</span>        }<a name="line.131"></a>
-<span class="sourceLineNo">132</span>        <a name="line.132"></a>
-<span class="sourceLineNo">133</span>        public ArrayList&lt;Potion&gt; getArrayList() {<a name="line.133"></a>
-<span class="sourceLineNo">134</span>                return potion;<a name="line.134"></a>
-<span class="sourceLineNo">135</span>        }<a name="line.135"></a>
-<span class="sourceLineNo">136</span><a name="line.136"></a>
-<span class="sourceLineNo">137</span>        /**<a name="line.137"></a>
-<span class="sourceLineNo">138</span>         * Fonction qui permet de retourné la description de la salle<a name="line.138"></a>
-<span class="sourceLineNo">139</span>         * <a name="line.139"></a>
-<span class="sourceLineNo">140</span>         * @return la description de la salle<a name="line.140"></a>
-<span class="sourceLineNo">141</span>         */<a name="line.141"></a>
-<span class="sourceLineNo">142</span>        public String getDescription() {<a name="line.142"></a>
-<span class="sourceLineNo">143</span>                return description;<a name="line.143"></a>
-<span class="sourceLineNo">144</span>        }<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        <a name="line.145"></a>
-<span class="sourceLineNo">146</span>        /**<a name="line.146"></a>
-<span class="sourceLineNo">147</span>         * Défini les sorties possibles de la salle courante. Soit la direction mène<a name="line.147"></a>
-<span class="sourceLineNo">148</span>         * à une salle, soit mène nulle part ( = NULL ).<a name="line.148"></a>
-<span class="sourceLineNo">149</span>         * <a name="line.149"></a>
-<span class="sourceLineNo">150</span>         * @param direction<a name="line.150"></a>
-<span class="sourceLineNo">151</span>         *            Une direction, par exemple north,east ...<a name="line.151"></a>
-<span class="sourceLineNo">152</span>         */<a name="line.152"></a>
-<span class="sourceLineNo">153</span>        public Room getExit(String direction) {<a name="line.153"></a>
-<span class="sourceLineNo">154</span>                return exits.get(direction);<a name="line.154"></a>
+<span class="sourceLineNo">127</span>         * Cette méthode est pour vérifier si une potion appartient à l'ArrayList<a name="line.127"></a>
+<span class="sourceLineNo">128</span>         * des potions. <a name="line.128"></a>
+<span class="sourceLineNo">129</span>         * On compare le nom de potion passé en paramètre et tous les noms de potion dans l'ArrayList. <a name="line.129"></a>
+<span class="sourceLineNo">130</span>         * Si on trouve le meme nom, la potion est donc presente dans l'ArrayList<a name="line.130"></a>
+<span class="sourceLineNo">131</span>         * <a name="line.131"></a>
+<span class="sourceLineNo">132</span>         * @param nomPotion<a name="line.132"></a>
+<span class="sourceLineNo">133</span>         *                      Nom de la potion<a name="line.133"></a>
+<span class="sourceLineNo">134</span>         * @return true si la potion est presente, false sinon<a name="line.134"></a>
+<span class="sourceLineNo">135</span>         */<a name="line.135"></a>
+<span class="sourceLineNo">136</span>        public boolean containPotion(String nomPotion) <a name="line.136"></a>
+<span class="sourceLineNo">137</span>        {<a name="line.137"></a>
+<span class="sourceLineNo">138</span>                boolean contain = false;<a name="line.138"></a>
+<span class="sourceLineNo">139</span><a name="line.139"></a>
+<span class="sourceLineNo">140</span>                for (int i = 0; i &lt; potion.size(); i++) <a name="line.140"></a>
+<span class="sourceLineNo">141</span>                {<a name="line.141"></a>
+<span class="sourceLineNo">142</span>                        if (potion.get(i).getNomPotion() == nomPotion)<a name="line.142"></a>
+<span class="sourceLineNo">143</span>                                contain = true;<a name="line.143"></a>
+<span class="sourceLineNo">144</span>                }<a name="line.144"></a>
+<span class="sourceLineNo">145</span><a name="line.145"></a>
+<span class="sourceLineNo">146</span>                return contain;<a name="line.146"></a>
+<span class="sourceLineNo">147</span>        }<a name="line.147"></a>
+<span class="sourceLineNo">148</span><a name="line.148"></a>
+<span class="sourceLineNo">149</span>        /**<a name="line.149"></a>
+<span class="sourceLineNo">150</span>         * Retirer un objet de la salle (donc du HashMap du ItemListe)<a name="line.150"></a>
+<span class="sourceLineNo">151</span>         */<a name="line.151"></a>
+<span class="sourceLineNo">152</span>        public void deleteItem(String nomItem) <a name="line.152"></a>
+<span class="sourceLineNo">153</span>        {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                items.removeItem(nomItem);<a name="line.154"></a>
 <span class="sourceLineNo">155</span>        }<a name="line.155"></a>
-<span class="sourceLineNo">156</span><a name="line.156"></a>
-<span class="sourceLineNo">157</span>        /*<a name="line.157"></a>
-<span class="sourceLineNo">158</span>         * Exo 7.9 : keySet() : retourner dans un Set les clés de la HashMap des<a name="line.158"></a>
-<span class="sourceLineNo">159</span>         * sorties<a name="line.159"></a>
-<span class="sourceLineNo">160</span>         * <a name="line.160"></a>
-<span class="sourceLineNo">161</span>         * Methode getExitString() : On crée un Set des clés de la HashMap des<a name="line.161"></a>
-<span class="sourceLineNo">162</span>         * sorties. Pour chaque clé, on ajoute à la variable locale exitString (un<a name="line.162"></a>
-<span class="sourceLineNo">163</span>         * String) le nom de la sortie, et on retourne la valeur de exitString<a name="line.163"></a>
-<span class="sourceLineNo">164</span>         */<a name="line.164"></a>
-<span class="sourceLineNo">165</span>        /**<a name="line.165"></a>
-<span class="sourceLineNo">166</span>         * Fonction qui permet d'énumerer les sorties possibles.<a name="line.166"></a>
-<span class="sourceLineNo">167</span>         * <a name="line.167"></a>
-<span class="sourceLineNo">168</span>         * @return Les sorties disponibles<a name="line.168"></a>
-<span class="sourceLineNo">169</span>         */<a name="line.169"></a>
-<span class="sourceLineNo">170</span>        public String getExitString() <a name="line.170"></a>
-<span class="sourceLineNo">171</span>        {<a name="line.171"></a>
-<span class="sourceLineNo">172</span>                String exitString = "Les autres endroits : ";<a name="line.172"></a>
-<span class="sourceLineNo">173</span><a name="line.173"></a>
-<span class="sourceLineNo">174</span>                Set&lt;String&gt; keys = exits.keySet();<a name="line.174"></a>
-<span class="sourceLineNo">175</span>                for (String exit : keys)<a name="line.175"></a>
-<span class="sourceLineNo">176</span>                        exitString += " " + "-" + exit + "-";<a name="line.176"></a>
-<span class="sourceLineNo">177</span>                return exitString;<a name="line.177"></a>
-<span class="sourceLineNo">178</span>        }<a name="line.178"></a>
-<span class="sourceLineNo">179</span><a name="line.179"></a>
-<span class="sourceLineNo">180</span>        public String getImageName() {<a name="line.180"></a>
-<span class="sourceLineNo">181</span>                return imageName;<a name="line.181"></a>
-<span class="sourceLineNo">182</span>        }<a name="line.182"></a>
-<span class="sourceLineNo">183</span><a name="line.183"></a>
-<span class="sourceLineNo">184</span>        public ItemListe getItemListe() {<a name="line.184"></a>
-<span class="sourceLineNo">185</span>                return items;<a name="line.185"></a>
-<span class="sourceLineNo">186</span>        }<a name="line.186"></a>
-<span class="sourceLineNo">187</span><a name="line.187"></a>
-<span class="sourceLineNo">188</span>        /**<a name="line.188"></a>
-<span class="sourceLineNo">189</span>         * Retourner le nom, la description et le poids de tous les objets dans la<a name="line.189"></a>
-<span class="sourceLineNo">190</span>         * salle<a name="line.190"></a>
+<span class="sourceLineNo">156</span>        <a name="line.156"></a>
+<span class="sourceLineNo">157</span>        /**<a name="line.157"></a>
+<span class="sourceLineNo">158</span>         * Retourner l'ArrayList des potions de la salle<a name="line.158"></a>
+<span class="sourceLineNo">159</span>         * <a name="line.159"></a>
+<span class="sourceLineNo">160</span>         * @return l'ArrayList des potions de la salle<a name="line.160"></a>
+<span class="sourceLineNo">161</span>         */<a name="line.161"></a>
+<span class="sourceLineNo">162</span>        public ArrayList&lt;Potion&gt; getArrayList() <a name="line.162"></a>
+<span class="sourceLineNo">163</span>        {<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                return potion;<a name="line.164"></a>
+<span class="sourceLineNo">165</span>        }<a name="line.165"></a>
+<span class="sourceLineNo">166</span><a name="line.166"></a>
+<span class="sourceLineNo">167</span>        /**<a name="line.167"></a>
+<span class="sourceLineNo">168</span>         * Fonction qui permet de retourné la description de la salle<a name="line.168"></a>
+<span class="sourceLineNo">169</span>         * <a name="line.169"></a>
+<span class="sourceLineNo">170</span>         * @return la description de la salle<a name="line.170"></a>
+<span class="sourceLineNo">171</span>         */<a name="line.171"></a>
+<span class="sourceLineNo">172</span>        public String getDescription() <a name="line.172"></a>
+<span class="sourceLineNo">173</span>        {<a name="line.173"></a>
+<span class="sourceLineNo">174</span>                return description;<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        }<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        <a name="line.176"></a>
+<span class="sourceLineNo">177</span>        /**<a name="line.177"></a>
+<span class="sourceLineNo">178</span>         * Définir les sorties possibles de la salle courante. Soit la direction mène<a name="line.178"></a>
+<span class="sourceLineNo">179</span>         * à une salle, soit mène nulle part ( = NULL ).<a name="line.179"></a>
+<span class="sourceLineNo">180</span>         * <a name="line.180"></a>
+<span class="sourceLineNo">181</span>         * @param direction<a name="line.181"></a>
+<span class="sourceLineNo">182</span>         *            Une direction, par exemple nord, sud ...<a name="line.182"></a>
+<span class="sourceLineNo">183</span>         */<a name="line.183"></a>
+<span class="sourceLineNo">184</span>        public Room getExit(String direction) <a name="line.184"></a>
+<span class="sourceLineNo">185</span>        {<a name="line.185"></a>
+<span class="sourceLineNo">186</span>                return exits.get(direction);<a name="line.186"></a>
+<span class="sourceLineNo">187</span>        }<a name="line.187"></a>
+<span class="sourceLineNo">188</span><a name="line.188"></a>
+<span class="sourceLineNo">189</span>        /**<a name="line.189"></a>
+<span class="sourceLineNo">190</span>         * Fonction qui permet d'énumerer les sorties possibles.<a name="line.190"></a>
 <span class="sourceLineNo">191</span>         * <a name="line.191"></a>
-<span class="sourceLineNo">192</span>         * @return Nom, description et poids des objets<a name="line.192"></a>
+<span class="sourceLineNo">192</span>         * @return Les sorties disponibles<a name="line.192"></a>
 <span class="sourceLineNo">193</span>         */<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        public String getItemString() <a name="line.194"></a>
+<span class="sourceLineNo">194</span>        public String getExitString() <a name="line.194"></a>
 <span class="sourceLineNo">195</span>        {<a name="line.195"></a>
-<span class="sourceLineNo">196</span>                String itemString = "Regarde s'il y a des objets ici: ";<a name="line.196"></a>
-<span class="sourceLineNo">197</span>                <a name="line.197"></a>
-<span class="sourceLineNo">198</span>                if (!items.getHashMap().isEmpty())<a name="line.198"></a>
-<span class="sourceLineNo">199</span>                {<a name="line.199"></a>
-<span class="sourceLineNo">200</span>                        Set&lt;String&gt; cles = items.getKeys();<a name="line.200"></a>
-<span class="sourceLineNo">201</span>                        for (String nom : cles) <a name="line.201"></a>
-<span class="sourceLineNo">202</span>                        {<a name="line.202"></a>
-<span class="sourceLineNo">203</span>                                if(nom != "beamer")<a name="line.203"></a>
-<span class="sourceLineNo">204</span>                                {<a name="line.204"></a>
-<span class="sourceLineNo">205</span>                                        Item valeurs = items.getValue(nom);<a name="line.205"></a>
-<span class="sourceLineNo">206</span>                                        itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.toString() + " kg";<a name="line.206"></a>
-<span class="sourceLineNo">207</span>                                }<a name="line.207"></a>
-<span class="sourceLineNo">208</span>                        }<a name="line.208"></a>
-<span class="sourceLineNo">209</span>                }<a name="line.209"></a>
-<span class="sourceLineNo">210</span>                else<a name="line.210"></a>
-<span class="sourceLineNo">211</span>                {<a name="line.211"></a>
-<span class="sourceLineNo">212</span>                        itemString = "Il n'y a pas d'objet ici";<a name="line.212"></a>
-<span class="sourceLineNo">213</span>                }<a name="line.213"></a>
-<span class="sourceLineNo">214</span>                <a name="line.214"></a>
-<span class="sourceLineNo">215</span><a name="line.215"></a>
-<span class="sourceLineNo">216</span>        <a name="line.216"></a>
-<span class="sourceLineNo">217</span>                /********** L'ArrayList des potions **********/<a name="line.217"></a>
-<span class="sourceLineNo">218</span>                itemString += "\n";<a name="line.218"></a>
-<span class="sourceLineNo">219</span>                for (int i = 0; i &lt; potion.size(); i++) {<a name="line.219"></a>
-<span class="sourceLineNo">220</span>                        itemString += "\n" + potion.get(i).getNomPotion();<a name="line.220"></a>
-<span class="sourceLineNo">221</span>                }<a name="line.221"></a>
-<span class="sourceLineNo">222</span>                /****************************************************************/<a name="line.222"></a>
+<span class="sourceLineNo">196</span>                String exitString = "Les autres endroits : ";<a name="line.196"></a>
+<span class="sourceLineNo">197</span><a name="line.197"></a>
+<span class="sourceLineNo">198</span>                Set&lt;String&gt; keys = exits.keySet();<a name="line.198"></a>
+<span class="sourceLineNo">199</span>                for (String exit : keys)<a name="line.199"></a>
+<span class="sourceLineNo">200</span>                        exitString += " " + "-" + exit + "-";<a name="line.200"></a>
+<span class="sourceLineNo">201</span>                return exitString;<a name="line.201"></a>
+<span class="sourceLineNo">202</span>        }<a name="line.202"></a>
+<span class="sourceLineNo">203</span><a name="line.203"></a>
+<span class="sourceLineNo">204</span>        /**<a name="line.204"></a>
+<span class="sourceLineNo">205</span>         * Retourner le nom de l'image de la salle<a name="line.205"></a>
+<span class="sourceLineNo">206</span>         * <a name="line.206"></a>
+<span class="sourceLineNo">207</span>         * @return le nom de l'image de la salle<a name="line.207"></a>
+<span class="sourceLineNo">208</span>         */<a name="line.208"></a>
+<span class="sourceLineNo">209</span>        public String getImageName() <a name="line.209"></a>
+<span class="sourceLineNo">210</span>        {<a name="line.210"></a>
+<span class="sourceLineNo">211</span>                return imageName;<a name="line.211"></a>
+<span class="sourceLineNo">212</span>        }<a name="line.212"></a>
+<span class="sourceLineNo">213</span><a name="line.213"></a>
+<span class="sourceLineNo">214</span>        /**<a name="line.214"></a>
+<span class="sourceLineNo">215</span>         * Retourner l'ItemListe (qui contient une HashMap des objets de la salle)<a name="line.215"></a>
+<span class="sourceLineNo">216</span>         * <a name="line.216"></a>
+<span class="sourceLineNo">217</span>         * @return l'ItemListe<a name="line.217"></a>
+<span class="sourceLineNo">218</span>         */<a name="line.218"></a>
+<span class="sourceLineNo">219</span>        public ItemListe getItemListe() <a name="line.219"></a>
+<span class="sourceLineNo">220</span>        {<a name="line.220"></a>
+<span class="sourceLineNo">221</span>                return items;<a name="line.221"></a>
+<span class="sourceLineNo">222</span>        }<a name="line.222"></a>
 <span class="sourceLineNo">223</span><a name="line.223"></a>
-<span class="sourceLineNo">224</span>                return itemString;<a name="line.224"></a>
-<span class="sourceLineNo">225</span><a name="line.225"></a>
-<span class="sourceLineNo">226</span>        }<a name="line.226"></a>
-<span class="sourceLineNo">227</span><a name="line.227"></a>
-<span class="sourceLineNo">228</span>        /**<a name="line.228"></a>
-<span class="sourceLineNo">229</span>         * Retourner une description plus detaillée de la salle<a name="line.229"></a>
-<span class="sourceLineNo">230</span>         * <a name="line.230"></a>
-<span class="sourceLineNo">231</span>         * @return Description detaillee de la salle<a name="line.231"></a>
-<span class="sourceLineNo">232</span>         */<a name="line.232"></a>
-<span class="sourceLineNo">233</span>        public String getLongDescription() <a name="line.233"></a>
-<span class="sourceLineNo">234</span>        {<a name="line.234"></a>
-<span class="sourceLineNo">235</span>                return "Tu es " + description + "\n" + getExitString() + "\n" + "\n"+ getItemString() + "\n" + "\n" + getBotString();<a name="line.235"></a>
-<span class="sourceLineNo">236</span>        }<a name="line.236"></a>
-<span class="sourceLineNo">237</span><a name="line.237"></a>
-<span class="sourceLineNo">238</span>        public String getNomRoom()<a name="line.238"></a>
-<span class="sourceLineNo">239</span>        {<a name="line.239"></a>
-<span class="sourceLineNo">240</span>                return nomRoom;<a name="line.240"></a>
-<span class="sourceLineNo">241</span>        }<a name="line.241"></a>
-<span class="sourceLineNo">242</span><a name="line.242"></a>
-<span class="sourceLineNo">243</span>        /**<a name="line.243"></a>
-<span class="sourceLineNo">244</span>         * Méthode aussi moche que la précédente pour retourner l'index de la potion<a name="line.244"></a>
-<span class="sourceLineNo">245</span>         * voulue<a name="line.245"></a>
-<span class="sourceLineNo">246</span>         * <a name="line.246"></a>
-<span class="sourceLineNo">247</span>         * @param nomPotion<a name="line.247"></a>
-<span class="sourceLineNo">248</span>         * @return<a name="line.248"></a>
-<span class="sourceLineNo">249</span>         */<a name="line.249"></a>
-<span class="sourceLineNo">250</span>        public int indexPotion(String nomPotion) {<a name="line.250"></a>
-<span class="sourceLineNo">251</span>                int k = 0;<a name="line.251"></a>
-<span class="sourceLineNo">252</span>                for (int i = 0; i &lt; potion.size(); i++) {<a name="line.252"></a>
-<span class="sourceLineNo">253</span>                        if (potion.get(i).getNomPotion() == nomPotion)<a name="line.253"></a>
-<span class="sourceLineNo">254</span>                                k = i;<a name="line.254"></a>
-<span class="sourceLineNo">255</span>                }<a name="line.255"></a>
-<span class="sourceLineNo">256</span><a name="line.256"></a>
-<span class="sourceLineNo">257</span>                return k;<a name="line.257"></a>
-<span class="sourceLineNo">258</span>        }<a name="line.258"></a>
+<span class="sourceLineNo">224</span>        /**<a name="line.224"></a>
+<span class="sourceLineNo">225</span>         * Retourner le nom, la description et le poids de tous les objets et les potions dans la<a name="line.225"></a>
+<span class="sourceLineNo">226</span>         * salle<a name="line.226"></a>
+<span class="sourceLineNo">227</span>         * <a name="line.227"></a>
+<span class="sourceLineNo">228</span>         * @return Nom, description et poids des objets<a name="line.228"></a>
+<span class="sourceLineNo">229</span>         */<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        public String getItemString() <a name="line.230"></a>
+<span class="sourceLineNo">231</span>        {<a name="line.231"></a>
+<span class="sourceLineNo">232</span>                String itemString = "Regarde s'il y a des objets ici: ";<a name="line.232"></a>
+<span class="sourceLineNo">233</span>                <a name="line.233"></a>
+<span class="sourceLineNo">234</span>                if (!items.getHashMap().isEmpty())<a name="line.234"></a>
+<span class="sourceLineNo">235</span>                {<a name="line.235"></a>
+<span class="sourceLineNo">236</span>                        Set&lt;String&gt; cles = items.getKeys();<a name="line.236"></a>
+<span class="sourceLineNo">237</span>                        for (String nom : cles) <a name="line.237"></a>
+<span class="sourceLineNo">238</span>                        {<a name="line.238"></a>
+<span class="sourceLineNo">239</span>                                if(nom != "beamer")<a name="line.239"></a>
+<span class="sourceLineNo">240</span>                                {<a name="line.240"></a>
+<span class="sourceLineNo">241</span>                                        Item valeurs = items.getValue(nom);<a name="line.241"></a>
+<span class="sourceLineNo">242</span>                                        itemString += "\n" + valeurs.getDescriptionItem() + " qui pèse " + valeurs.toString() + " kg";<a name="line.242"></a>
+<span class="sourceLineNo">243</span>                                }<a name="line.243"></a>
+<span class="sourceLineNo">244</span>                        }<a name="line.244"></a>
+<span class="sourceLineNo">245</span>                }<a name="line.245"></a>
+<span class="sourceLineNo">246</span>                else<a name="line.246"></a>
+<span class="sourceLineNo">247</span>                {<a name="line.247"></a>
+<span class="sourceLineNo">248</span>                        itemString = "Il n'y a pas d'objet ici";<a name="line.248"></a>
+<span class="sourceLineNo">249</span>                }<a name="line.249"></a>
+<span class="sourceLineNo">250</span>                <a name="line.250"></a>
+<span class="sourceLineNo">251</span><a name="line.251"></a>
+<span class="sourceLineNo">252</span>        <a name="line.252"></a>
+<span class="sourceLineNo">253</span>                /********** L'ArrayList des potions **********/<a name="line.253"></a>
+<span class="sourceLineNo">254</span>                itemString += "\n";<a name="line.254"></a>
+<span class="sourceLineNo">255</span>                for (int i = 0; i &lt; potion.size(); i++) {<a name="line.255"></a>
+<span class="sourceLineNo">256</span>                        itemString += "\n" + "Un(e) " + potion.get(i).getNomPotion();<a name="line.256"></a>
+<span class="sourceLineNo">257</span>                }<a name="line.257"></a>
+<span class="sourceLineNo">258</span>                /****************************************************************/<a name="line.258"></a>
 <span class="sourceLineNo">259</span><a name="line.259"></a>
-<span class="sourceLineNo">260</span>        public void removePotion(final Potion pPotion) {<a name="line.260"></a>
-<span class="sourceLineNo">261</span>                potion.remove(pPotion);<a name="line.261"></a>
+<span class="sourceLineNo">260</span>                return itemString;<a name="line.260"></a>
+<span class="sourceLineNo">261</span><a name="line.261"></a>
 <span class="sourceLineNo">262</span>        }<a name="line.262"></a>
-<span class="sourceLineNo">263</span>        <a name="line.263"></a>
+<span class="sourceLineNo">263</span><a name="line.263"></a>
 <span class="sourceLineNo">264</span>        /**<a name="line.264"></a>
-<span class="sourceLineNo">265</span>         * Défini les sorties possibles de la salle courante. Soit la direction mène<a name="line.265"></a>
-<span class="sourceLineNo">266</span>         * à une salle, soit mène nulle part ( = NULL ).<a name="line.266"></a>
-<span class="sourceLineNo">267</span>         * <a name="line.267"></a>
-<span class="sourceLineNo">268</span>         * @param direction<a name="line.268"></a>
-<span class="sourceLineNo">269</span>         *            Une direction, par exemple north,east ...<a name="line.269"></a>
-<span class="sourceLineNo">270</span>         * @param voisin<a name="line.270"></a>
-<span class="sourceLineNo">271</span>         *            Salle voisine ??<a name="line.271"></a>
-<span class="sourceLineNo">272</span>         */<a name="line.272"></a>
-<span class="sourceLineNo">273</span>        public void setExit(String direction, Room voisin) {<a name="line.273"></a>
-<span class="sourceLineNo">274</span>                exits.put(direction, voisin);<a name="line.274"></a>
-<span class="sourceLineNo">275</span>        }<a name="line.275"></a>
-<span class="sourceLineNo">276</span>        <a name="line.276"></a>
-<span class="sourceLineNo">277</span>        public String getBotString()<a name="line.277"></a>
-<span class="sourceLineNo">278</span>        {<a name="line.278"></a>
-<span class="sourceLineNo">279</span>                String nomBots = "";<a name="line.279"></a>
-<span class="sourceLineNo">280</span>                Set&lt;String&gt; keys = bots.keySet();<a name="line.280"></a>
-<span class="sourceLineNo">281</span>                for(String nom : keys)<a name="line.281"></a>
-<span class="sourceLineNo">282</span>                        nomBots += nom + "  ";<a name="line.282"></a>
-<span class="sourceLineNo">283</span>                <a name="line.283"></a>
-<span class="sourceLineNo">284</span>                if(nomBots != "")<a name="line.284"></a>
-<span class="sourceLineNo">285</span>                        return "!!!! Fais attention, il y a d'autre(s) ennemi(s) dans cet endroit: " + nomBots + "!!!!";<a name="line.285"></a>
-<span class="sourceLineNo">286</span>                else <a name="line.286"></a>
-<span class="sourceLineNo">287</span>                        return "Il n'y a pas d'ennemi ici!";<a name="line.287"></a>
-<span class="sourceLineNo">288</span>        }<a name="line.288"></a>
-<span class="sourceLineNo">289</span>        <a name="line.289"></a>
-<span class="sourceLineNo">290</span>        public Bots getBot()<a name="line.290"></a>
+<span class="sourceLineNo">265</span>         * Retourner une description plus detaillée de la salle<a name="line.265"></a>
+<span class="sourceLineNo">266</span>         * <a name="line.266"></a>
+<span class="sourceLineNo">267</span>         * @return Description detaillee de la salle<a name="line.267"></a>
+<span class="sourceLineNo">268</span>         */<a name="line.268"></a>
+<span class="sourceLineNo">269</span>        public String getLongDescription() <a name="line.269"></a>
+<span class="sourceLineNo">270</span>        {<a name="line.270"></a>
+<span class="sourceLineNo">271</span>                return "Tu es " + description + "\n" + getExitString() + "\n" + "\n"+ getItemString() + "\n" + "\n" + getBotString();<a name="line.271"></a>
+<span class="sourceLineNo">272</span>        }<a name="line.272"></a>
+<span class="sourceLineNo">273</span><a name="line.273"></a>
+<span class="sourceLineNo">274</span>        /**<a name="line.274"></a>
+<span class="sourceLineNo">275</span>         * Retourner le nom de la salle<a name="line.275"></a>
+<span class="sourceLineNo">276</span>         * <a name="line.276"></a>
+<span class="sourceLineNo">277</span>         * @return le nom de la salle<a name="line.277"></a>
+<span class="sourceLineNo">278</span>         */<a name="line.278"></a>
+<span class="sourceLineNo">279</span>        public String getNomRoom()<a name="line.279"></a>
+<span class="sourceLineNo">280</span>        {<a name="line.280"></a>
+<span class="sourceLineNo">281</span>                return nomRoom;<a name="line.281"></a>
+<span class="sourceLineNo">282</span>        }<a name="line.282"></a>
+<span class="sourceLineNo">283</span><a name="line.283"></a>
+<span class="sourceLineNo">284</span>        /**<a name="line.284"></a>
+<span class="sourceLineNo">285</span>         * Retourner l'indexe de la potion correspondante au nom passe en parametre dans l'ArrayListe des potions<a name="line.285"></a>
+<span class="sourceLineNo">286</span>         * <a name="line.286"></a>
+<span class="sourceLineNo">287</span>         * @param nomPotion<a name="line.287"></a>
+<span class="sourceLineNo">288</span>         * @return l'indexe de la potion<a name="line.288"></a>
+<span class="sourceLineNo">289</span>         */<a name="line.289"></a>
+<span class="sourceLineNo">290</span>        public int indexPotion(String nomPotion) <a name="line.290"></a>
 <span class="sourceLineNo">291</span>        {<a name="line.291"></a>
-<span class="sourceLineNo">292</span>                Bots bot = null;<a name="line.292"></a>
-<span class="sourceLineNo">293</span>                Set&lt;String&gt; keys = bots.keySet();<a name="line.293"></a>
-<span class="sourceLineNo">294</span>                for(String nom : keys)<a name="line.294"></a>
-<span class="sourceLineNo">295</span>                {<a name="line.295"></a>
-<span class="sourceLineNo">296</span>                        if(nom != null)<a name="line.296"></a>
-<span class="sourceLineNo">297</span>                                bot = bots.get(nom);<a name="line.297"></a>
-<span class="sourceLineNo">298</span>                        else<a name="line.298"></a>
-<span class="sourceLineNo">299</span>                                bot = null;<a name="line.299"></a>
-<span class="sourceLineNo">300</span>                }<a name="line.300"></a>
-<span class="sourceLineNo">301</span>                return bot;<a name="line.301"></a>
-<span class="sourceLineNo">302</span>        }<a name="line.302"></a>
-<span class="sourceLineNo">303</span>        <a name="line.303"></a>
-<span class="sourceLineNo">304</span>        public void setImage(String image)<a name="line.304"></a>
-<span class="sourceLineNo">305</span>        {<a name="line.305"></a>
-<span class="sourceLineNo">306</span>                imageName = image;<a name="line.306"></a>
-<span class="sourceLineNo">307</span>        }<a name="line.307"></a>
-<span class="sourceLineNo">308</span>        <a name="line.308"></a>
-<span class="sourceLineNo">309</span>        public boolean containBot(String nomBot)<a name="line.309"></a>
-<span class="sourceLineNo">310</span>        {<a name="line.310"></a>
-<span class="sourceLineNo">311</span>                boolean contain = false;<a name="line.311"></a>
-<span class="sourceLineNo">312</span>                <a name="line.312"></a>
-<span class="sourceLineNo">313</span>                if(bots.containsKey(nomBot))<a name="line.313"></a>
-<span class="sourceLineNo">314</span>                        contain = true;<a name="line.314"></a>
-<span class="sourceLineNo">315</span>                <a name="line.315"></a>
-<span class="sourceLineNo">316</span>                return contain;<a name="line.316"></a>
-<span class="sourceLineNo">317</span>        }<a name="line.317"></a>
-<span class="sourceLineNo">318</span>}<a name="line.318"></a>
+<span class="sourceLineNo">292</span>                int k = 0;<a name="line.292"></a>
+<span class="sourceLineNo">293</span>                for (int i = 0; i &lt; potion.size(); i++) <a name="line.293"></a>
+<span class="sourceLineNo">294</span>                {<a name="line.294"></a>
+<span class="sourceLineNo">295</span>                        if (potion.get(i).getNomPotion() == nomPotion)<a name="line.295"></a>
+<span class="sourceLineNo">296</span>                                k = i;<a name="line.296"></a>
+<span class="sourceLineNo">297</span>                }<a name="line.297"></a>
+<span class="sourceLineNo">298</span><a name="line.298"></a>
+<span class="sourceLineNo">299</span>                return k;<a name="line.299"></a>
+<span class="sourceLineNo">300</span>        }<a name="line.300"></a>
+<span class="sourceLineNo">301</span><a name="line.301"></a>
+<span class="sourceLineNo">302</span>        /**<a name="line.302"></a>
+<span class="sourceLineNo">303</span>         * Retourner le nom d'une potion (Potion ou Soin)<a name="line.303"></a>
+<span class="sourceLineNo">304</span>         * <a name="line.304"></a>
+<span class="sourceLineNo">305</span>         * @param pPotion<a name="line.305"></a>
+<span class="sourceLineNo">306</span>         *                      Nom de la potion<a name="line.306"></a>
+<span class="sourceLineNo">307</span>         */<a name="line.307"></a>
+<span class="sourceLineNo">308</span>        public void removePotion(final Potion pPotion) <a name="line.308"></a>
+<span class="sourceLineNo">309</span>        {<a name="line.309"></a>
+<span class="sourceLineNo">310</span>                potion.remove(pPotion);<a name="line.310"></a>
+<span class="sourceLineNo">311</span>        }<a name="line.311"></a>
+<span class="sourceLineNo">312</span>        <a name="line.312"></a>
+<span class="sourceLineNo">313</span>        /**<a name="line.313"></a>
+<span class="sourceLineNo">314</span>         * Défini les sorties possibles de la salle courante. Soit la direction mène<a name="line.314"></a>
+<span class="sourceLineNo">315</span>         * à une salle, soit mène nulle part ( = NULL ).<a name="line.315"></a>
+<span class="sourceLineNo">316</span>         * <a name="line.316"></a>
+<span class="sourceLineNo">317</span>         * @param direction<a name="line.317"></a>
+<span class="sourceLineNo">318</span>         *            Une direction, par exemple nord, sud ...<a name="line.318"></a>
+<span class="sourceLineNo">319</span>         * @param voisin<a name="line.319"></a>
+<span class="sourceLineNo">320</span>         *            Salle voisine <a name="line.320"></a>
+<span class="sourceLineNo">321</span>         */<a name="line.321"></a>
+<span class="sourceLineNo">322</span>        public void setExit(String direction, Room voisin) <a name="line.322"></a>
+<span class="sourceLineNo">323</span>        {<a name="line.323"></a>
+<span class="sourceLineNo">324</span>                exits.put(direction, voisin);<a name="line.324"></a>
+<span class="sourceLineNo">325</span>        }<a name="line.325"></a>
+<span class="sourceLineNo">326</span>        <a name="line.326"></a>
+<span class="sourceLineNo">327</span>        /**<a name="line.327"></a>
+<span class="sourceLineNo">328</span>         * Retourner un String qui enumere tous les personnages non joueurs qui sont presents dans la salle<a name="line.328"></a>
+<span class="sourceLineNo">329</span>         * <a name="line.329"></a>
+<span class="sourceLineNo">330</span>         * @return un String qui affiche le nom de tous les ennemis dans la salle<a name="line.330"></a>
+<span class="sourceLineNo">331</span>         */<a name="line.331"></a>
+<span class="sourceLineNo">332</span>        public String getBotString()<a name="line.332"></a>
+<span class="sourceLineNo">333</span>        {<a name="line.333"></a>
+<span class="sourceLineNo">334</span>                String nomBots = "";<a name="line.334"></a>
+<span class="sourceLineNo">335</span>                Set&lt;String&gt; keys = bots.keySet();<a name="line.335"></a>
+<span class="sourceLineNo">336</span>                for(String nom : keys)<a name="line.336"></a>
+<span class="sourceLineNo">337</span>                        nomBots += nom + "  ";<a name="line.337"></a>
+<span class="sourceLineNo">338</span>                <a name="line.338"></a>
+<span class="sourceLineNo">339</span>                if(nomBots != "")<a name="line.339"></a>
+<span class="sourceLineNo">340</span>                        return "!!!! Fais attention, il y a d'autre(s) ennemi(s) dans cet endroit: " + nomBots + "!!!!";<a name="line.340"></a>
+<span class="sourceLineNo">341</span>                else <a name="line.341"></a>
+<span class="sourceLineNo">342</span>                        return "Il n'y a pas d'ennemi ici!";<a name="line.342"></a>
+<span class="sourceLineNo">343</span>        }<a name="line.343"></a>
+<span class="sourceLineNo">344</span>        <a name="line.344"></a>
+<span class="sourceLineNo">345</span>        /**<a name="line.345"></a>
+<span class="sourceLineNo">346</span>         * Retourner l'ennemi present dans la salle<a name="line.346"></a>
+<span class="sourceLineNo">347</span>         * <a name="line.347"></a>
+<span class="sourceLineNo">348</span>         * @return l'ennemi dans la salle<a name="line.348"></a>
+<span class="sourceLineNo">349</span>         */<a name="line.349"></a>
+<span class="sourceLineNo">350</span>        public Bots getBot()<a name="line.350"></a>
+<span class="sourceLineNo">351</span>        {<a name="line.351"></a>
+<span class="sourceLineNo">352</span>                Bots bot = null;<a name="line.352"></a>
+<span class="sourceLineNo">353</span>                Set&lt;String&gt; keys = bots.keySet();<a name="line.353"></a>
+<span class="sourceLineNo">354</span>                for(String nom : keys)<a name="line.354"></a>
+<span class="sourceLineNo">355</span>                {<a name="line.355"></a>
+<span class="sourceLineNo">356</span>                        if(nom != null)<a name="line.356"></a>
+<span class="sourceLineNo">357</span>                                bot = bots.get(nom);<a name="line.357"></a>
+<span class="sourceLineNo">358</span>                        else<a name="line.358"></a>
+<span class="sourceLineNo">359</span>                                bot = null;<a name="line.359"></a>
+<span class="sourceLineNo">360</span>                }<a name="line.360"></a>
+<span class="sourceLineNo">361</span>                return bot;<a name="line.361"></a>
+<span class="sourceLineNo">362</span>        }<a name="line.362"></a>
+<span class="sourceLineNo">363</span>        <a name="line.363"></a>
+<span class="sourceLineNo">364</span>        /**<a name="line.364"></a>
+<span class="sourceLineNo">365</span>         * Imposer l'image de la salle<a name="line.365"></a>
+<span class="sourceLineNo">366</span>         * @param image<a name="line.366"></a>
+<span class="sourceLineNo">367</span>         */<a name="line.367"></a>
+<span class="sourceLineNo">368</span>        public void setImage(String image)<a name="line.368"></a>
+<span class="sourceLineNo">369</span>        {<a name="line.369"></a>
+<span class="sourceLineNo">370</span>                imageName = image;<a name="line.370"></a>
+<span class="sourceLineNo">371</span>        }<a name="line.371"></a>
+<span class="sourceLineNo">372</span>        <a name="line.372"></a>
+<span class="sourceLineNo">373</span>        /**<a name="line.373"></a>
+<span class="sourceLineNo">374</span>         * Verifier si dans une salle, le bot correspondant au nom passe en parametre est bien present.<a name="line.374"></a>
+<span class="sourceLineNo">375</span>         * Retourner vrai si oui, false sinon<a name="line.375"></a>
+<span class="sourceLineNo">376</span>         * <a name="line.376"></a>
+<span class="sourceLineNo">377</span>         * @param nomBot<a name="line.377"></a>
+<span class="sourceLineNo">378</span>         *                      Nom de l'ennemi<a name="line.378"></a>
+<span class="sourceLineNo">379</span>         * @return true si le bot est present dans la salle, false sinon<a name="line.379"></a>
+<span class="sourceLineNo">380</span>         */<a name="line.380"></a>
+<span class="sourceLineNo">381</span>        public boolean containBot(String nomBot)<a name="line.381"></a>
+<span class="sourceLineNo">382</span>        {<a name="line.382"></a>
+<span class="sourceLineNo">383</span>                boolean contain = false;<a name="line.383"></a>
+<span class="sourceLineNo">384</span>                <a name="line.384"></a>
+<span class="sourceLineNo">385</span>                if(bots.containsKey(nomBot))<a name="line.385"></a>
+<span class="sourceLineNo">386</span>                        contain = true;<a name="line.386"></a>
+<span class="sourceLineNo">387</span>                <a name="line.387"></a>
+<span class="sourceLineNo">388</span>                return contain;<a name="line.388"></a>
+<span class="sourceLineNo">389</span>        }<a name="line.389"></a>
+<span class="sourceLineNo">390</span>}<a name="line.390"></a>
 
 
 

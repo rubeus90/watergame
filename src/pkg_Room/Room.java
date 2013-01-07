@@ -285,7 +285,7 @@ public class Room
 	 * Retourner l'indexe de la potion correspondante au nom passe en parametre dans l'ArrayListe des potions
 	 * 
 	 * @param nomPotion
-	 * @return
+	 * @return l'indexe de la potion
 	 */
 	public int indexPotion(String nomPotion) 
 	{

@@ -5,18 +5,16 @@ import pkg_Characters.Player;
 import pkg_Game.GameEngine;
 import pkg_Game.UserInterface;
 
+/**
+ * Classe qui contient le main et qui génère tout le jeu
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ */
 public class Game extends JApplet 
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Classe qui contient le main et qui génère tout le jeu
-	 * 
-	 * @author NGUYEN Hong Ngoc
-	 * @author PATOIS Thibault
-	 */
+	
 	private static GameEngine engine;
 	private static UserInterface gui;
 	private static Player player;

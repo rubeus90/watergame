@@ -26,7 +26,8 @@ public class RoomRandomizer
 	
 	/**
 	 * Retourner une salle aleatoire parmis les salles du jeu
-	 * @return
+	 * 
+	 * @return une salle aleatoire
 	 */
 	public Room getRandomRoom()
 	{

@@ -1,0 +1,4 @@
+take hache
+go nord
+go ouest
+attaque

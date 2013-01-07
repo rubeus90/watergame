@@ -182,8 +182,8 @@ public class GameEngine
 		
 		//Ajouter les bots dans les salles
 		Bots creeper = new Bots("Creeper", null, 80, false);
-		Bots blaze = new Bots("Blaze", null, 50, true);
-		Bots enderman = new Bots("Enderman", null, 20, true);
+		Bots blaze = new Bots("Blaze", null, 500, true);
+		Bots enderman = new Bots("Enderman", null, 300, true);
 		foret.addBot("Creeper", creeper);
 		plage.addBot("Blaze", blaze);	
 		vallee.addBot("Enderman", enderman);
@@ -238,7 +238,7 @@ public class GameEngine
 	 * commande. Si la commande n'est pas dans la liste des commandes
 	 * disponibles, afficher une message d'erreur.
 	 * 
-	 * @param command
+	 * @param commandLine
 	 *            La commande à analyser.
 	 * 
 	 */
@@ -251,12 +251,16 @@ public class GameEngine
 		{		
 			gui.createInteractionBot();
 			gui.colorButton();
-			//Ajouter une ligne de "-" qui l'esthétisme du jeu
+			//Ajouter une ligne de "-" qui ameliore l'esthétisme du jeu
 			gui.getJTextArea().append("\n" + "----------------------------------------------------------------------------" + "\n");
 			gui.showInventaireRoom(); //actualiser la fenêtre qui affiche la liste des objets dans la salle
 			gui.showInventairePlayer(); //actualiser la fenêtre qui affiche l'inventaire du joueur
 		}
-		else //si la santé est descendue à 0, le joueur a perdu
+		else if (player.getSante() <= 0 && commandLine.equals("attaque"))
+		{
+			gui.createGameOver(player.getRoom().getBot().getNom());
+		}
+		else
 		{
 			gui.createGameOver("sante");
 		}
