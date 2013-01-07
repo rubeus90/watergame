@@ -3,24 +3,37 @@ package pkg_Dialogue;
 import pkg_Characters.Bots;
 import pkg_Game.GameEngine;
 
+/**
+ * Cette classe gere le troisieme dialogue avec Creeper dans le temple
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class DialogueCreeper3 extends Dialogue
 {
+	/**
+	 * Constructeur pour le troisieme dialogue avec Creeper
+	 */
 	public DialogueCreeper3()
 	{
 		super();
 	}
 	
+	/**
+	 * Methode qui permet d'afficher le dialogue avec Creeper dans le temple
+	 */
 	public void afficheDialogue(GameEngine engine)
 	{
-		if(engine.gameResetted())
+		if(engine.gameResetted()) //si le jeu est recommance, on remet l'etape a 1
 		{
 			super.setEtape(1);
-			engine.setResetGame();
+			engine.setResetGame(); //on remet le jeu comme s'il n'est pas recommence, sinon le dialogue va tourjous rester a l'etape 1
 		}
 		
 		engine.getGUI().showDialogue(1);
 		
-		if(engine.getPlayer().getItemListe().containsKey("papier"))
+		if(engine.getPlayer().getItemListe().containsKey("papier")) //si le joueur a toujour le papier sur lui
 		{
 			if(super.getEtape() == 10)
 			{
@@ -52,11 +65,11 @@ public class DialogueCreeper3 extends Dialogue
 					engine.getPlayer().getRoom().removeBot("Creeper");
 					engine.getTransporterRoom().addBot("Creeper", new Bots("Creeper", null, 80, false));
 					engine.getPlayer().getRoom().setImage("images/temple.png");
-					engine.getTransporterRoom().setImage("images/SalleSecrete.png");
+					engine.getTransporterRoom().setImage("images/sallesecretecreeper.png");
 				}
 			}
 		}
-		else
+		else //si le joueur a jete le papier quelques parts, demande lui d'aller le chercher
 		{
 			switch(super.getEtape())
 			{

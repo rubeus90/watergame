@@ -1,7 +1,6 @@
 package pkg_Command;
 import pkg_Characters.Player;
 import pkg_Room.Room;
-import pkg_Dialogue.*;
 
 /**
  * Cette classe gere la commande "go" du jeu, qui permet au joueur de se deplacer entre les endroits differents

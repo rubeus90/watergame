@@ -3,27 +3,38 @@ package pkg_Dialogue;
 
 import pkg_Characters.Bots;
 import pkg_Game.GameEngine;
-import pkg_Items.Item;
-import pkg_Room.Room;
 
+/**
+ * Cette classe gere le deuxieme dialogue avec Creeper dans la grotte
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class DialogueCreeper2 extends Dialogue
 {
+	/**
+	 * Constructeur pour le deuxieme dialogue avec Creeper
+	 */
 	public DialogueCreeper2()
 	{
 		super();
 	}
 	
+	/**
+	 * Methode qui permet d'afficher le dialogue avec Creeper dans la grotte
+	 */
 	public void afficheDialogue(GameEngine engine)
 	{
-		if(engine.gameResetted())
+		if(engine.gameResetted()) //si le jeu est recommance, on remet l'etape a 1
 		{
 			super.setEtape(1);
-			engine.setResetGame();
+			engine.setResetGame(); //on remet le jeu comme s'il n'est pas recommence, sinon le dialogue va tourjous rester a l'etape 1
 		}
 		
 		engine.getGUI().showDialogue(1);
 				
-		if(engine.getPlayer().getItemListe().containsKey("papier"))
+		if(engine.getPlayer().getItemListe().containsKey("papier")) //si le joueur possede le papier
 		{
 			if(super.getEtape() == 10)
 			{
@@ -64,16 +75,16 @@ public class DialogueCreeper2 extends Dialogue
 				{
 					engine.getPlayer().getRoom().removeBot("Creeper");
 					engine.getArrayListRoom().get(1).addBot("Creeper", new Bots("Creeper", null, 80, false));
-					engine.getArrayListRoom().get(1).setImage("images/temple.png");
+					engine.getArrayListRoom().get(1).setImage("images/templeAvecCreeper.png");
 					engine.getPlayer().getRoom().setImage("images/grotte.png");
 					engine.getGUI().showImage(engine.getPlayer().getRoom().getImageName());
 					engine.getGUI().closeDialogue();				
 				}
 			}
 		}
-		else
+		else //si le joueur n'a pas de papier
 		{
-			if(engine.getArrayListRoom().get(6).containBot("Enderman"))
+			if(engine.getArrayListRoom().get(6).containBot("Enderman")) //Enderman n'est pas tue
 			{
 				switch(super.getEtape())
 				{
@@ -110,7 +121,7 @@ public class DialogueCreeper2 extends Dialogue
 					}
 				}
 			}
-			else
+			else //Enderman est tue mais le joueur n'a pas ramasse le papier
 			{
 				if(super.getEtape() == 0)
 				{

@@ -1,31 +1,22 @@
 package pkg_Game;
 
-
-
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-//import java.awt.event.FocusListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.ImageObserver;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -37,25 +28,18 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.event.MenuKeyListener;
-
 import java.awt.Image;
 import javax.imageio.ImageIO;
-
-import pkg_Command.Parser;
-import pkg_Items.Item;
-
 import java.awt.Graphics;
-
 import java.io.File;
 import java.io.IOException;
 
 /**
- * This class implements a simple graphical user interface with a text entry
- * area, a text output area and an optional image.
+ * Cette classe implemente une interface graphique qui comporte une image des salle du jeu, une partie texte,
+ * une entree de texte, des boutons, 2 listes d'objets et une image de la carte du jeu
  * 
- * @author Ngocky & Thibault
- * @version 0.00001
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
  */
 public class UserInterface implements ActionListener 
 {
@@ -66,21 +50,16 @@ public class UserInterface implements ActionListener
 	private HashMap<String, JButton> buttons;
 	private HashMap<String, JPanel>  panels;
 	private HashMap<String, JMenuItem> menus;
-	private JComboBox liste;
 	private JTextArea log;
-	private JLabel image;
-	private Parser parser;
+	private JLabel image, map;
 	private DefaultListModel<String> listRoom, listPlayer;
 	private JList<String> list, list2;
 
-	private ArrayList<JButton> boutonsJeu;
-
 	/**
-	 * Construct a UserInterface. As a parameter, a Game Engine (an object
-	 * processing and executing the game commands) is needed.
+	 * Construire une interface graphique. Ce constructeur prend comme parametre un GameEngine
 	 * 
 	 * @param gameEngine
-	 *            The GameEngine object implementing the game logic.
+	 *            L'objet GameEngine implemente toute la logique du jeu
 	 */
 	public UserInterface(GameEngine gameEngine) 
 	{
@@ -90,11 +69,10 @@ public class UserInterface implements ActionListener
 	}
 
 	/**
-	 * Actionlistener interface for entry textfield.
+	 * Interface Actionlistener pour les boutons du jeu
 	 */
 	public void actionPerformed(ActionEvent e) 
 	{
-		
 		if (e.getSource() == buttons.get("bouton1")) 
 		{
 			engine.interpretCommand("go");
@@ -111,10 +89,6 @@ public class UserInterface implements ActionListener
 		{
 			engine.interpretCommand("go ouest");
 		}
-		// else if(e.getSource() == bouton5)
-		// {
-		// engine.interpretCommand();
-		// }
 		else if (e.getSource() == buttons.get("bouton6")) 
 		{
 			engine.interpretCommand("go est");
@@ -145,7 +119,7 @@ public class UserInterface implements ActionListener
 		} 
 		else if (e.getSource() == buttons.get("bouton13")) 
 		{
-			engine.printInventaire();
+			engine.interpretCommand("help");
 		} 
 		else if (e.getSource() == menus.get("newAction")) 
 		{
@@ -206,10 +180,11 @@ public class UserInterface implements ActionListener
 		}
 		else
 			processCommand();
-		
-		//e.getActionCommand(String)
 	}
 
+	/**
+	 * Methode pour fermer les dialogues avec les ennemis
+	 */
 	public void closeDialogue()
 	{
 		panels.get("panelLeft").remove(panels.get("panelDialogue"));
@@ -227,8 +202,8 @@ public class UserInterface implements ActionListener
 		panels.get("panelLeft").updateUI();
 	}
 
-	/**Cette méthode permet de désactiver les boutons quand la sortie correspondante n'est pas disponible et
-	 * la réactive dans le cas contraire
+	/**Cette methode permet de desactiver les boutons quand la sortie correspondante n'est pas disponible et
+	 * la reactive dans le cas contraire
 	 */
 	public void colorButton()
 	{
@@ -260,6 +235,9 @@ public class UserInterface implements ActionListener
 			panels.get("panel2").repaint();
 	}
 
+	/**
+	 * Methode pour creer un bouton avec l'image d'une porte (utilise pour aller dans la salle secrete)
+	 */
 	public void createButtonDoor()
 	{
 		panels.get("panelDialogue").remove(buttons.get("boutonNext"));
@@ -273,12 +251,7 @@ public class UserInterface implements ActionListener
 		panels.get("panelDialogue").add(boutonDoor, BorderLayout.EAST);
 	}
 
-	// public void eat()
-	// {
-	// System.out.println("Tu as déjà mangé, tu n'as plus faim");
-	// }
-
-	/**Créer la fenêtre Copyright
+	/**Creer la fenetre Copyright
 	 * 
 	 */
 	public void createCopyright()
@@ -294,10 +267,10 @@ public class UserInterface implements ActionListener
             try {
                 editorPane.setPage(helpURL);
             } catch (IOException e) {
-                System.err.println("Attempted to read a bad URL: " + helpURL);
+                System.err.println("Vous avez essaye de lire un mauvais URL: " + helpURL);
             }
         } else {
-            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+            System.err.println("Fichier non trouve");
         }
         
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
@@ -310,7 +283,7 @@ public class UserInterface implements ActionListener
         gpl.setContentPane(editorScrollPane);
 	}
 
-	/**Créer la fenêtre About Water Games
+	/**Creer la fenetre About Water Games
 	 * 
 	 */
 	public void createCredits()
@@ -321,15 +294,15 @@ public class UserInterface implements ActionListener
 	    
 	    JEditorPane editorPane = new JEditorPane();
         editorPane.setEditable(false);
-        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("aboutwatergame.html");
         if (helpURL != null) {
             try {
                 editorPane.setPage(helpURL);
             } catch (IOException e) {
-                System.err.println("Attempted to read a bad URL: " + helpURL);
+                System.err.println("Vous avez essaye un mauvais URL: " + helpURL);
             }
         } else {
-            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+            System.err.println("Fichier non trouve");
         }
         
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
@@ -341,8 +314,9 @@ public class UserInterface implements ActionListener
         credits.setContentPane(editorScrollPane);
 	}
 
-	/**Cette méthode crée la fenêtre quand le joueur a perdu. L'image montré est choisie en fonction de la raison
+	/**Cette methode cree la fenetre quand le joueur a perdu. L'image montre est choisie en fonction de la raison
 	 * pour laquelle le joueur est mort
+	 * 
 	 * @param raison
 	 */
 	 public void createGameOver(String raison)
@@ -363,7 +337,7 @@ public class UserInterface implements ActionListener
 			}
 		  	case "sante" :
 		  	{
-		  		showImage("images/gameover.jpg");
+		  		showImage("images/mortSante.png");
 		  		break;
 		  	}
 		  	case "creeper" :
@@ -386,16 +360,15 @@ public class UserInterface implements ActionListener
 		  		showImage("images/mortBlaze.png");
 		  		break;
 		  	}
-		  	default:
-		  		showImage("images/gameover.jpg");
+		  	default: {}
 		 }
 	 }
 
 	/**
-	 * Gérer User Interface La fenêtre du jeux comporte 2 panneaux, celui en
-	 * haut sert à afficher l'image Le panneau en bas comporte 3 sous-panneaux,
-	 * dont le panneau des boutons de directions, la partie texte et le panneau
-	 * des boutons d'options
+	 * Gerer UserInterface
+	 * La fenetre du jeux comporte 2 panneaux, celui a gauche sert a afficher l'image du jeu,
+	 * les boutons, la partie texte et l'entree de texte. Celui a droite comporte les listes des objets et une image de
+	 * la carte du jeu
 	 */
 	public void createGUI() 
 	{
@@ -404,28 +377,26 @@ public class UserInterface implements ActionListener
 		panels = new HashMap<String, JPanel>();
 		menus = new HashMap<String, JMenuItem>();
 		
-		/*************************** Créer une nouvelle fenêtre *******************************/
+		/*************************** Creer une nouvelle fenetre *******************************/
 		myFrame = new JFrame("Water Game");
 		myFrame.setResizable(true);
 		
-		/***************************** Créer un menu bar **************************************/
+		/***************************** Creer un menu bar **************************************/
 		JMenuBar menubar = new JMenuBar();
 		myFrame.setJMenuBar(menubar);
-		// Créer les boutons du menu
+		// Creer les boutons du menu
 		JMenu options = new JMenu("Options");
 		JMenu credits = new JMenu("Aide");
 		menubar.add(options);
 		menubar.add(credits);
-		// Créer les boutons du dropdown menu
+		// Creer les boutons du dropdown menu
 		JMenuItem newAction = new JMenuItem("Nouvelle partie");
-		JMenuItem saveAction = new JMenuItem("Sauvegarder la partie");
 		JMenuItem quitAction = new JMenuItem("Quitter le jeu");
 		JMenuItem helpAction = new JMenuItem("Liste des commandes");
 		JMenuItem authorAction = new JMenuItem("About Water Games");
 		JMenuItem copyrightAction = new JMenuItem("Copyright");
 		
 		menus.put("newAction", newAction);
-		menus.put("saveAction", saveAction);
 		menus.put("quitAction", quitAction);
 		menus.put("helpAction", helpAction);
 		menus.put("authorAction", authorAction);
@@ -433,7 +404,6 @@ public class UserInterface implements ActionListener
 		
 		// Ajouter ces boutons au dropdown
 		options.add(newAction);
-		options.add(saveAction);
 		options.addSeparator();
 		options.add(quitAction);
 		credits.add(helpAction);
@@ -441,11 +411,8 @@ public class UserInterface implements ActionListener
 		credits.add(authorAction);
 		credits.add(copyrightAction);
 
-		/**************************** JComboBox ******************************************************/
-		liste = new JComboBox();
-		liste.addItem("truc");
 
-		/********************************* L'entrée de text *****************************************/
+		/********************************* L'entree de text ***************************************/
 		entryField = new JTextField(34);
 
 		/*********************************** Affichage du text du jeu *****************************/
@@ -468,7 +435,7 @@ public class UserInterface implements ActionListener
 		image = new JLabel();
 		image.setPreferredSize(new Dimension(1200, 600));
 
-		/********************************** Tous les boutons du jeu *******************************/
+		/********************************** Tous les boutons du jeu ************************/
 		JButton bouton1 = new JButton();
 		bouton1.setEnabled(false);
 		JButton bouton2 = new JButton("Nord");
@@ -484,7 +451,7 @@ public class UserInterface implements ActionListener
 		JButton bouton10 = new JButton("Potion");
 		JButton bouton11 = new JButton("Soin");
 		JButton bouton12 = new JButton("Regarder");
-		JButton bouton13 = new JButton("Inventaire");
+		JButton bouton13 = new JButton("Aide");
 		
 		JButton buttonParler = new JButton("Parler");
 		buttonParler.setPreferredSize(new Dimension(300, 30));
@@ -525,7 +492,7 @@ public class UserInterface implements ActionListener
 		buttons.put("boutonDrop", boutonDrop);
 		
 		/********************************* Les panels *************************************/
-		// Panel 1 contient l'image en haut de la fenêtre
+		// Panel 1 contient l'image en haut de la fenetre
 		JPanel panel = new JPanel();
 		panel.setPreferredSize(new Dimension(1200, 600));
 		panel.setLayout(new BorderLayout());
@@ -547,8 +514,6 @@ public class UserInterface implements ActionListener
 		sspanel1.add(bouton7);
 		sspanel1.add(bouton8);
 		sspanel1.add(bouton9);
-
-//		sspanel1.add(liste);
 
 		// Sous panel texte
 		JPanel sspanel2 = new JPanel();
@@ -603,9 +568,8 @@ public class UserInterface implements ActionListener
 		//Les objets de la salle
 		JPanel sspanelRoom = new JPanel();
 		sspanelRoom.setLayout(new BorderLayout());
-		sspanelRoom.setPreferredSize(new Dimension(400,450));
-//		sspanelRoom.setBackground(Color.white);
-		sspanelRoom.setBorder(BorderFactory.createTitledBorder("Les objets présents dans cet endroit:"));
+		sspanelRoom.setPreferredSize(new Dimension(400,347));
+		sspanelRoom.setBorder(BorderFactory.createTitledBorder("Les objets presents dans cet endroit:"));
 		
 		listRoom = new DefaultListModel<String>();		
 		list = new JList<String>(listRoom);	
@@ -616,9 +580,8 @@ public class UserInterface implements ActionListener
 		//Les objets du joueur
 		JPanel sspanelJoueur = new JPanel();
 		sspanelJoueur.setLayout(new BorderLayout());
-		sspanelJoueur.setPreferredSize(new Dimension(400,450));
-//		sspanelJoueur.setBackground(Color.white);
-		sspanelJoueur.setBorder(BorderFactory.createTitledBorder("Les objets présents dans ton inventaire:"));
+		sspanelJoueur.setPreferredSize(new Dimension(400,347));
+		sspanelJoueur.setBorder(BorderFactory.createTitledBorder("Les objets presents dans ton inventaire:"));
 		
 		listPlayer = new DefaultListModel<String>();		
 		list2 = new JList<String>(listPlayer);	
@@ -626,11 +589,27 @@ public class UserInterface implements ActionListener
 		sspanelJoueur.add(list2, BorderLayout.NORTH);		
 		sspanelJoueur.add(boutonDrop, BorderLayout.SOUTH);
 		
+		/**********************Map du jeu***************************************************/
+		map = new JLabel();
+		URL imageURL = this.getClass().getClassLoader().getResource("images/map.png");
+		if (imageURL == null)
+			System.out.println("Image non trouve");
+		else 
+		{
+			ImageIcon icon = new ImageIcon(imageURL);
+			map.setIcon(icon);
+		}
+		
+		JPanel panelMap = new JPanel();
+		panelMap.setPreferredSize(new Dimension(400,205));
+		panelMap.add(map);
+		
 		
 		panelRight.add(sspanelRoom);
 		panelRight.add(sspanelJoueur);
+		panelRight.add(panelMap);
 
-		// Ajouter le panel box à notre fenêtre de jeu
+		// Ajouter le panel box a notre fenetre de jeu
 		myFrame.setLayout(new BorderLayout());
 		myFrame.add(panelLeft, BorderLayout.WEST);
 		myFrame.add(panelRight, BorderLayout.EAST);
@@ -674,17 +653,14 @@ public class UserInterface implements ActionListener
 		copyrightAction.addActionListener(this);
 		
 
-		/****************************************************************/
-		liste.getSelectedItem();
-		/******************************************************************/
-
+		
 		myFrame.pack();
 		myFrame.setVisible(true);
 		entryField.requestFocus();
 	}
 	 
-	 /**Créer la fenêtre des commandes disponibles
-	 * 
+	 /**
+	 *Creer la fenetre des commandes disponibles 
 	 */
 	public void createHelp()
 	{
@@ -694,15 +670,15 @@ public class UserInterface implements ActionListener
 	    
 	    JEditorPane editorPane = new JEditorPane();
         editorPane.setEditable(false);
-        java.net.URL helpURL = this.getClass().getClassLoader().getResource("TextSamplerDemoHelp.html");
+        java.net.URL helpURL = this.getClass().getClassLoader().getResource("commandword.html");
         if (helpURL != null) {
             try {
                 editorPane.setPage(helpURL);
             } catch (IOException e) {
-                System.err.println("Attempted to read a bad URL: " + helpURL);
+                System.err.println("Vous avez essaye de lire ce URL: " + helpURL);
             }
         } else {
-            System.err.println("Couldn't find file: TextSampleDemoHelp.html");
+            System.err.println("Fichier non trouve");
         }
         
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
@@ -715,8 +691,9 @@ public class UserInterface implements ActionListener
 	}
 	 
 
-	 /**Cette méthode crée les boutons qui permettent d'intéragir avec les bots (boutons Attaquer et Parler)
-	 * Les boutons sont retirées si aucun bot n'est présent dans l'endroit
+	 /**
+	 * Cette methode cree les boutons qui permettent d'interagir avec les bots (boutons Attaquer et Parler)
+	 * Les boutons sont retirees si aucun bot n'est present dans l'endroit
 	 */
 	public void createInteractionBot()
 	{
@@ -749,15 +726,18 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
+	/**
+	 * Creer la fenetre quand le joueur a gagne
+	 */
 	public void createWinGame()
 	 {
 		 panels.get("panelLeft").remove(panels.get("panel2"));
 		 myFrame.remove(panels.get("panelRight"));
-		 showImage("images/victory.jpg");
+		 showImage("images/gagne.png");
 	 }
 	
 	/**
-	 * Enable or disable input in the input field.
+	 * Activer ou desactiver l'entree de texte
 	 */
 	public void enable(boolean on) {
 		entryField.setEditable(on);
@@ -765,23 +745,36 @@ public class UserInterface implements ActionListener
 			entryField.getCaret().setBlinkRate(0);
 	}
 	
+	/**
+	 * Retourner la fenetre du jeu
+	 * 
+	 * @return la fenetre du jeu
+	 */
 	public JFrame getFrame()
 	{
 		return myFrame;
 	}
 	
+	/**
+	 * Retourner la partie texte du jeu
+	 * 
+	 * @return la partie texte du jeu
+	 */
 	public JTextArea getJTextArea()
 	{
 		return log;
 	}
 	
+	/**
+	 * Cette methode ferme la fenetre du jeu
+	 */
 	public void killFrame() {
 		myFrame.setVisible(false);
 		myFrame.dispose();
 	}
 	
 	/**
-	 * Print out some text into the text area.
+	 * Ecrire un texte dans la partie texte du jeu
 	 */
 	public void print(String text) {
 		log.append(text);
@@ -789,7 +782,7 @@ public class UserInterface implements ActionListener
 	}
 	
 	/**
-	 * Print out some text into the text area, followed by a line break.
+	 * Ecrire un texte dans la partie texte du jeu
 	 */
 	public void println(String text) {
 		log.append(text + "\n");
@@ -797,8 +790,7 @@ public class UserInterface implements ActionListener
 	}
 	
 	/**
-	 * A command has been entered. Read the command and do whatever is necessary
-	 * to process it.
+	 * Quand une commande est entree, lire la commande et proceder cette commande
 	 */
 	public void processCommand() 
 	{
@@ -808,8 +800,9 @@ public class UserInterface implements ActionListener
 		engine.interpretCommand(input);
 	}
 	
-	/**Cette méthode permet d'actualiser le panneau de texte à chaque fois qu'une commande est rentré, ainsi
-	  * on a pas le texte de tous les mouvements du joueur affiché
+	/**
+	 * Cette methode permet d'actualiser le panneau de texte a chaque fois qu'une commande est rentre, ainsi
+	  * on a pas le texte de tous les mouvements du joueur affiche
 	  */
 	public void resetTextPanel()
 	{
@@ -819,6 +812,10 @@ public class UserInterface implements ActionListener
 		entryField.requestFocus();
 	}
 	
+	/**
+	 * Creer un bouton qui permet au joueur de se teleporter vers le pic.
+	 * Ce bouton s'affiche des que le joueur possede la pierre magique et que cette pierre est chargee
+	 */
 	public void showBoutonTeleporter()
 	{
 		if(engine.getPierre().getValueActivation())
@@ -834,9 +831,9 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
-	/**Cette méthode permet de passer du jeu en mode normal en mode dialogue
-	 * c'est-à-dire enlever les boutons, afficher le texte du dialogue et les boutons pour l'avancement du dialogue
-	 * 
+	/**
+	 * Cette methode permet de passer du jeu en mode normal en mode dialogue
+	 * c'est-a-dire enlever les boutons, afficher le texte du dialogue et les boutons pour l'avancement du dialogue	 * 
 	 */
 	public void showDialogue(int mode)
 	{
@@ -883,9 +880,7 @@ public class UserInterface implements ActionListener
 				panels.get("panelDialogue2").repaint();
 				break;
 			}
-			default: {}
-			
-			
+			default: {}			
 		}
 		
 	}
@@ -897,7 +892,7 @@ public class UserInterface implements ActionListener
 	{
 		URL imageURL = this.getClass().getClassLoader().getResource(imageName);
 		if (imageURL == null)
-			System.out.println("Image non trouvé");
+			System.out.println("Image non trouve");
 		else 
 		{
 			ImageIcon icon = new ImageIcon(imageURL);
@@ -905,38 +900,10 @@ public class UserInterface implements ActionListener
 			myFrame.pack();
 		}
 	}
-	
-//	public void createMinijeu()
-//	{
-//		boutonsJeu = new ArrayList<JButton>();
-//		for(int i = 0; i<9 ; i++)
-//		{
-//			boutonsJeu.add(new JButton());
-//			boutonsJeu.get(i).addActionListener(this);
-//		}
-//		
-//		JPanel panelJeu = new JPanel();
-//		panels.put("panelJeu", panelJeu);
-//		panelJeu.setPreferredSize(new Dimension(300,300));
-//		panelJeu.setLayout(new GridLayout(3,3));
-//		for(int i = 0; i<9 ; i++)
-//		{
-//			panelJeu.add(boutonsJeu.get(i));
-//		}
-//		
-//		panels.get("panelDialogue").remove(buttons.get("boutonNext"));
-//		log.setText("Tu as 5 secondes pour jouer! GO!");
-//		log.setFont(new Font("Verdana", Font.BOLD, 15));
-//		log.setPreferredSize(new Dimension(900,300));
-//		panels.get("panelDialogue").add(panelJeu, BorderLayout.EAST);
-//		
-//	}
-//	
-//	public void closeMinijeu()
-//	{
-//		
-//	}
-	
+	/**
+	 * Creer la liste de l'inventaire du joueur. Cette liste est rafraichie a chaque fois le joueur va dans une
+	 * nouvelle salle
+	 */
 	public void showInventairePlayer()
 	{
 		listPlayer.removeAllElements();
@@ -948,7 +915,10 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
-	
+	/**
+	 * Creer la liste des objets dans une salle. Cette liste est rafraichie a chaque fois le joueur va dans une
+	 * nouvelle salle
+	 */
 	public void showInventaireRoom()
 	{
 		listRoom.removeAllElements();
@@ -963,11 +933,17 @@ public class UserInterface implements ActionListener
 		}
 	}
 	
-	
-	
+	/**
+	 * Cette classe sert a creer un bouton personnalise (un bouton avec une image de fond qui est une porte).
+	 * Ce bouton est utilise pour aller dans la salle secrete 
+	 * 
+	 * @author NGUYEN Hong Ngoc
+	 * @author PATOIS Thibault
+	 */
 	public class Bouton extends JButton
 	{
-		  private Image img;
+		private static final long serialVersionUID = 1L;
+		private Image img;
 
 		  public Bouton()
 		  {

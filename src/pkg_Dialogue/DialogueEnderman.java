@@ -1,24 +1,34 @@
 package pkg_Dialogue;
 
 
-import pkg_Characters.Bots;
 import pkg_Game.GameEngine;
-import pkg_Items.Item;
-import pkg_Room.Room;
 
+/**
+ * Cette classe gere le dialogue avec Enderman
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class DialogueEnderman extends Dialogue
 {
+	/**
+	 * Constructeur du dialogue avec Enderman
+	 */
 	public DialogueEnderman()
 	{
 		super();
 	}
 	
+	/**
+	 * Methode qui permet d'afficher le dialogue avec Enderman
+	 */
 	public void afficheDialogue(GameEngine engine)
 	{
-		if(engine.gameResetted())
+		if(engine.gameResetted()) //si le jeu est recommance, on remet l'etape a 1
 		{
 			super.setEtape(1);
-			engine.setResetGame();
+			engine.setResetGame(); //on remet le jeu comme s'il n'est pas recommence, sinon le dialogue va tourjous rester a l'etape 1
 		}
 		
 		engine.getGUI().showDialogue(1);

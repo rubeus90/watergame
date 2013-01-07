@@ -268,9 +268,11 @@ public class GameEngine
 	public void printHelp() 
 	{
 		gui.println("Tu es perdu sur l'île, tu es entouré d'ennemis");
-		gui.println("Quand tu te sens fatiguée, tu peux prendre des potions ou des soins pour augmenter .");
+		gui.println("\n" + "Quand tu te sens fatiguée, tu peux prendre des potions ou des soins pour augmenter .");
 		gui.print("\n");
 		gui.println(parser.showCommands());
+		gui.println("\n" + "Tu peux aussi utiliser les menus en haut de la fenêtre pour voir les explications des " +
+				"commandes ainsi que de redémarrer ou de quitter le jeu");
 		gui.print("\n");
 	}
 

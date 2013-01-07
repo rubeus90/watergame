@@ -2,19 +2,32 @@ package pkg_Dialogue;
 
 import pkg_Game.GameEngine;
 
+/**
+ * Cette classe gere le dialogue avec Blaze
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class DialogueBlaze extends Dialogue
 {
+	/**
+	 * Constructeur du dialogue avec Blaze
+	 */
 	public DialogueBlaze()
 	{
 		super();
 	}
 
+	/**
+	 * Methode qui permet d'afficher le dialogue avec Blaze
+	 */
 	public void afficheDialogue(GameEngine engine)
 	{
-		if(engine.gameResetted())
+		if(engine.gameResetted()) //si le jeu est recommance, on remet l'etape a 1
 		{
 			super.setEtape(1);
-			engine.setResetGame();
+			engine.setResetGame(); //on remet le jeu comme s'il n'est pas recommence, sinon le dialogue va tourjous rester a l'etape 1
 		}
 		
 		engine.getGUI().showDialogue(1);

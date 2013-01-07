@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<style type="text/css">
+			body{
+				color: #585858 ;
+			}
+
+			#header{
+				background-color: #2C2C2C;
+				padding-top : 10px;
+				padding-bottom: 10px;
+				padding-left: 10px;
+				margin-bottom: 30px;
+			}
+			.titre{
+				font-size: 42px;
+ 				color:#888888;
+ 				text-align: left;
+			}
+			.soustitre{
+				font-size: 22px;
+ 				color:#888888;
+ 				text-align: left;
+			}
+			.titrecategorie{
+				border-bottom: 1px solid black;
+				color:  #F74343  ;
+			}
+
+			.categorie{
+				margin-bottom: 40px;
+			}
+
+			.titrecategorie{
+				font-weight : bold;
+				font-size: 22px;
+			}
+
+			.commande{
+				font-size: 1.1em;
+ 				color:red;
+			}
+
+		</style>
+	</head>
+
+	<body>	
+		<div id="header">
+			<span class="titre">WATER GAMES</span><br />
+			<br />
+			<span class="soustitre">Liste des commandes</span>
+		</div>
+
+		<div id="corps">
+			<div class="categorie">
+				<div class="titrecategorie">Generalite</div>
+				<p>La plupart des commandes peuvent etre utilise par les boutons, mais sachez que certaines commandes speciales ne peuvent être actionnee par les boutons. Vous devez vous meme entrer les commandes</p>
+				<p>Pour se faire, voici les differentes commandes disponibles dans notre jeu</p>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Utiliser une potion</p>
+				<span>Pour utiliser une potion il faut utiliser la commande <span class="commande">drink</span>.<br />
+				Boire une potion permet au joueur de regagner de la vie selon la potion bue. Les potions sont fixes dans les salles et lorsque le joueur boit une potion, celle-ci est retire de la salle.<br />
+				Pour utiliser cette commande vous devez taper :</span>
+					<ul>
+						<li>"drink potion" si il y a une potion dans la salle</li>
+						<li>"drink soin" si il y a un soin dans la salle</li>
+					</ul>
+				</p>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Utiliser un objet</p>
+				<span>Pour utiliser un objet particulier, comme la EnderPearl, vous devez utiliser la commande <span class="commande">utiliser</span> ou la commande <span class="commande">charger</span></span><br />
+				<ul>
+					<li>Pour utiliser la commande <span class="commande">charger</span> vous devez simplement taper :<br />
+						"charger + nom de l'objet"<br />
+						Par exemple : <br />
+						"charger EnderPearl"<br />
+					</li>
+					<li>Pour utiliser la commande <span class="commande">utiliser</span> vous devez simplement taper :<br />
+						"utiliser + nom de l'objet"<br />
+						Par exemple : <br />
+						"utiliser EnderPearl"<br />
+					</li>
+				</ul>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Se teleporter</p>
+				<span>Pour pouvoir vous teleporter vous devez avant remplir un certain nombre de quete et posseder la EnderPearl.<br />
+				Si et seulement si vous possedez la EnderPearl et que cette derniere est charge, alors vous pouvez vous teleporter.<br />
+				Pour utiliser la commande <span class="commande">teleporter</span> vous devez tapez :<br />
+				"teleporter + nomde la salle"<br />
+				Par exemple : <br />
+				"teleporter temple"<br />
+				</span>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Avoir de l'aide </p>
+				<span>Si vous avez besoin d'aide, vous pouvez taper la commande <span class="commande">help</span></span>
+			</div>
+
+			<div class="categorie">
+				<p class="titrecategorie">Quitter le jeu</p>
+				<span>Si vous voulez quitter le jeu, vous pouvez taper la commande <span class="commande">quit</span></span>
+			</div>
+
+					
+		</div>
+	</body>
+<html>

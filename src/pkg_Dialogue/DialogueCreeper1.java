@@ -1,29 +1,40 @@
 package pkg_Dialogue;
 
-
 import pkg_Characters.Bots;
 import pkg_Game.GameEngine;
 import pkg_Items.Item;
-import pkg_Room.Room;
 
+/**
+ * Cette classe gere le premier dialogue avec Creeper dans la foret
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class DialogueCreeper1 extends Dialogue
 {
+	/**
+	 * Constructeur pour le premier dialogue avec Creeper
+	 */
 	public DialogueCreeper1()
 	{
 		super();
 	}
 	
+	/**
+	 * Methode qui permet d'afficher le dialogue avec Creeper dans la foret
+	 */
 	public void afficheDialogue(GameEngine engine)
 	{
-		if(engine.gameResetted())
+		if(engine.gameResetted()) //si le jeu est recommance, on remet l'etape a 1
 		{
 			super.setEtape(1);
-			engine.setResetGame();
+			engine.setResetGame(); //on remet le jeu comme s'il n'est pas recommence, sinon le dialogue va tourjous rester a l'etape 1
 		}
 		
 		engine.getGUI().showDialogue(1);
 		
-		if(!engine.getPlayer().getItemListe().containsKey("corde"))
+		if(!engine.getPlayer().getItemListe().containsKey("corde")) //si le joueur n'a pas de corde (logiquement le 1er dialogue)
 		{
 			switch(super.getEtape())
 			{
@@ -66,7 +77,7 @@ public class DialogueCreeper1 extends Dialogue
 				}
 			}
 		}
-		else
+		else //si le joueur a une corde pour l'aider (logiquement le 2eme dialogue)
 		{
 			if(super.getEtape() == 0)
 			{
@@ -104,7 +115,6 @@ public class DialogueCreeper1 extends Dialogue
 				}
 				default: 
 				{
-//					super.setEtape(0);
 					engine.getPlayer().getRoom().removeBot("Creeper");
 					engine.getArrayListRoom().get(4).addBot("Creeper", new Bots("Creeper", null, 80, false));
 					engine.getArrayListRoom().get(4).setImage("images/grotteAvecCreeper.png");

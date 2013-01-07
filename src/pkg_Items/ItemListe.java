@@ -9,35 +9,71 @@ import java.util.Set;
  * @author rubeus
  * 
  */
-public class ItemListe {
-
+public class ItemListe 
+{
 	private HashMap<String, Item> items;
 
-	public ItemListe() {
+	/**
+	 * Constructeur qui cree une ItemListe et instancier le HashMap des objets
+	 */
+	public ItemListe() 
+	{
 		items = new HashMap<String, Item>();
 	}
 
-	public HashMap<String, Item> getHashMap() {
+	/**
+	 * Retourner le HashMap des objets
+	 * 
+	 * @return le HashMap des objets
+	 */
+	public HashMap<String, Item> getHashMap() 
+	{
 		return items;
 	}
 
-	public void putItem(String nomItem, Item item) {
+	/**
+	 * Ajouter un objet dans le HashMap
+	 * 
+	 * @param nomItem
+	 * @param item
+	 */
+	public void putItem(String nomItem, Item item) 
+	{
 		items.put(nomItem, item);
 	}
 
-	public void removeItem(String nomItem) {
+	/**
+	 * Supprimer un objet du HashMap
+	 * 
+	 * @param nomItem
+	 */
+	public void removeItem(String nomItem) 
+	{
 		items.remove(nomItem);
 	}
 
-	public Set<String> getKeys() {
+	/**
+	 * Retourner un ensemble des cles du HashMap, qui correspond aux noms des objets dans le HashMap
+	 * 
+	 * @return ensemble de noms des objets
+	 */
+	public Set<String> getKeys() 
+	{
 		return items.keySet();
 	}
 
-	public Item getValue(String key) {
+	/**
+	 * Retourner 
+	 * @param key
+	 * @return
+	 */
+	public Item getValue(String key) 
+	{
 		return items.get(key);
 	}
 
-	public boolean containsKey(String mot) {
+	public boolean containsKey(String mot) 
+	{
 		return items.containsKey(mot);
 	}
 }

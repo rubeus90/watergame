@@ -2,19 +2,32 @@ package pkg_Dialogue;
 
 import pkg_Game.GameEngine;
 
+/**
+ * Cette classe gere le quatrieme dialogue avec Creeper dans la salle secrete
+ * 
+ * @author NGUYEN Hong Ngoc
+ * @author PATOIS Thibault
+ *
+ */
 public class DialogueCreeper4 extends Dialogue
 {
+	/**
+	 * Constructeur pour le quatrieme dialogue avec Creeper
+	 */
 	public DialogueCreeper4()
 	{
 		super();
 	}
 	
+	/**
+	 * Methode qui permet d'afficher le dialogue avec Creeper dans la salle secrete
+	 */
 	public void afficheDialogue(GameEngine engine)
 	{
-		if(engine.gameResetted())
+		if(engine.gameResetted()) //si le jeu est recommance, on remet l'etape a 1
 		{
 			super.setEtape(1);
-			engine.setResetGame();
+			engine.setResetGame(); //on remet le jeu comme s'il n'est pas recommence, sinon le dialogue va tourjous rester a l'etape 1
 		}
 		
 		engine.getGUI().showDialogue(1);
@@ -53,7 +66,12 @@ public class DialogueCreeper4 extends Dialogue
 			default :
 			{
 				engine.getPlayer().getRoom().removeBot("Creeper");
+				engine.getTransporterRoom().setImage("images/SalleSecrete.png");
+				engine.getGUI().showImage(engine.getPlayer().getRoom().getImageName());
 				engine.getGUI().closeDialogue();
+				engine.getGUI().println("\n" + "\n" + "----------------------------------------------------------------------");
+				engine.getGUI().println("Creeper est parti avant toi mais un tunnel s'est effondré sur lui, il est " +
+						"mort dans les mines de Moria. C'est dommage, c'était un bon allié!");
 			}
 		}
 	}

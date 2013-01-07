@@ -3,17 +3,18 @@ package pkg_Items;
  * Cette classe gère les objets dans les salles Chaque objet est défini par sa
  * description et son poids
  */
-public class Item {
+public class Item 
+{
 	private int aPoids;
 	private String aDescription;
 
 	/**
-	 * Créé les items
+	 * Créé les objets du jeu
 	 * 
-	 * @param Description
-	 *            et Poids
+	 * @param la description et le poids de l'objet
 	 */
-	public Item(String pDescription, int pPoids) {
+	public Item(String pDescription, int pPoids) 
+	{
 		this.aDescription = pDescription;
 		this.aPoids = pPoids;
 	}
@@ -21,25 +22,28 @@ public class Item {
 	/**
 	 * Retourner la description de l'objet
 	 * 
-	 * @return Description de l'objet
+	 * @return description de l'objet
 	 */
-	public String getDescriptionItem() {
+	public String getDescriptionItem() 
+	{
 		return (this.aDescription);
 	}
 
 	/**
 	 * Retourner le poids de l'objet
 	 * 
-	 * @return Poids de l'objet
+	 * @return le poids de l'objet
 	 */
-	public int getWeightItem() {
+	public int getWeightItem() 
+	{
 		return (this.aPoids);
 	}
 
 	/**
-	 * Redéfinir la méthode toString()
+	 * Redéfinir la méthode toString() 
 	 */
-	public String toString() {
+	public String toString() 
+	{
 		return ("" + this.getWeightItem());
 	}
 
@@ -48,7 +52,8 @@ public class Item {
 	 * 
 	 * @return Poids de l'objet sous forme String
 	 */
-	public String getWeightString() {
+	public String getWeightString() 
+	{
 		return (toString());
 	}
 }
